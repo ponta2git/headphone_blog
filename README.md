@@ -1,3 +1,3 @@
 # ponta's headphone blog
 
-Powered by Next.js
+Powered by TypeScript + Next.js + Chakra UI
