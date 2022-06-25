@@ -7,6 +7,14 @@ import NextLink from "next/link";
 import { HStack, Text, Link, Heading, VStack } from "@chakra-ui/react";
 
 import { Frontmatter } from "../types/types";
+import Head from "next/head";
+import { compileSync, runSync } from "@mdx-js/mdx";
+import remarkFrontmatter from "remark-frontmatter";
+import { remarkMdxFrontmatter } from "remark-mdx-frontmatter";
+import remarkGfm from "remark-gfm";
+
+import * as runtime from "react/jsx-runtime";
+import ReactDOMServer from "react-dom/server";
 
 type IndexProps = {
   postsInfo: {
@@ -18,39 +26,46 @@ type IndexProps = {
 
 const Index = (props: IndexProps) => {
   const { postsInfo } = props;
-  return postsInfo.reverse().map((info) => {
-    return (
-      <VStack
-        key={info.frontmatter.date}
-        mx={4}
-        my={4}
-        lineHeight="tall"
-        letterSpacing="wider"
-        wordBreak="break-all"
-        alignItems="start"
-        spacing={6}
-      >
-        <HStack spacing={2} alignItems="baseline">
-          <Text color="gray.500" fontSize="sm">
-            {info.frontmatter.date}
-          </Text>
-          <NextLink href={info.path} passHref>
-            <Link>
-              <Heading as="h2" fontSize="md">
-                {info.frontmatter.title}
-              </Heading>
-            </Link>
-          </NextLink>
-        </HStack>
-        <Text wordBreak="break-all">{info.excerpt}</Text>
-        <Text w="100%" textAlign="right">
-          <NextLink href={info.path} passHref>
-            <Link color="gray.500">続きを読む</Link>
-          </NextLink>
-        </Text>
-      </VStack>
-    );
-  });
+  return (
+    <>
+      <Head>
+        <title>pontaのヘッドホンブログ</title>
+      </Head>
+      {postsInfo.reverse().map((info) => {
+        return (
+          <VStack
+            key={info.frontmatter.date}
+            mx={4}
+            my={4}
+            lineHeight="tall"
+            letterSpacing="wider"
+            wordBreak="break-all"
+            alignItems="start"
+            spacing={6}
+          >
+            <HStack spacing={2} alignItems="baseline">
+              <Text color="gray.500" fontSize="sm">
+                {info.frontmatter.date}
+              </Text>
+              <NextLink href={info.path} passHref>
+                <Link>
+                  <Heading as="h2" fontSize="md">
+                    {info.frontmatter.title}
+                  </Heading>
+                </Link>
+              </NextLink>
+            </HStack>
+            <Text wordBreak="break-all">{info.excerpt}</Text>
+            <Text w="100%" textAlign="right">
+              <NextLink href={info.path} passHref>
+                <Link color="gray.500">続きを読む</Link>
+              </NextLink>
+            </Text>
+          </VStack>
+        );
+      })}
+    </>
+  );
 };
 
 export default Index;
@@ -61,16 +76,20 @@ export const getStaticProps: GetStaticProps = () => {
 
   const postsInfo = postList.map((fileName) => {
     const postFile = readFileSync(join("posts", fileName));
-    const { content, data } = matter(postFile);
+    const { data } = matter(postFile);
 
-    const plainContent = content
+    const compiled = compileSync(postFile, {
+      remarkPlugins: [remarkFrontmatter, remarkMdxFrontmatter, remarkGfm],
+      outputFormat: "function-body",
+    });
+
+    const parsed = runSync(String(compiled), runtime);
+    const body = ReactDOMServer.renderToStaticMarkup(parsed.default());
+    const excerpt = body
       .replace(/<("[^"]*"|'[^']*'|[^'">])*>/g, "")
-      .trim();
-
-    const excerpt =
-      plainContent.length > TRUNC_CHAR_COUNT
-        ? plainContent.substring(0, TRUNC_CHAR_COUNT) + `……`
-        : plainContent;
+      .trim()
+      .substring(0, TRUNC_CHAR_COUNT)
+      .concat("……");
 
     const path = join("posts", basename(fileName, ".mdx"));
 

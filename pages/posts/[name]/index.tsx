@@ -23,6 +23,7 @@ import {
   HStack,
   Link,
 } from "@chakra-ui/react";
+import Head from "next/head";
 
 type PostProps = {
   content: String;
@@ -42,7 +43,7 @@ const components = {
   ),
   tbody: (props: PropsWithChildren) => <Tbody {...props} />,
   td: (props: PropsWithChildren) => <Td p={1} {...props} />,
-  a: ({ href, children, ...props }: PropsWithChildren<HTMLAnchorElement>) => {
+  a: ({ href, children }: PropsWithChildren<HTMLAnchorElement>) => {
     if (href.startsWith("http")) {
       return (
         <Link href={href} rel="noopener noreferrer" color="telegram.600">
@@ -65,25 +66,30 @@ const Post = (props: PostProps) => {
   const body = parsed.default({ components });
 
   return (
-    <VStack
-      mx={4}
-      my={4}
-      lineHeight="tall"
-      letterSpacing="wider"
-      wordBreak="break-all"
-      alignItems="start"
-      spacing={6}
-    >
-      <HStack spacing={2} alignItems="baseline">
-        <Text color="gray.500" fontSize="sm">
-          {parsed.date}
-        </Text>
-        <Heading as="h2" fontSize="md">
-          {parsed.title}
-        </Heading>
-      </HStack>
-      {body}
-    </VStack>
+    <>
+      <Head>
+        <title>{`${parsed.title} - pontaのヘッドホンブログ`}</title>
+      </Head>
+      <VStack
+        mx={4}
+        my={4}
+        lineHeight="tall"
+        letterSpacing="wider"
+        wordBreak="break-all"
+        alignItems="start"
+        spacing={6}
+      >
+        <HStack spacing={2} alignItems="baseline">
+          <Text color="gray.500" fontSize="sm">
+            {parsed.date}
+          </Text>
+          <Heading as="h2" fontSize="md">
+            {parsed.title}
+          </Heading>
+        </HStack>
+        {body}
+      </VStack>
+    </>
   );
 };
 
