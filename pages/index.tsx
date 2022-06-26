@@ -74,7 +74,7 @@ export const getStaticProps: GetStaticProps = () => {
   const TRUNC_CHAR_COUNT = 100 as const;
   const postList = readdirSync(join("posts"));
 
-  const postsInfo = postList.map(async (fileName) => {
+  const postsInfo = postList.map((fileName) => {
     const postFile = readFileSync(join("posts", fileName));
     const { data } = matter(postFile);
 
@@ -85,6 +85,7 @@ export const getStaticProps: GetStaticProps = () => {
 
     const parsed = runSync(String(compiled), runtime);
     const body = ReactDOMServer.renderToStaticMarkup(parsed.default());
+
     const excerpt = body
       .replace(/<("[^"]*"|'[^']*'|[^'">])*>/g, "")
       .trim()
