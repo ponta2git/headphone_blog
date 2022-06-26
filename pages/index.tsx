@@ -31,7 +31,7 @@ const Index = (props: IndexProps) => {
       <Head>
         <title>pontaのヘッドホンブログ</title>
       </Head>
-      {postsInfo.reverse().map((info) => {
+      {postsInfo.map((info) => {
         return (
           <VStack
             key={info.frontmatter.date}
@@ -74,7 +74,7 @@ export const getStaticProps: GetStaticProps = () => {
   const TRUNC_CHAR_COUNT = 100 as const;
   const postList = readdirSync(join("posts"));
 
-  const postsInfo = postList.map((fileName) => {
+  const postsInfo = postList.reverse().map((fileName) => {
     const postFile = readFileSync(join("posts", fileName));
     const { data } = matter(postFile);
 
