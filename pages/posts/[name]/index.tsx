@@ -1,6 +1,7 @@
 import { PropsWithChildren } from "react";
 import { GetStaticPaths, GetStaticProps } from "next";
 import NextLink from "next/link";
+
 import { readdirSync, readFileSync } from "fs";
 import { basename, join } from "path";
 import { ParsedUrlQuery } from "querystring";
@@ -22,8 +23,13 @@ import {
   Text,
   HStack,
   Link,
+  UnorderedList,
+  ListProps,
+  ListItem,
+  ListItemProps,
 } from "@chakra-ui/react";
 import Head from "next/head";
+import Image from "next/image";
 
 type PostProps = {
   content: String;
@@ -58,6 +64,25 @@ const components = {
       );
     }
   },
+  img: ({ alt, src, width, height }: PropsWithChildren<HTMLImageElement>) => {
+    return (
+      <div>
+        <a href={src}>
+          <Image
+            src={src}
+            alt={alt}
+            layout="intrinsic"
+            width={width}
+            height={height}
+          />
+        </a>
+      </div>
+    );
+  },
+  ul: (props: PropsWithChildren<ListProps>) => <UnorderedList {...props} />,
+  li: (props: PropsWithChildren<ListItemProps>) => (
+    <ListItem ml={5} {...props} />
+  ),
 };
 
 const Post = (props: PostProps) => {
@@ -126,9 +151,12 @@ export const getStaticProps: GetStaticProps<PostProps, PostUrlQuery> = async (
     outputFormat: "function-body",
   });
 
+  // convert img => _components.img
+  const tricked = String(compiled).replaceAll('"img"', "_components.img");
+
   return {
     props: {
-      content: String(compiled),
+      content: tricked,
     },
   };
 };
