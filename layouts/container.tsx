@@ -7,7 +7,7 @@ import Footer from "./footer";
 const Container: FC<PropsWithChildren> = ({ children }) => {
   return (
     <Box
-      w={{ base: "80%", lg: "60%" }}
+      w={{ base: "90%", lg: "60%" }}
       mx="auto"
       my={7}
       borderRadius="md"
