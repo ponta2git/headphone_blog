@@ -114,21 +114,6 @@ const Post = (props: PostProps) => {
           </Heading>
         </HStack>
         {body}
-        <Box>
-          <a
-            href="https://twitter.com/share?ref_src=twsrc%5Etfw"
-            className="twitter-share-button"
-            data-show-count="false"
-            data-size="large"
-          >
-            Tweet
-          </a>
-          <script
-            defer
-            src="https://platform.twitter.com/widgets.js"
-            charSet="utf-8"
-          ></script>
-        </Box>
       </VStack>
     </>
   );
