@@ -2,8 +2,8 @@ import { PropsWithChildren } from "react";
 import { GetStaticPaths, GetStaticProps } from "next";
 import NextLink from "next/link";
 
-import { readdirSync, readFileSync } from "fs";
-import { basename, join } from "path";
+import { readFileSync } from "fs";
+import { dirname, basename, join } from "path";
 import { ParsedUrlQuery } from "querystring";
 import { compileSync, runSync } from "@mdx-js/mdx";
 import remarkFrontmatter from "remark-frontmatter";
@@ -31,6 +31,8 @@ import {
 } from "@chakra-ui/react";
 import Head from "next/head";
 import Image from "next/image";
+
+import { getAllPosts } from "../../../libs/getAllPosts";
 
 type PostProps = {
   content: String;
@@ -121,17 +123,22 @@ const Post = (props: PostProps) => {
 
 export default Post;
 
-interface PostUrlQuery extends ParsedUrlQuery {
+interface PostInfo {
   name: string;
 }
 
-export const getStaticPaths: GetStaticPaths<PostUrlQuery> = () => {
-  const postList = readdirSync(join("posts"));
-  const fileNameList = postList.map((fileName) => basename(fileName, ".mdx"));
+interface PostUrlQuery extends ParsedUrlQuery, PostInfo {}
 
-  const paths = fileNameList.map((fileName) => ({
-    params: { name: fileName },
-  }));
+export const getStaticPaths: GetStaticPaths<PostUrlQuery> = () => {
+  const paths: { params: PostUrlQuery }[] = [];
+
+  for (const postPath of getAllPosts()) {
+    paths.push({
+      params: {
+        name: basename(postPath, ".mdx"),
+      },
+    });
+  }
 
   return {
     paths,
@@ -145,8 +152,9 @@ export const getStaticProps: GetStaticProps<PostProps, PostUrlQuery> = async (
   if (!context.params) return { notFound: true };
 
   const { name } = context.params;
+  const year = name.slice(0, 4); // exract year from filename.
 
-  const file = readFileSync(join("posts", `${name}.mdx`));
+  const file = readFileSync(join("posts", year, `${name}.mdx`));
   const compiled = compileSync(file, {
     remarkPlugins: [remarkFrontmatter, remarkMdxFrontmatter, remarkGfm],
     outputFormat: "function-body",

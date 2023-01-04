@@ -1,4 +1,4 @@
-import { readdirSync, readFileSync } from "fs";
+import { readFileSync } from "fs";
 import { basename, join } from "path";
 import matter from "gray-matter";
 import { GetStaticProps } from "next";
@@ -15,6 +15,8 @@ import remarkGfm from "remark-gfm";
 
 import * as runtime from "react/jsx-runtime";
 import ReactDOMServer from "react-dom/server";
+
+import { getAllPosts } from "../libs/getAllPosts";
 
 type IndexProps = {
   postsInfo: {
@@ -72,10 +74,14 @@ export default Index;
 
 export const getStaticProps: GetStaticProps = () => {
   const TRUNC_CHAR_COUNT = 100 as const;
-  const postList = readdirSync(join("posts"));
+
+  const postList: string[] = [];
+  for (const postPath of getAllPosts()) {
+    postList.push(postPath);
+  }
 
   const postsInfo = postList.reverse().map((fileName) => {
-    const postFile = readFileSync(join("posts", fileName));
+    const postFile = readFileSync(fileName);
     const { data } = matter(postFile);
 
     const compiled = compileSync(postFile, {
@@ -92,12 +98,10 @@ export const getStaticProps: GetStaticProps = () => {
       .substring(0, TRUNC_CHAR_COUNT)
       .concat("……");
 
-    const path = join("posts", basename(fileName, ".mdx"));
-
     return {
       frontmatter: data,
       excerpt,
-      path,
+      path: join("posts", basename(fileName, ".mdx")),
     };
   });
 
