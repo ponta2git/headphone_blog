@@ -3,7 +3,7 @@ import { GetStaticPaths, GetStaticProps } from "next";
 import NextLink from "next/link";
 
 import { readFileSync } from "fs";
-import { dirname, basename, join } from "path";
+import { basename, join } from "path";
 import { ParsedUrlQuery } from "querystring";
 import { compileSync, runSync } from "@mdx-js/mdx";
 import remarkFrontmatter from "remark-frontmatter";
