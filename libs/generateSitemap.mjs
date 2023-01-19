@@ -2,7 +2,6 @@ import { basename, join } from "path";
 import { readdirSync, writeFileSync } from "fs";
 
 function* getAllPosts(path) {
-
   const cur = readdirSync(path, { withFileTypes: true });
 
   for (const dirent of cur) {
@@ -10,6 +9,18 @@ function* getAllPosts(path) {
     if (dirent.isDirectory()) yield* getAllPosts(res);
     else yield res;
   }
+}
+
+const addIndex = () => {
+  const jpDateString = new Date().toLocaleDateString({timezone: "Asia/Tokyo"});
+  const date = new Date(jpDateString);
+
+  return (
+    "<url>" +
+    `<loc>https://ponta-headphone.net/</loc>` +
+    `<lastmod>${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}</lastmod>` +
+    "</url>"
+  );
 }
 
 const addPost = (fileName) => {
@@ -35,6 +46,8 @@ export const generateSitemap = () => {
 
   const sitemap =
     `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
+    addIndex() +
+    `\n` +
     posts.map(addPost).join("\n") +
     "\n</urlset>\n";
 

@@ -36,6 +36,7 @@ import { getAllPosts } from "../../../libs/getAllPosts";
 
 type PostProps = {
   content: String;
+  name: String;
 };
 
 const components = {
@@ -89,7 +90,7 @@ const components = {
 };
 
 const Post = (props: PostProps) => {
-  const { content } = props;
+  const { content, name } = props;
   const parsed = runSync(content, runtime);
   const body = parsed.default({ components });
 
@@ -97,6 +98,17 @@ const Post = (props: PostProps) => {
     <>
       <Head>
         <title>{`${parsed.title} - pontaのヘッドホンブログ`}</title>
+        <meta
+          property="og:title"
+          content={`${parsed.title} - pontaのヘッドホンブログ`}
+        />
+        <meta property="og:type" content="article" />
+        <meta
+          property="og:url"
+          content={`https://ponta-headphone.net/posts/${name}`}
+        />
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ponta2twit" />
       </Head>
       <VStack
         mx={4}
@@ -152,7 +164,7 @@ export const getStaticProps: GetStaticProps<PostProps, PostUrlQuery> = async (
   if (!context.params) return { notFound: true };
 
   const { name } = context.params;
-  const year = name.slice(0, 4); // exract year from filename.
+  const year = name.slice(0, 4); // extract year from filename.
 
   const file = readFileSync(join("posts", year, `${name}.mdx`));
   const compiled = compileSync(file, {
@@ -166,6 +178,7 @@ export const getStaticProps: GetStaticProps<PostProps, PostUrlQuery> = async (
   return {
     props: {
       content: tricked,
+      name,
     },
   };
 };

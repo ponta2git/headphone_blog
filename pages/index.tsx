@@ -32,6 +32,11 @@ const Index = (props: IndexProps) => {
     <>
       <Head>
         <title>pontaのヘッドホンブログ</title>
+        <meta property="og:title" content="pontaのヘッドホンブログ" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://ponta-headphone.net/" />
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@ponta2twit" />
       </Head>
       {postsInfo.map((info) => {
         return (
