@@ -107,6 +107,10 @@ const Post = (props: PostProps) => {
           property="og:url"
           content={`https://ponta-headphone.net/posts/${name}`}
         />
+        <meta
+          property="og:image"
+          content="https://ponta-headphone.net/headphone.jpg"
+        />
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:site" content="@ponta2twit" />
       </Head>
