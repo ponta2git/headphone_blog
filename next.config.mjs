@@ -5,7 +5,7 @@ const nextConfig = {
   webpack: (config, { isServer }) => {
     if (isServer) {
       generateSitemap();
-    }
+    } 
 
     return config;
   },
