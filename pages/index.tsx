@@ -75,7 +75,7 @@ const Index = (props: IndexProps) => {
                 <Link color="gray.500">続きを読む</Link>
               </NextLink>
             </Text>
-        */}
+            */}
           </VStack>
         );
       })}
