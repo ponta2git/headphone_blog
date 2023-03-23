@@ -8,7 +8,7 @@ import { HStack, Text, Link, Heading, VStack } from "@chakra-ui/react";
 
 import { Frontmatter } from "../types/types";
 import Head from "next/head";
-/*
+
 import { compile, run } from "@mdx-js/mdx";
 import remarkFrontmatter from "remark-frontmatter";
 import { remarkMdxFrontmatter } from "remark-mdx-frontmatter";
@@ -16,7 +16,6 @@ import remarkGfm from "remark-gfm";
 
 import runtime from "react/jsx-runtime";
 import ReactDOMServer from "react-dom/server";
-*/
 
 import { getAllPosts } from "../libs/getAllPosts";
 
@@ -68,14 +67,13 @@ const Index = (props: IndexProps) => {
                 </Link>
               </NextLink>
             </HStack>
-            {/*
+
             <Text wordBreak="break-all">{info.excerpt}</Text>
             <Text w="100%" textAlign="right">
               <NextLink href={info.path} passHref>
                 <Link color="gray.500">続きを読む</Link>
               </NextLink>
             </Text>
-            */}
           </VStack>
         );
       })}
@@ -86,7 +84,7 @@ const Index = (props: IndexProps) => {
 export default Index;
 
 export const getStaticProps: GetStaticProps = async () => {
-  const TRUNC_CHAR_COUNT = 100 as const;
+  const TRUNC_CHAR_COUNT = 150 as const;
 
   const postList: string[] = [];
   for (const postPath of getAllPosts()) {
@@ -98,7 +96,6 @@ export const getStaticProps: GetStaticProps = async () => {
       const postFile = readFileSync(fileName);
       const { data } = matter(postFile);
 
-      /*
       const compiled = await compile(postFile, {
         remarkPlugins: [remarkFrontmatter, remarkMdxFrontmatter, remarkGfm],
         development: false,
@@ -116,11 +113,9 @@ export const getStaticProps: GetStaticProps = async () => {
         .substring(0, TRUNC_CHAR_COUNT)
         .concat("……");
 
-      */
-
       return {
         frontmatter: data,
-        // excerpt,
+        excerpt,
         path: join("posts", basename(fileName, ".mdx")),
       };
     })
