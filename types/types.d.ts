@@ -2,9 +2,15 @@ declare module "process" {
   global {
     namespace NodeJS {
       interface ProcessEnv {
-        NEXT_PUBLIC_GA_TRACKING_ID?: string;
+        NEXT_PUBLIC_GTAGMGR_ID?: string;
       }
     }
+  }
+}
+
+declare global {
+  interface Window {
+    dataLayer: Record<string, unknown>[];
   }
 }
 

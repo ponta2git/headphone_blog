@@ -3,12 +3,12 @@ import { ChakraProvider } from "@chakra-ui/react";
 
 import { theme } from "../layouts/theme";
 import Container from "../layouts/container";
-import GoogleAnalytics from "../components/GoogleAnalytics/ga";
+import GoogleTagManager from "../components/GoogleTagManager/tagmanager";
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
     <>
-      {process.env.NODE_ENV === "production" && <GoogleAnalytics />}
+      {process.env.NODE_ENV === "production" && <GoogleTagManager />}
 
       <ChakraProvider resetCSS theme={theme}>
         <Container>
