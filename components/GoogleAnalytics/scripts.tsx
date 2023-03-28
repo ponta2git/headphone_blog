@@ -9,6 +9,7 @@ const GoogleAnalyticsScripts = () => {
           <Script
             defer
             src={`https://www.googletagmanager.com/gtag/js?id=G-${GA_TRACKING_ID}`}
+            strategy="afterInteractive"
           />
           <Script
             id="ga"
