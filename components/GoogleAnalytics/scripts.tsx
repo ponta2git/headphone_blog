@@ -7,13 +7,12 @@ const GoogleAnalyticsScripts = () => {
       {GA_TRACKING_ID && (
         <>
           <Script
-            defer
+            async
             src={`https://www.googletagmanager.com/gtag/js?id=G-${GA_TRACKING_ID}`}
             strategy="afterInteractive"
           />
           <Script
             id="ga"
-            defer
             strategy="afterInteractive"
             dangerouslySetInnerHTML={{
               __html: `

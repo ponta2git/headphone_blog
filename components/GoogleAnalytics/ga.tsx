@@ -1,15 +1,20 @@
+/*
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 
 import { GA_TRACKING_ID, pageView } from "../../libs/gtag";
+*/
 import GoogleAnalyticsScripts from "./scripts";
 
+/*
 const handleChangeRoute = (path: string) => {
   pageView(path);
 };
+*/
 
 const GoogleAnalytics = () => {
-  const router = useRouter();
+  /*
+  　const router = useRouter();
 
   useEffect(() => {
     if (!GA_TRACKING_ID) return;
@@ -20,7 +25,7 @@ const GoogleAnalytics = () => {
       router.events.off("routeChangeComplete", handleChangeRoute);
     };
   }, [router.events]);
-
+  */
   return <GoogleAnalyticsScripts />;
 };
 
