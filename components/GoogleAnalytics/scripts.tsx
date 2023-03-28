@@ -10,15 +10,20 @@ const GoogleAnalyticsScripts = () => {
             defer
             src={`https://www.googletagmanager.com/gtag/js?id=G-${GA_TRACKING_ID}`}
           />
-          <Script id="ga" defer strategy="afterInteractive">
-            {`
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-              
-                gtag('config', 'G-${GA_TRACKING_ID}');
-            `}
-          </Script>
+          <Script
+            id="ga"
+            defer
+            strategy="afterInteractive"
+            dangerouslySetInnerHTML={{
+              __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+          
+            gtag('config', 'G-${GA_TRACKING_ID}');
+        `,
+            }}
+          ></Script>
         </>
       )}
     </>
