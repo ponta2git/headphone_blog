@@ -7,7 +7,7 @@ import { basename, join } from "path";
 import { ParsedUrlQuery } from "querystring";
 import { compileSync, runSync } from "@mdx-js/mdx";
 import remarkFrontmatter from "remark-frontmatter";
-import { remarkMdxFrontmatter } from "remark-mdx-frontmatter";
+import remarkMdxFrontmatter from "remark-mdx-frontmatter";
 import remarkGfm from "remark-gfm";
 import * as runtime from "react/jsx-runtime";
 
@@ -110,24 +110,16 @@ const Post = (props: PostProps) => {
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:site" content="@ponta2twit" />
       </Head>
-      <VStack
-        mx={4}
-        my={4}
-        lineHeight="tall"
-        letterSpacing="wider"
-        wordBreak="break-all"
-        alignItems="start"
-        spacing={6}
-      >
-        <HStack spacing={2} alignItems="baseline">
-          <Text color="gray.500" fontSize="sm">
-            {parsed.date}
-          </Text>
-          <Heading as="h2" fontSize="md">
-            {parsed.title}
-          </Heading>
-        </HStack>
-        {body}
+      <VStack p={6} align={"stretch"}>
+        <Heading as="h2" fontSize="xl">
+          {parsed.title}
+        </Heading>
+        <Text color="gray.500" fontSize="12">
+          {parsed.date}
+        </Text>
+        <VStack align="stretch" spacing={6}>
+          {body}
+        </VStack>
       </VStack>
     </>
   );

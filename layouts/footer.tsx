@@ -5,19 +5,17 @@ import { faTwitter } from "@fortawesome/free-brands-svg-icons";
 
 const Footer = () => {
   return (
-    <Center py={4}>
-      <VStack>
-        <Text fontSize="sm">(C) 2022 ponta.</Text>
-        <HStack spacing={5} color="gray.500">
-          <a href="mailto:coshun@gmail.com">
-            <FontAwesomeIcon icon={faEnvelope} />
-          </a>
-          <a href="https://twitter.com/ponta2twit" rel="noopener noreferrer">
-            <FontAwesomeIcon icon={faTwitter} />
-          </a>
-        </HStack>
-      </VStack>
-    </Center>
+    <VStack mb={5}>
+      <Text fontSize="sm">(C) 2023 ponta.</Text>
+      <HStack spacing={5} color="gray.500">
+        <a href="mailto:coshun@gmail.com">
+          <FontAwesomeIcon icon={faEnvelope} />
+        </a>
+        <a href="https://twitter.com/ponta2twit" rel="noopener noreferrer">
+          <FontAwesomeIcon icon={faTwitter} />
+        </a>
+      </HStack>
+    </VStack>
   );
 };
 

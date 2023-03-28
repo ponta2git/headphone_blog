@@ -6,20 +6,24 @@ import Footer from "./footer";
 
 const Container: FC<PropsWithChildren> = ({ children }) => {
   return (
-    <Box
-      w={{ base: "90%", lg: "60%" }}
-      mx="auto"
-      my={7}
-      borderRadius="md"
-      bgColor="gray.50"
-      shadow="lg"
-    >
+    <>
       <Header />
-      <Divider />
-      <Box p={4}>{children}</Box>
-      <Divider />
+      <Box
+        w={{ base: "100%", md: "90%", lg: "60%" }}
+        mx="auto"
+        my={7}
+        borderRadius="sm"
+        bgColor="gray.50"
+        shadow="md"
+        lineHeight="7"
+        letterSpacing="wide"
+        wordBreak="break-all"
+        alignItems="start"
+      >
+        <Box>{children}</Box>
+      </Box>
       <Footer />
-    </Box>
+    </>
   );
 };
 

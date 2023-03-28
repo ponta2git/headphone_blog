@@ -4,14 +4,24 @@ import matter from "gray-matter";
 import { GetStaticProps } from "next";
 import NextLink from "next/link";
 
-import { HStack, Text, Link, Heading, VStack } from "@chakra-ui/react";
+import {
+  HStack,
+  Text,
+  Link,
+  Heading,
+  VStack,
+  Box,
+  LinkBox,
+  LinkOverlay,
+  StackDivider,
+} from "@chakra-ui/react";
 
 import { Frontmatter } from "../types/types";
 import Head from "next/head";
 
 import { compile, run } from "@mdx-js/mdx";
 import remarkFrontmatter from "remark-frontmatter";
-import { remarkMdxFrontmatter } from "remark-mdx-frontmatter";
+import remarkMdxFrontmatter from "remark-mdx-frontmatter";
 import remarkGfm from "remark-gfm";
 
 import runtime from "react/jsx-runtime";
@@ -43,40 +53,35 @@ const Index = (props: IndexProps) => {
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:site" content="@ponta2twit" />
       </Head>
-      {postsInfo.map((info) => {
-        return (
-          <VStack
-            key={info.frontmatter.date}
-            mx={4}
-            my={4}
-            lineHeight="tall"
-            letterSpacing="wider"
-            wordBreak="break-all"
-            alignItems="start"
-            spacing={6}
-          >
-            <HStack spacing={2} alignItems="baseline">
-              <Text color="gray.500" fontSize="sm">
-                {info.frontmatter.date}
-              </Text>
+      <VStack
+        align={"stretch"}
+        spacing={5}
+        p={6}
+        divider={<StackDivider borderColor={"gray.200"} />}
+      >
+        {postsInfo.map((info) => {
+          return (
+            <LinkBox key={info.frontmatter.date}>
               <NextLink href={info.path} passHref>
-                <Link>
+                <LinkOverlay>
                   <Heading as="h2" fontSize="md">
                     {info.frontmatter.title}
                   </Heading>
-                </Link>
+                </LinkOverlay>
               </NextLink>
-            </HStack>
-
-            <Text wordBreak="break-all">{info.excerpt}</Text>
-            <Text w="100%" textAlign="right">
-              <NextLink href={info.path} passHref>
-                <Link color="gray.500">続きを読む</Link>
-              </NextLink>
-            </Text>
-          </VStack>
-        );
-      })}
+              <Text color="gray.500" fontSize="12">
+                {info.frontmatter.date}
+              </Text>
+              <Text wordBreak="break-all">{info.excerpt}</Text>
+              <Text w="100%" textAlign="right" pt={4}>
+                <NextLink href={info.path} passHref>
+                  <Link color="telegram.600">続きを読む</Link>
+                </NextLink>
+              </Text>
+            </LinkBox>
+          );
+        })}
+      </VStack>
     </>
   );
 };
