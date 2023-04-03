@@ -1,17 +1,23 @@
 import NextLink from "next/link";
 import Image from "next/image";
-import { Center, Heading, HStack, Link, VStack } from "@chakra-ui/react";
+import {
+  Center,
+  Heading,
+  HStack,
+  Link,
+  VStack,
+  Avatar,
+} from "@chakra-ui/react";
 
 const Header = () => {
   return (
-    <Center py={4} borderTopRadius={4}>
+    <Center pt={6} pb={6}>
       <VStack spacing={5}>
         <Image
           src="/headphone.jpg"
           alt=""
-          layout="intrinsic"
-          width="100"
-          height="100"
+          width="150"
+          height="150"
           style={{ borderRadius: "100%" }}
         />
         <HStack>

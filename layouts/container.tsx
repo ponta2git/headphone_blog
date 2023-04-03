@@ -1,5 +1,5 @@
 import type { FC, PropsWithChildren } from "react";
-import { Box, Divider } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 
 import Header from "./header";
 import Footer from "./footer";
@@ -12,7 +12,7 @@ const Container: FC<PropsWithChildren> = ({ children }) => {
         w={{ base: "100%", md: "90%", lg: "60%" }}
         mx="auto"
         my={7}
-        borderRadius="sm"
+        borderRadius="md"
         bgColor="gray.50"
         shadow="md"
         lineHeight="7"

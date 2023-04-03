@@ -27,12 +27,15 @@ import {
   ListProps,
   ListItem,
   ListItemProps,
-  Box,
+  Avatar,
+  Wrap,
 } from "@chakra-ui/react";
 import Head from "next/head";
 import Image from "next/image";
 
 import { getAllPosts } from "../../../libs/getAllPosts";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTwitter } from "@fortawesome/free-brands-svg-icons";
 
 type PostProps = {
   content: String;
@@ -110,8 +113,8 @@ const Post = (props: PostProps) => {
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:site" content="@ponta2twit" />
       </Head>
-      <VStack p={6} align={"stretch"}>
-        <Heading as="h2" fontSize="xl">
+      <VStack p={9} align={"stretch"}>
+        <Heading as="h2" fontSize="xl" lineHeight="normal">
           {parsed.title}
         </Heading>
         <Text color="gray.500" fontSize="12">
@@ -120,6 +123,27 @@ const Post = (props: PostProps) => {
         <VStack align="stretch" spacing={6}>
           {body}
         </VStack>
+        <HStack py={6}>
+          <Text size="sm" color="gray.500">
+            Share with:
+          </Text>
+          <Wrap>
+            <Link
+              href={
+                `https://twitter.com/intent/tweet` +
+                `?text=${parsed.title} - pontaのヘッドホンブログ` +
+                `&url=https://ponta-headphone.net/posts/${name}`
+              }
+              isExternal
+            >
+              <Avatar
+                bg={"#00acee"}
+                size={"sm"}
+                icon={<FontAwesomeIcon icon={faTwitter} />}
+              />
+            </Link>
+          </Wrap>
+        </HStack>
       </VStack>
     </>
   );

@@ -53,18 +53,13 @@ const Index = (props: IndexProps) => {
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:site" content="@ponta2twit" />
       </Head>
-      <VStack
-        align={"stretch"}
-        spacing={5}
-        p={6}
-        divider={<StackDivider borderColor={"gray.200"} />}
-      >
+      <VStack align={"stretch"} spacing={8} p={9}>
         {postsInfo.map((info) => {
           return (
             <LinkBox key={info.frontmatter.date}>
               <NextLink href={info.path} passHref>
                 <LinkOverlay>
-                  <Heading as="h2" fontSize="md">
+                  <Heading as="h2" fontSize="lg">
                     {info.frontmatter.title}
                   </Heading>
                 </LinkOverlay>
@@ -73,7 +68,7 @@ const Index = (props: IndexProps) => {
                 {info.frontmatter.date}
               </Text>
               <Text wordBreak="break-all">{info.excerpt}</Text>
-              <Text w="100%" textAlign="right" pt={4}>
+              <Text w="100%" textAlign="right" pt={1}>
                 <NextLink href={info.path} passHref>
                   <Link color="telegram.600">続きを読む</Link>
                 </NextLink>
