@@ -1,5 +1,5 @@
 import Script from "next/script"
-import { GTAGMGR_ID } from "../../libs/tagManager"
+import { GTAGMGR_ID } from "../libs/tagManager"
 
 const GoogleTagManager = () => {
   return (
