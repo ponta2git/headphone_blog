@@ -8,7 +8,7 @@ export function ExcerptCard({ frontmatter, excerpt }: ExcerptCardProps) {
   const link = `posts/${frontmatter.date.replaceAll("-", "")}`
   return (
     <div className="flex flex-col gap-y-3">
-      <div className="flex flex-col gap-y-2">
+      <div className="flex flex-col gap-y-1">
         <h2 className="text-xl font-bold leading-snug tracking-[0.4px] transition-colors hover:text-[#40404088]">
           <Link href={link}>{frontmatter.title}</Link>
         </h2>
@@ -16,11 +16,13 @@ export function ExcerptCard({ frontmatter, excerpt }: ExcerptCardProps) {
           <time className="text-sm leading-tight tracking-tight text-[#7b8ca2]">
             {frontmatter.date}
           </time>
+          {/*
           <div className="flex flex-row gap-x-1">
             {frontmatter.tags.map((tag) => (
               <Tag key={tag} tag={tag} />
             ))}
           </div>
+          */}
         </div>
       </div>
       <div className="flex flex-col gap-y-2">
