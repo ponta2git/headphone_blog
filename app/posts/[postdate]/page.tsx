@@ -33,6 +33,9 @@ export async function generateMetadata({
 
   return {
     title: `${frontmatter.title} - ${siteName}`,
+    alternates: {
+      canonical: `https://ponta-headphone.net/posts/${postdate}`,
+    },
     openGraph: {
       url: `https://ponta-headphone.net/posts/${postdate}`,
       locale: "ja-JP",

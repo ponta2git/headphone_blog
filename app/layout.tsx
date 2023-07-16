@@ -10,6 +10,9 @@ import Footer from "../components/PageElements/Footer"
 
 export const metadata: Metadata = {
   title: siteName,
+  alternates: {
+    canonical: "https://ponta-headphone.net/",
+  },
   openGraph: {
     url: "https://ponta-headphone.net/",
     locale: "ja-JP",
