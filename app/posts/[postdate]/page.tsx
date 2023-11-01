@@ -81,51 +81,51 @@ export default async function Page({
         {content({ components: ArticleTags })}
       </div>
 
-      <div className="flex flex-row items-center justify-start gap-2">
-        <p>Share with:</p>
-        <p className="h-4 w-4">
-          <a
-            href={
+      
+        <div className="inline-flex flex-row items-center justify-start gap-2 text-[#7b8ca2] text-xs">
+          <p>Share with</p>
+          <p className="h-4 w-4">
+            <a href={
               `https://twitter.com/intent/tweet` +
               `?text=${frontmatter.title} - ${siteName}` +
-              `&url=https://ponta-headphone.net/posts/${frontmatter.date}`
-            }
-            rel="noopener noreferrer"
-          >
-            <FontAwesomeIcon icon={faTwitter} size="1x" />
-          </a>
-        </p>
-      </div>
+              `&url=https://ponta-headphone.net/posts/${frontmatter.date}`}
+              rel="noopener noreferrer">
+                <FontAwesomeIcon icon={faTwitter} size="1x" />
+            </a>
+          </p>
+        </div>
+      
 
-      <div className="mt-6 flex w-full flex-row items-start justify-start text-[#1E6FBA]">
-        <div className="w-1/3 shrink-0">
+      <div className="mt-10 flex w-full flex-row items-center justify-start">
+        <div className="w-[20px] shrink-0 items-center">
+          <FontAwesomeIcon icon={faChevronLeft} className="block h-4 w-4" />
+        </div>
+        <div className="w-1/3 shrink-0 pl-2 text-sm leading-6">
           {prev && (
             <Link
               href={`/posts/${prev.date.replaceAll("-", "")}`}
-              className="transition-colors hover:text-[#1E6FBA88]"
+              className="text-[#1E6FBA] transition-colors hover:text-[#1E6FBA88]"
             >
-              <FontAwesomeIcon
-                icon={faChevronLeft}
-                className="mr-2 inline h-4 w-4 align-middle"
-              />
               {prev.title}
             </Link>
           )}
         </div>
         <div className="w-1/3"></div>
-        <div className="w-1/3 shrink-0 text-right transition-colors hover:text-[#1E6FBA88]">
+        <div className="w-1/3 shrink-0 pr-2 text-right text-sm leading-6">
           {next && (
             <Link
               href={`/posts/${next.date.replaceAll("-", "")}`}
-              className="transition-colors hover:text-[#1E6FBA88]"
+              className="text-[#1E6FBA] transition-colors hover:text-[#1E6FBA88]"
             >
-              <FontAwesomeIcon
-                icon={faChevronRight}
-                className="mr-2 inline h-4 w-4 align-middle"
-              />
               {next.title}
             </Link>
           )}
+        </div>
+        <div className="w-[20px] shrink-0 items-center">
+          <FontAwesomeIcon
+            icon={faChevronRight}
+            className="ml-2 block h-4 w-4"
+          />
         </div>
       </div>
     </article>

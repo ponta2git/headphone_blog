@@ -9,21 +9,20 @@ export type HeaderProps = {
 export default function Header() {
   return (
     <header>
-      
-        <div className="flex flex-col gap-y-4 w-full mx-auto py-10">
+      <div className="mx-auto flex w-full flex-col gap-y-4 py-10">
         <Link href="/">
           <Image
             src={"/images/headphone.jpg"}
             width={100}
             height={100}
             alt=""
-            className="rounded-full block mx-auto"
+            className="mx-auto block rounded-full drop-shadow-xl"
           />
-          </Link>
-          <h1 className="font-bold leading-tight tracking-wide text-slate-700 text-center">
+        </Link>
+        <h1 className="text-center font-bold leading-tight tracking-wide text-slate-700">
           <Link href="/">{siteName}</Link>
-          </h1>
-        </div>
+        </h1>
+      </div>
     </header>
   )
 }
