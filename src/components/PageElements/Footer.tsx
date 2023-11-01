@@ -9,8 +9,8 @@ export default function Footer() {
   const year = new Date(jpDateString).getFullYear()
 
   return (
-    <footer className="w-screen bg-slate-50 py-8">
-      <div className="flex flex-col gap-y-1 text-center text-sm tracking-[0.4px] text-neutral-700">
+    <footer className="w-screen bg-slate-50 py-6">
+      <div className="flex flex-col gap-y-1 text-center text-sm tracking-[0.4px] text-[#7b8ca2]">
         <div className="mb-2 flex flex-row justify-center gap-x-6">
           <a href="mailto:coshun@gmail.com" className="h-4 w-4">
             <FontAwesomeIcon icon={faEnvelope} />
@@ -23,8 +23,8 @@ export default function Footer() {
             <FontAwesomeIcon icon={faTwitter} />
           </a>
         </div>
-        <p>このサイトはGoogle Analyticsを使用しています</p>
-        <p>(C){year} ponta.</p>
+        <p className="text-xs">このサイトはGoogle Analyticsを使用しています</p>
+        <p className="text-xs">(C){year} ponta.</p>
       </div>
     </footer>
   )

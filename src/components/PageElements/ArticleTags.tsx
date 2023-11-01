@@ -34,9 +34,9 @@ const ArticleTags: MDXComponents = {
       <Image
         src={src}
         alt={alt ?? ""}
-        width={numberOnly(width)}
-        height={numberOnly(height)}
-        className="mx-auto block rounded-md shadow-md"
+        width={numberOnly(width) ?? 640}
+        height={numberOnly(height) ?? 480}
+        className="block mx-auto rounded-md shadow-lg shadow-gray-600"
       />
     ) : null,
   ul: (props: HTMLProps<HTMLUListElement>) => (

@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  font-feature-settings: "kern";
+  font-feature-settings: "palt" 1;;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
 }

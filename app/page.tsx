@@ -1,5 +1,5 @@
-import { ExcerptCard } from "../components/PageElements/ExcerptCard"
-import IndexService from "../services/IndexService"
+import { ExcerptCard } from "../src/components/PageElements/ExcerptCard"
+import IndexService from "../src/services/IndexService"
 
 const service = new IndexService()
 

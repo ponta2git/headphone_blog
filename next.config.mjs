@@ -1,4 +1,4 @@
-import { generateSitemap } from './libs/generateSitemap.mjs'
+import { generateSitemap } from './src/libs/generateSitemap.mjs'
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {

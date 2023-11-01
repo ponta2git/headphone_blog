@@ -1,6 +1,6 @@
 {
-	"trailingComma": "all",
-	"semi": false,
-	"plugins": ["prettier-plugin-tailwindcss"],
-	"tailwindConfig": "./tailwind.config.js"
+  "trailingComma": "all",
+  "semi": false,
+  "plugins": ["prettier-plugin-tailwindcss"],
+  "tailwindConfig": "./tailwind.config.ts"
 }

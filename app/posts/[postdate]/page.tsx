@@ -1,10 +1,10 @@
 import { Metadata } from "next"
 import Link from "next/link"
-import { siteName } from "../../../libs/siteBasic"
-import PostPageService from "../../../services/PostPageService"
+import { siteName } from "../../../src/libs/siteBasic"
+import PostPageService from "../../../src/services/PostPageService"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faTwitter } from "@fortawesome/free-brands-svg-icons"
-import ArticleTags from "../../../components/PageElements/ArticleTags"
+import ArticleTags from "../../../src/components/PageElements/ArticleTags"
 import {
   faChevronLeft,
   faChevronRight,
@@ -64,7 +64,7 @@ export default async function Page({
           {frontmatter.title}
         </h2>
         <div className="flex flex-row items-center gap-x-2">
-          <time className="text-sm leading-tight tracking-tight text-[#7b8ca2]">
+          <time className="text-xs leading-tight tracking-tight text-[#7b8ca2]">
             {frontmatter.date}
           </time>
           {/*
@@ -77,7 +77,7 @@ export default async function Page({
         </div>
       </div>
 
-      <div className="my-4 flex flex-col gap-6">
+      <div className="mx-2 my-6 flex flex-col gap-6">
         {content({ components: ArticleTags })}
       </div>
 

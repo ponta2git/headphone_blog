@@ -1,12 +1,12 @@
 import "./globals.css"
-import { siteName } from "../libs/siteBasic"
-import GoogleTagManager from "../components/GoogleTagManager"
+import { siteName } from "../src/libs/siteBasic"
+import GoogleTagManager from "../src/components/GoogleTagManager"
 
 import { ReactNode } from "react"
 import type { Metadata } from "next"
-import Header from "../components/PageElements/Header"
-import Container from "../components/PageElements/Container"
-import Footer from "../components/PageElements/Footer"
+import Header from "../src/components/PageElements/Header"
+import Container from "../src/components/PageElements/Container"
+import Footer from "../src/components/PageElements/Footer"
 
 export const metadata: Metadata = {
   title: siteName,

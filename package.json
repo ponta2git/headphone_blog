@@ -18,6 +18,7 @@
     "react-dom": "^18.2.0",
     "remark-frontmatter": "^4.0.1",
     "remark-gfm": "^3.0.1",
+    "remark-images": "^4.0.0",
     "remark-mdx-frontmatter": "^3.0.0"
   },
   "devDependencies": {
