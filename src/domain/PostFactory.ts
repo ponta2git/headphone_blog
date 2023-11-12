@@ -8,21 +8,6 @@ import remarkImages from "remark-images"
 import Post from "./Post"
 
 export default class PostFactory {
-  /*
-  public static build(postFile: Buffer) {
-    const compiled = compileSync(postFile, {
-      remarkPlugins: [remarkFrontmatter, remarkMdxFrontmatter, remarkGfm],
-      development: false,
-      outputFormat: "function-body",
-      useDynamicImport: true,
-    })
-
-    const tricked = String(compiled).replaceAll('"img"', "_components.img")
-
-    return new Post(runSync(compiled, runtime))
-  }
-  */
-
   public static async build(postFile: Buffer) {
     const compiled = await evaluate(postFile, {
       ...runtime,
