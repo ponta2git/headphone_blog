@@ -89,7 +89,10 @@ export default async function Page({
             href={
               `https://twitter.com/intent/tweet` +
               `?text=${frontmatter.title} - ${siteName}` +
-              `&url=https://ponta-headphone.net/posts/${frontmatter.date}`
+              `&url=https://ponta-headphone.net/posts/${frontmatter.date.replaceAll(
+                "-",
+                "",
+              )}`
             }
             rel="noopener noreferrer"
           >
