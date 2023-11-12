@@ -32,6 +32,7 @@ export async function generateMetadata({
   )
 
   return {
+    metadataBase: new URL("https://ponta-headphone.net"),
     title: `${frontmatter.title} - ${siteName}`,
     alternates: {
       canonical: `https://ponta-headphone.net/posts/${postdate}`,
@@ -81,20 +82,21 @@ export default async function Page({
         {content({ components: ArticleTags })}
       </div>
 
-      
-        <div className="inline-flex flex-row items-center justify-start gap-2 text-[#7b8ca2] text-xs">
-          <p>Share with</p>
-          <p className="h-4 w-4">
-            <a href={
+      <div className="inline-flex flex-row items-center justify-start gap-2 text-xs text-[#7b8ca2]">
+        <p>Share with</p>
+        <p className="h-4 w-4">
+          <a
+            href={
               `https://twitter.com/intent/tweet` +
               `?text=${frontmatter.title} - ${siteName}` +
-              `&url=https://ponta-headphone.net/posts/${frontmatter.date}`}
-              rel="noopener noreferrer">
-                <FontAwesomeIcon icon={faTwitter} size="1x" />
-            </a>
-          </p>
-        </div>
-      
+              `&url=https://ponta-headphone.net/posts/${frontmatter.date}`
+            }
+            rel="noopener noreferrer"
+          >
+            <FontAwesomeIcon icon={faTwitter} size="1x" />
+          </a>
+        </p>
+      </div>
 
       <div className="mt-10 flex w-full flex-row items-center justify-start">
         <div className="w-[20px] shrink-0 items-center">

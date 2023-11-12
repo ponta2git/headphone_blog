@@ -9,6 +9,7 @@ import Container from "../src/components/PageElements/Container"
 import Footer from "../src/components/PageElements/Footer"
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://ponta-headphone.net"),
   title: siteName,
   alternates: {
     canonical: "https://ponta-headphone.net/",
