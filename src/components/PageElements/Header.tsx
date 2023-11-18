@@ -1,10 +1,6 @@
 import Image from "next/image"
-import { siteName } from "../../libs/siteBasic"
+import { siteName } from "../../utils/siteBasic"
 import Link from "next/link"
-
-export type HeaderProps = {
-  isArticle: boolean
-}
 
 export default function Header() {
   return (

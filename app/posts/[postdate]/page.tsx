@@ -1,6 +1,6 @@
 import { Metadata } from "next"
 import Link from "next/link"
-import { siteName } from "../../../src/libs/siteBasic"
+import { siteName } from "../../../src/utils/siteBasic"
 import PostPageService from "../../../src/services/PostPageService"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faTwitter } from "@fortawesome/free-brands-svg-icons"
@@ -9,17 +9,18 @@ import {
   faChevronLeft,
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons"
+import { TagItem } from "../../../src/components/PageElements/TagItem"
 
 export const dynamicParams = false
 
-type PostRouteParams = {
+export type PostRouteParams = {
   postdate: string
 }
 
 const service = new PostPageService()
 
 export function generateStaticParams(): PostRouteParams[] {
-  return service.getRouteParams()
+  return service.getRouteParams() satisfies PostRouteParams[]
 }
 
 export async function generateMetadata({
@@ -27,9 +28,8 @@ export async function generateMetadata({
 }: {
   params: PostRouteParams
 }): Promise<Metadata> {
-  const { frontmatter, description } = await service.buildMetadataSource(
-    postdate,
-  )
+  const { frontmatter, description } =
+    await service.buildMetadataSource(postdate)
 
   return {
     metadataBase: new URL("https://ponta-headphone.net"),
@@ -64,17 +64,14 @@ export default async function Page({
         <h2 className="text-2xl font-bold leading-snug tracking-[0.4px]">
           {frontmatter.title}
         </h2>
-        <div className="flex flex-row items-center gap-x-2">
-          <time className="text-xs leading-tight tracking-tight text-[#7b8ca2]">
-            {frontmatter.date}
-          </time>
-          {/*
-          <div className="flex flex-row gap-x-1">
-            {frontmatter.tags.map((tag) => (
-              <Tag key={tag} tag={tag} />
-            ))}
-          </div>
-          */}
+
+        <time className="text-xs leading-tight tracking-tight text-[#7b8ca2]">
+          {frontmatter.date}
+        </time>
+        <div className="flex flex-row gap-x-1">
+          {frontmatter.tags.map((tag) => (
+            <TagItem key={tag.alias} tag={tag} />
+          ))}
         </div>
       </div>
 

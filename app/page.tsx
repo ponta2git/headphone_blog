@@ -8,12 +8,8 @@ export default async function Page() {
 
   return (
     <div className="flex flex-col gap-y-14">
-      {posts.map(({ frontmatter, excerpt }) => (
-        <ExcerptCard
-          key={frontmatter.date}
-          frontmatter={frontmatter}
-          excerpt={excerpt}
-        />
+      {posts.map((post) => (
+        <ExcerptCard key={post.frontmatter.date} post={post} />
       ))}
     </div>
   )

@@ -1,6 +1,7 @@
 /* eslint-plugin-disable @typescript-eslint */
 import { basename, join } from "path";
 import { readdirSync, writeFileSync } from "fs";
+import { DateTime } from "luxon";
 
 function* getAllPosts(path) {
   const cur = readdirSync(path, { withFileTypes: true });
@@ -16,13 +17,12 @@ function* getAllPosts(path) {
 }
 
 const addIndex = () => {
-  const jpDateString = new Date().toLocaleDateString({timezone: "Asia/Tokyo"});
-  const date = new Date(jpDateString);
+  const date = DateTime.now()
 
   return (
     "<url>" +
     `<loc>https://ponta-headphone.net/</loc>` +
-    `<lastmod>${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}</lastmod>` +
+    `<lastmod>${date.year}-${date.month.toString().padStart(2, 0)}-${date.day.toString().padStart(2, 0)}</lastmod>` +
     "</url>"
   );
 }

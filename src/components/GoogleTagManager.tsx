@@ -1,5 +1,6 @@
 import Script from "next/script"
-import { GTAGMGR_ID } from "../libs/tagManager"
+
+const GTAGMGR_ID = process.env.NEXT_PUBLIC_GTAGMGR_ID || ""
 
 const GoogleTagManager = () => {
   return (

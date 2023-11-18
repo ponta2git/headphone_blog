@@ -1,12 +1,10 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons"
 import { faTwitter } from "@fortawesome/free-brands-svg-icons"
+import { DateTime } from "luxon"
 
 export default function Footer() {
-  const jpDateString = new Date().toLocaleDateString("ja-JP", {
-    timeZone: "Asia/Tokyo",
-  })
-  const year = new Date(jpDateString).getFullYear()
+  const year = DateTime.now().year
 
   return (
     <footer className="w-screen bg-slate-50 py-6">
