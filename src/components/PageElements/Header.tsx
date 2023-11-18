@@ -1,5 +1,5 @@
 import Image from "next/image"
-import { siteName } from "../../utils/siteBasic"
+import { siteName } from "../../siteBasic"
 import Link from "next/link"
 
 export default function Header() {

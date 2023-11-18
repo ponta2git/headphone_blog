@@ -1,6 +1,6 @@
 import { Metadata } from "next"
 import Link from "next/link"
-import { siteName } from "../../../src/utils/siteBasic"
+import { siteName } from "../../../src/siteBasic"
 import PostPageService from "../../../src/services/PostPageService"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faTwitter } from "@fortawesome/free-brands-svg-icons"
