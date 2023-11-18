@@ -59,7 +59,7 @@ export default class PostRepository {
     const shownIdx = this.postPathList.findIndex(
       (path) => basename(path, ".mdx") === date,
     )
-    if (shownIdx === -1 || shownIdx === 0) return null
+    if (shownIdx === -1 || shownIdx === 0) return undefined
 
     return await this.getByFilePath(this.postPathList[shownIdx - 1])
   }
@@ -69,7 +69,8 @@ export default class PostRepository {
       (path) => basename(path, ".mdx") === date,
     )
 
-    if (shownIdx === -1 || shownIdx + 1 >= this.postPathList.length) return null
+    if (shownIdx === -1 || shownIdx + 1 >= this.postPathList.length)
+      return undefined
 
     return await this.getByFilePath(this.postPathList[shownIdx + 1])
   }

@@ -28,7 +28,7 @@ const ArticleTags: MDXComponents = {
           {props.children}
         </Link>
       )
-    ) : null,
+    ) : undefined,
   img: ({ src, alt, width, height }: HTMLProps<HTMLImageElement>) =>
     src ? (
       <Image
@@ -36,9 +36,9 @@ const ArticleTags: MDXComponents = {
         alt={alt ?? ""}
         width={numberOnly(width) ?? 640}
         height={numberOnly(height) ?? 480}
-        className="block mx-auto rounded-md shadow-lg shadow-gray-600"
+        className="mx-auto block rounded-md shadow-lg shadow-gray-600"
       />
-    ) : null,
+    ) : undefined,
   ul: (props: HTMLProps<HTMLUListElement>) => (
     <ul {...props} className="ml-4 list-disc" />
   ),
