@@ -1,8 +1,8 @@
 import Link from "next/link"
-import { Tag } from "../../types"
+import { Tag as TagType } from "../../types"
 import { TagSlugs } from "../../libs/siteBasic"
 
-export function Tag({ tag }: { tag: Tag }) {
+export function Tag({ tag }: { tag: TagType }) {
   return (
     <Link
       href={`tags/${TagSlugs[tag]}`}
