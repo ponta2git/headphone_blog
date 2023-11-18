@@ -30,12 +30,12 @@ const extractContent = (node: ReactNode) => {
     if (node === "\n") return ""
     return node
   }
-  if (!isValidElement<PropsWithChildren<ReactNode>>(node)) {
+  if (!isValidElement<PropsWithChildren>(node)) {
     throw new Error("Parse Error!")
   }
   const { children } = node.props
   if (typeof children === "string") return children
-  if (isValidElement<PropsWithChildren<ReactNode>>(children)) return ""
+  if (isValidElement<PropsWithChildren>(children)) return ""
 
   if (!isIterable<ReactNode>(children)) {
     console.dir(children)
