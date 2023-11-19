@@ -1,8 +1,10 @@
 import { Post } from "../domain/Post"
+import { Tag } from "../domain/Tag"
 import TagFactory from "../domain/TagFactory"
 import PostRepository from "../infrastructure/PostRepository"
 
 export type TagPageData = {
+  tag: Tag
   posts: Post[]
 }
 
@@ -28,13 +30,15 @@ export default class TagPageService {
     return TagFactory.createAllTags().map((tag) => ({ tagalias: tag.alias }))
   }
 
-  public getData(tagAlias: string) {
+  public getData(tagAlias: string): TagPageData {
     const tag = TagFactory.createFromAlias(tagAlias)
 
-    return this.allPosts.flatMap((post) =>
+    const posts = this.allPosts.flatMap((post) =>
       post.frontmatter.tags.find((posttag) => tag.title === posttag.title)
         ? [post]
         : [],
     )
+
+    return { tag, posts }
   }
 }

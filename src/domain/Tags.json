@@ -1,7 +1,7 @@
 {
-  "雑談": "chat",
+  "購入": "purchase",
   "試聴": "try",
   "システム": "system",
-  "購入": "purchase",
-  "評価指標": "metric"
+  "評価指標": "metric",
+  "雑談": "chat"
 }
