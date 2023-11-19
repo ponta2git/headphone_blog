@@ -12,6 +12,7 @@ export default function Header() {
             width={100}
             height={100}
             alt=""
+            priority
             className="mx-auto block rounded-full drop-shadow-xl"
           />
         </Link>
