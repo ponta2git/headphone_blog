@@ -2,6 +2,8 @@ import type { HTMLProps } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import type { MDXComponents } from "mdx/types"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faExternalLink } from "@fortawesome/free-solid-svg-icons"
 
 const numberOnly = (num: string | number | undefined) =>
   !Number.isNaN(Number(num)) ? Number(num) : undefined
@@ -11,21 +13,27 @@ const ArticleTags: MDXComponents = {
     <h3 {...props} className="text-lg" />
   ),
   h2: (props: HTMLProps<HTMLHeadingElement>) => <h4 {...props} />,
-  a: ({ href, ...props }: HTMLProps<HTMLAnchorElement>) =>
+  a: ({ href, children, ...props }: HTMLProps<HTMLAnchorElement>) =>
     href ? (
       href.startsWith("http") ? (
         <a
           {...props}
           href={href}
           rel="noopener noreferrer"
-          className="text-[#1E6FBA] transition-colors hover:text-[#1E6FBA88]"
-        />
+          className="mr-1 inline-flex flex-row items-center gap-x-1 text-[#1E6FBA] transition-colors hover:text-[#1E6FBA88]"
+        >
+          {children}
+          <FontAwesomeIcon
+            icon={faExternalLink}
+            className="inline-block h-3 w-3"
+          />
+        </a>
       ) : (
         <Link
           href={href}
           className=" text-[#1E6FBA] transition-colors hover:text-[#1E6FBA88]"
         >
-          {props.children}
+          {children}
         </Link>
       )
     ) : undefined,
