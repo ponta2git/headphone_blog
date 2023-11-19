@@ -1,10 +1,6 @@
 import Image from "next/image"
-import { siteName } from "../../libs/siteBasic"
+import { siteName } from "../../siteBasic"
 import Link from "next/link"
-
-export type HeaderProps = {
-  isArticle: boolean
-}
 
 export default function Header() {
   return (
@@ -16,6 +12,7 @@ export default function Header() {
             width={100}
             height={100}
             alt=""
+            priority
             className="mx-auto block rounded-full drop-shadow-xl"
           />
         </Link>

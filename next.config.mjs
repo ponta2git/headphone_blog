@@ -1,4 +1,5 @@
-import { generateSitemap } from './src/libs/generateSitemap.mjs'
+/* eslint-plugin-disable @typescript-eslint */
+import { generateSitemap } from './src/generateSitemap.mjs'
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {

@@ -1,5 +1,5 @@
 import "./globals.css"
-import { siteName } from "../src/libs/siteBasic"
+import { siteName } from "../src/siteBasic"
 import GoogleTagManager from "../src/components/GoogleTagManager"
 
 import { ReactNode } from "react"

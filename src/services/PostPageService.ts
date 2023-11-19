@@ -1,23 +1,30 @@
-import { basename } from "path"
+import { PostPageRouteParams } from "../../app/posts/[postdate]/page"
+import { Post, PostFrontmatter } from "../domain/Post"
 import PostRepository from "../infrastructure/PostRepository"
 
+export type PostPageData = {
+  post: Post
+  prev?: PostFrontmatter
+  next?: PostFrontmatter
+}
+
 export default class PostPageService {
-  private _postRepo = new PostRepository()
+  private postRepo = new PostRepository()
 
   public async buildMetadataSource(postdate: string) {
     const { frontmatter, excerpt: description } =
-      await this._postRepo.getByDateString(postdate)
+      await this.postRepo.getByDateString(postdate)
 
     return { frontmatter, description }
   }
 
-  public getRouteParams() {
-    return this._postRepo.paths.map((path) => ({
-      postdate: basename(path, ".mdx"),
-    }))
+  public getRouteParams(): PostPageRouteParams[] {
+    return this.postRepo.getAllPostDates().map((postdate) => ({
+      postdate,
+    })) satisfies PostPageRouteParams[]
   }
 
-  public async getData(postdate: string) {
+  public async getData(postdate: string): Promise<PostPageData> {
     async function getNeighbourPostsMetadata(
       repo: PostRepository,
       shown: string,
@@ -31,19 +38,14 @@ export default class PostPageService {
       }
     }
 
-    const { frontmatter, content } = await this._postRepo.getByDateString(
-      postdate,
-    )
+    const post = await this.postRepo.getByDateString(postdate)
     const { prev, next } = await getNeighbourPostsMetadata(
-      this._postRepo,
+      this.postRepo,
       postdate,
     )
 
     return {
-      post: {
-        frontmatter,
-        content,
-      },
+      post,
       prev,
       next,
     }
