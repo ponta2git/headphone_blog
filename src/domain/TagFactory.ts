@@ -13,9 +13,24 @@ export default class TagFactory {
     return !!Object.keys(TagsJson).find((tagname) => tagname === str)
   }
 
-  static createFromString(str: string): Tag {
-    if (!TagFactory.isTagTitle(str)) throw `${str} is not a tag!!`
+  static isTagAlias(str: string) {
+    return !!Object.values(TagsJson).find((tagalias) => tagalias === str)
+  }
+
+  static createFromTitle(str: string): Tag {
+    if (!TagFactory.isTagTitle(str)) throw new Error(`${str} is not a tag!!`)
     return TagFactory.create(str)
+  }
+
+  static createFromAlias(str: string): Tag {
+    if (!TagFactory.isTagAlias(str))
+      throw new Error(`${str} is not a tag alias!!`)
+
+    const tagTitle = Object.keys(TagsJson).find(
+      (title) => TagsJson[title as TagTitle] === str,
+    )!
+
+    return TagFactory.createFromTitle(tagTitle)
   }
 
   static createAllTags(): Tag[] {

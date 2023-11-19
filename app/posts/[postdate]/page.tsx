@@ -13,20 +13,20 @@ import { TagItem } from "../../../src/components/PageElements/TagItem"
 
 export const dynamicParams = false
 
-export type PostRouteParams = {
+export type PostPageRouteParams = {
   postdate: string
 }
 
 const service = new PostPageService()
 
-export function generateStaticParams(): PostRouteParams[] {
-  return service.getRouteParams() satisfies PostRouteParams[]
+export function generateStaticParams(): PostPageRouteParams[] {
+  return service.getRouteParams()
 }
 
 export async function generateMetadata({
   params: { postdate },
 }: {
-  params: PostRouteParams
+  params: PostPageRouteParams
 }): Promise<Metadata> {
   const { frontmatter, description } =
     await service.buildMetadataSource(postdate)
@@ -53,7 +53,7 @@ export async function generateMetadata({
 export default async function Page({
   params: { postdate },
 }: {
-  params: PostRouteParams
+  params: PostPageRouteParams
 }) {
   const { post, prev, next } = await service.getData(postdate)
   const { frontmatter, content } = post

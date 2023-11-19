@@ -69,7 +69,7 @@ export default class PostFactory {
     const excerpt = generateExcerpt(extractContent(topNode))
 
     const { tags: tagStrs } = frontmatter as MDXFrontmatter
-    const postTags = tagStrs.map((str) => TagFactory.createFromString(str))
+    const postTags = tagStrs.map((str) => TagFactory.createFromTitle(str))
 
     return {
       frontmatter: {

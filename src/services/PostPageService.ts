@@ -1,4 +1,4 @@
-import { PostRouteParams } from "../../app/posts/[postdate]/page"
+import { PostPageRouteParams } from "../../app/posts/[postdate]/page"
 import { Post, PostFrontmatter } from "../domain/Post"
 import PostRepository from "../infrastructure/PostRepository"
 
@@ -18,10 +18,10 @@ export default class PostPageService {
     return { frontmatter, description }
   }
 
-  public getRouteParams(): PostRouteParams[] {
+  public getRouteParams(): PostPageRouteParams[] {
     return this.postRepo.getAllPostDates().map((postdate) => ({
       postdate,
-    }))
+    })) satisfies PostPageRouteParams[]
   }
 
   public async getData(postdate: string): Promise<PostPageData> {
