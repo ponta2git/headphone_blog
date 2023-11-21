@@ -1,5 +1,4 @@
 import Image from "next/image"
-import { siteName } from "../../siteBasic"
 import Link from "next/link"
 
 export default function Header() {
@@ -8,17 +7,14 @@ export default function Header() {
       <div className="mx-auto flex w-full flex-col gap-y-4 py-10">
         <Link href="/">
           <Image
-            src={"/images/headphone.jpg"}
-            width={100}
-            height={100}
-            alt=""
+            src={"/images/logo.png"}
+            width={144}
+            height={154}
+            alt="pontaのヘッドホンブログ"
             priority
-            className="mx-auto block rounded-full drop-shadow-xl"
+            className="mx-auto block"
           />
         </Link>
-        <h1 className="text-center font-bold leading-tight tracking-wide text-slate-700">
-          <Link href="/">{siteName}</Link>
-        </h1>
       </div>
     </header>
   )

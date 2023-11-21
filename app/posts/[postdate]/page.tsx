@@ -60,7 +60,7 @@ export default async function Page({
 
   return (
     <article>
-      <div className="flex flex-col gap-y-1 pt-6">
+      <div className="flex flex-col gap-y-1 pt-8">
         <h2 className="text-2xl font-bold leading-snug tracking-[0.4px]">
           {frontmatter.title}
         </h2>

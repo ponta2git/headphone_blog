@@ -28,15 +28,17 @@ export default function Page() {
       {tagStats.map((stat) => (
         <p
           key={stat.tag.alias}
-          className="flex flex-row items-baseline justify-center gap-x-1"
+          className="flex flex-row items-center justify-center gap-x-[0.125rem]"
         >
           <Link
             href={`/tags/${stat.tag.alias}`}
-            className="block transition-colors hover:text-[#40404088]"
+            className="block tracking-[0.4px] transition-colors hover:text-[#40404088]"
           >
             {stat.tag.title}
           </Link>
-          <span className="block text-xs text-[#7b8ca2]">({stat.count})</span>
+          <span className="block text-xs tracking-[0.4px] text-[#7b8ca2]">
+            ({stat.count})
+          </span>
         </p>
       ))}
     </>

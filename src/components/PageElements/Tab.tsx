@@ -7,16 +7,14 @@ export function Tab({ active }: { active: ActiveTabName }) {
     <div className="flex flex-row">
       {siteTabs.map((tab) =>
         active === tab.name ? (
-          <div
-            key={tab.name}
-            className="mx-8 mb-6 mt-6 w-1/2 text-center text-sm"
-          >
+          <div key={tab.name} className="mb-8 mt-6 w-1/2 text-center text-sm">
             <Link href={tab.topPage}>
               <div className="max-w-screen mx-auto flex items-center justify-center transition-colors hover:text-[#40404088]">
-                <div className="w-full bg-[#1E6FBA] pb-[2px]">
-                  <div className="w-full bg-slate-50 pb-1 font-semibold">
+                <div className="flex w-full flex-col gap-y-1">
+                  <div className="w-full font-semibold leading-snug tracking-[0.4px]">
                     {tab.displayText}
                   </div>
+                  <div className="mx-auto h-[0.125rem] w-full rounded-full bg-[#1E6FBA]"></div>
                 </div>
               </div>
             </Link>
@@ -24,14 +22,15 @@ export function Tab({ active }: { active: ActiveTabName }) {
         ) : (
           <div
             key={tab.name}
-            className="mx-8 mb-6 mt-6 w-1/2 text-center text-sm transition-colors hover:text-[#40404088]"
+            className="mb-8 mt-6 w-1/2 text-center text-sm transition-colors hover:text-[#40404088]"
           >
             <Link href={tab.topPage}>
               <div className="max-w-screen mx-auto flex items-center justify-center">
-                <div className="w-full bg-[#d9dde3] pb-[2px]">
-                  <div className="w-full bg-slate-50 pb-1">
+                <div className="flex w-full flex-col gap-y-1">
+                  <div className="w-full font-light leading-snug tracking-[0.4px]">
                     {tab.displayText}
                   </div>
+                  <div className="mx-auto h-[0.125rem] w-full rounded-full bg-[#d9dde3]"></div>
                 </div>
               </div>
             </Link>
