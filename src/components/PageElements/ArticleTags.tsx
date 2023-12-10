@@ -60,7 +60,7 @@ const ArticleTags: MDXComponents = {
     />
   ),
   td: (props: HTMLProps<HTMLTableCellElement>) => (
-    <td {...props} className="pr-4" />
+    <td {...props} className="pl-1 py-1 pr-4 leading-6" />
   ),
 }
 
