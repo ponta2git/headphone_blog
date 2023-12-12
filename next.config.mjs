@@ -1,16 +1,17 @@
 /* eslint-plugin-disable @typescript-eslint */
-import { generateSitemap } from './src/generateSitemap.mjs'
+import { generateSitemap } from "./src/generateSitemap.mjs"
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   webpack: (config, { isServer }) => {
     if (isServer) {
-      generateSitemap();
-    } 
+      generateSitemap()
+    }
 
-    return config;
+    return config
   },
-  reactStrictMode: true
+  reactStrictMode: true,
+  poweredByHeader: false,
 }
 
 export default nextConfig
