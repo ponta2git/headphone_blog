@@ -28,7 +28,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html lang="ja">
       <head prefix="og: http://ogp.me/ns#" />
       <body className="bg-[#d2dee7] font-sans text-[#121a24]">
-        <GoogleTagManager gtmId={GTAGMGR_ID} />
         <div className="flex min-h-screen flex-col">
           <div className="flex-grow">
             <Header />
@@ -37,6 +36,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           <Footer />
         </div>
       </body>
+      <GoogleTagManager gtmId={GTAGMGR_ID} />
     </html>
   )
 }
