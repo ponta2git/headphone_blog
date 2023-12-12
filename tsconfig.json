@@ -1,10 +1,6 @@
 {
   "compilerOptions": {
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "target": "es2017",
     "allowJs": true,
     "skipLibCheck": true,
@@ -31,7 +27,10 @@
     "**/*.tsx",
     "**/*.mjs"
   ],
-  "exclude": [
-    "node_modules",
-  ]
+  "paths": {
+    "@next/third-parties/google": [
+      "./node_modules/@next/third-parties/dist/google"
+    ]
+  },
+  "exclude": ["node_modules"]
 }
