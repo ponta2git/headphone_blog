@@ -6,7 +6,7 @@ import "./globals.css"
 import Container from "../src/components/PageElements/Container"
 import Footer from "../src/components/PageElements/Footer"
 import Header from "../src/components/PageElements/Header"
-import { siteName } from "../src/siteBasic"
+import { siteName, siteDescription } from "../src/siteBasic"
 
 import type { Metadata } from "next"
 import type { ReactNode } from "react"
@@ -14,6 +14,7 @@ import type { ReactNode } from "react"
 export const metadata: Metadata = {
   metadataBase: new URL("https://ponta-headphone.net"),
   title: siteName,
+  description: siteDescription,
   alternates: {
     canonical: "https://ponta-headphone.net/",
   },
@@ -21,6 +22,12 @@ export const metadata: Metadata = {
     url: "https://ponta-headphone.net/",
     locale: "ja_JP",
     type: "website",
+    description: siteDescription
+  },
+  twitter: {
+    card: "summary",
+    site: "@ponta2twit",
+    description: siteDescription
   },
 }
 
