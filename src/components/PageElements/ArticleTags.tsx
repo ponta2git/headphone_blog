@@ -51,12 +51,12 @@ const ArticleTags: MDXComponents = {
     <ul {...props} className="ml-4 list-disc" />
   ),
   table: (props: HTMLProps<HTMLTableElement>) => (
-    <table {...props} className="mx-auto" />
+    <table {...props} className="block max-w-full mx-auto overflow-x-scroll whitespace-nowrap" />
   ),
   th: (props: HTMLProps<HTMLTableCellElement>) => (
     <th
       {...props}
-      className="border-b-[1px] border-slate-300 pb-1 text-left text-sm"
+      className="pl-1 border-b-[1px] border-slate-300 pb-1 text-left text-sm"
     />
   ),
   td: (props: HTMLProps<HTMLTableCellElement>) => (
