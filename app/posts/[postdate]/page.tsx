@@ -34,18 +34,20 @@ export async function generateMetadata({
   return {
     metadataBase: new URL("https://ponta-headphone.net"),
     title: `${frontmatter.title} - ${siteName}`,
+    description,
     alternates: {
       canonical: `https://ponta-headphone.net/posts/${postdate}`,
     },
     openGraph: {
       url: `https://ponta-headphone.net/posts/${postdate}`,
-      locale: "ja-JP",
+      locale: "ja_JP",
       type: "article",
+      description
     },
     twitter: {
       card: "summary",
       site: "@ponta2twit",
-      description: description,
+      description
     },
   }
 }
