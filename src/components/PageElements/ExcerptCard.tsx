@@ -1,10 +1,10 @@
-import Link from "next/link"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons"
-
-import { Post } from "../../domain/Post"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import Link from "next/link"
 
 import { TagItem } from "./TagItem"
+import { Post } from "../../domain/Post"
+
 
 export function ExcerptCard({
   post: {

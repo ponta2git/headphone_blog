@@ -1,7 +1,8 @@
+import { readdirSync } from "fs"
 import { readFile } from "node:fs/promises"
 import { basename, join } from "path"
+
 import PostFactory from "../domain/PostFactory"
-import { readdirSync } from "fs"
 
 export default class PostRepository {
   private postPathList: string[]

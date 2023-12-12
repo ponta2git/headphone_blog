@@ -1,15 +1,17 @@
-import { Metadata } from "next"
-import Link from "next/link"
-import { siteName } from "../../../src/siteBasic"
-import PostPageService from "../../../src/services/PostPageService"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faTwitter } from "@fortawesome/free-brands-svg-icons"
-import ArticleTags from "../../../src/components/PageElements/ArticleTags"
 import {
   faChevronLeft,
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { Metadata } from "next"
+import Link from "next/link"
+
+
+import ArticleTags from "../../../src/components/PageElements/ArticleTags"
 import { TagItem } from "../../../src/components/PageElements/TagItem"
+import PostPageService from "../../../src/services/PostPageService"
+import { siteName } from "../../../src/siteBasic"
 
 export const dynamicParams = false
 

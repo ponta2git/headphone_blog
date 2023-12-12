@@ -1,8 +1,9 @@
 import { Metadata } from "next"
+import Link from "next/link"
+
+import { Tab } from "../../src/components/PageElements/Tab"
 import TagIndexPageService from "../../src/services/TagIndexPageService"
 import { siteName } from "../../src/siteBasic"
-import { Tab } from "../../src/components/PageElements/Tab"
-import Link from "next/link"
 
 const service = await TagIndexPageService.create()
 

@@ -1,10 +1,11 @@
-import { Fragment, PropsWithChildren, ReactNode, isValidElement } from "react"
 import { evaluate } from "@mdx-js/mdx"
+import { Fragment, PropsWithChildren, ReactNode, isValidElement } from "react"
 import runtime from "react/jsx-runtime"
-import remarkGfm from "remark-gfm"
 import remarkFrontmatter from "remark-frontmatter"
-import remarkMdxFrontmatter from "remark-mdx-frontmatter"
+import remarkGfm from "remark-gfm"
 import remarkImages from "remark-images"
+import remarkMdxFrontmatter from "remark-mdx-frontmatter"
+
 import { Post } from "./Post"
 import TagFactory from "./TagFactory"
 

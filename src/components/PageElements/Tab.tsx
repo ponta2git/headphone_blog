@@ -1,4 +1,5 @@
 import Link from "next/link"
+
 import { ActiveTabName, siteTabs } from "../../siteBasic"
 
 export function Tab({ active }: { active: ActiveTabName }) {

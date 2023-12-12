@@ -1,6 +1,7 @@
 /* eslint-plugin-disable @typescript-eslint */
-import { basename, join } from "path";
 import { readdirSync, writeFileSync } from "fs";
+import { basename, join } from "path";
+
 import { DateTime } from "luxon";
 
 function* getAllPosts(path) {

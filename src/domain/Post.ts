@@ -1,5 +1,6 @@
-import type { MDXContent } from "mdx/types"
 import { Tag } from "./Tag"
+
+import type { MDXContent } from "mdx/types"
 
 export type Post = {
   readonly frontmatter: PostFrontmatter

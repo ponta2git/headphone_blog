@@ -1,10 +1,12 @@
+import { faTag } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { Metadata } from "next"
+
+import { ExcerptCard } from "../../../src/components/PageElements/ExcerptCard"
+import { Tab } from "../../../src/components/PageElements/Tab"
 import TagPageService from "../../../src/services/TagPageService"
 import { siteName } from "../../../src/siteBasic"
-import { ExcerptCard } from "../../../src/components/PageElements/ExcerptCard"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faTag } from "@fortawesome/free-solid-svg-icons"
-import { Tab } from "../../../src/components/PageElements/Tab"
+
 
 export const dynamicParams = false
 

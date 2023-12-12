@@ -1,4 +1,5 @@
 import Link from "next/link"
+
 import { Tag } from "../../domain/Tag"
 
 export function TagItem({ tag }: { tag: Tag }) {

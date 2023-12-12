@@ -1,9 +1,10 @@
-import type { HTMLProps } from "react"
-import Link from "next/link"
-import Image from "next/image"
-import type { MDXComponents } from "mdx/types"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faExternalLink } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import Image from "next/image"
+import Link from "next/link"
+
+import type { MDXComponents } from "mdx/types"
+import type { HTMLProps } from "react"
 
 const numberOnly = (num: string | number | undefined) =>
   !Number.isNaN(Number(num)) ? Number(num) : undefined
