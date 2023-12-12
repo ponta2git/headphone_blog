@@ -45,7 +45,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           <Footer />
         </div>
       </body>
-      <GoogleTagManager gtmId={GTAGMGR_ID} />
+      <GoogleTagManager gtmId={`GTM-${GTAGMGR_ID}`} />
     </html>
   )
 }
