@@ -44,12 +44,13 @@ export async function generateMetadata({
       url: `https://ponta-headphone.net/posts/${postdate}`,
       locale: "ja_JP",
       type: "article",
+      title: `${frontmatter.title} - ${siteName}`,
+      siteName,
       description
     },
     twitter: {
       card: "summary",
-      site: "@ponta2twit",
-      description
+      site: "@ponta2twit"
     },
   }
 }

@@ -23,12 +23,13 @@ export const metadata: Metadata = {
     url: "https://ponta-headphone.net/",
     locale: "ja_JP",
     type: "website",
+    siteName,
+    title: siteName,
     description: siteDescription
   },
   twitter: {
     card: "summary",
-    site: "@ponta2twit",
-    description: siteDescription
+    site: "@ponta2twit"
   },
 }
 
