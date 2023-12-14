@@ -36,7 +36,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="ja">
-      <head prefix="og: http://ogp.me/ns#" />
+      <head />
       <body className="bg-[#d2dee7] font-sans text-[#121a24]">
         <div className="flex min-h-screen flex-col">
           <div className="flex-grow">
