@@ -45,23 +45,26 @@ const ArticleTags: MDXComponents = {
         alt={alt ?? ""}
         width={numberOnly(width) ?? 640}
         height={numberOnly(height) ?? 480}
-        className="mx-auto block rounded-md shadow-lg shadow-gray-600"
+        className="mx-auto block rounded-sm shadow shadow-gray-600"
       />
     ) : undefined,
   ul: (props: HTMLProps<HTMLUListElement>) => (
     <ul {...props} className="ml-4 list-disc" />
   ),
   table: (props: HTMLProps<HTMLTableElement>) => (
-    <table {...props} className="block max-w-full mx-auto overflow-x-scroll whitespace-nowrap" />
+    <table
+      {...props}
+      className="mx-auto block max-w-full overflow-x-scroll whitespace-nowrap"
+    />
   ),
   th: (props: HTMLProps<HTMLTableCellElement>) => (
     <th
       {...props}
-      className="pl-1 border-b-[1px] border-slate-300 pb-1 text-left text-sm"
+      className="border-b-[1px] border-slate-300 pb-1 pl-1 text-left text-sm"
     />
   ),
   td: (props: HTMLProps<HTMLTableCellElement>) => (
-    <td {...props} className="pl-1 py-1 pr-4 leading-6" />
+    <td {...props} className="py-1 pl-1 pr-4 text-sm leading-6" />
   ),
 }
 

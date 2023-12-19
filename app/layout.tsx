@@ -4,7 +4,6 @@ const GTAGMGR_ID = process.env.NEXT_PUBLIC_GTAGMGR_ID || ""
 
 import "./globals.css"
 
-import Container from "../src/components/PageElements/Container"
 import Footer from "../src/components/PageElements/Footer"
 import Header from "../src/components/PageElements/Header"
 import { siteName, siteDescription } from "../src/siteBasic"
@@ -25,11 +24,11 @@ export const metadata: Metadata = {
     type: "website",
     siteName,
     title: siteName,
-    description: siteDescription
+    description: siteDescription,
   },
   twitter: {
     card: "summary",
-    site: "@ponta2twit"
+    site: "@ponta2twit",
   },
 }
 
@@ -41,7 +40,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <div className="flex min-h-screen flex-col">
           <div className="flex-grow">
             <Header />
-            <Container>{children}</Container>
+            {children}
           </div>
           <Footer />
         </div>

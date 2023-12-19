@@ -2,11 +2,12 @@ import { faTag } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { Metadata } from "next"
 
+import Container from "../../../src/components/PageElements/Container"
 import { ExcerptCard } from "../../../src/components/PageElements/ExcerptCard"
 import { Tab } from "../../../src/components/PageElements/Tab"
+import Wrapper from "../../../src/components/PageElements/Wrapper"
 import TagPageService from "../../../src/services/TagPageService"
 import { siteName } from "../../../src/siteBasic"
-
 
 export const dynamicParams = false
 
@@ -54,17 +55,19 @@ export default function Page({
   const { tag, posts } = service.getData(tagalias)
 
   return (
-    <>
+    <Wrapper>
       <Tab active="tags" />
-      <div className="mb-6 flex flex-row items-center justify-center gap-x-1">
-        <FontAwesomeIcon icon={faTag} size="sm" className="h-4 w-4" />
-        <span className="block text-sm">{tag.title}</span>
-      </div>
-      <div className="flex flex-col gap-y-14">
-        {posts.map((post) => (
-          <ExcerptCard key={post.frontmatter.date} post={post} />
-        ))}
-      </div>
-    </>
+      <Container>
+        <div className="mb-6 flex flex-row items-center justify-center gap-x-1">
+          <FontAwesomeIcon icon={faTag} size="sm" className="h-4 w-4" />
+          <span className="block text-sm">{tag.title}</span>
+        </div>
+        <div className="flex flex-col gap-y-14">
+          {posts.map((post) => (
+            <ExcerptCard key={post.frontmatter.date} post={post} />
+          ))}
+        </div>
+      </Container>
+    </Wrapper>
   )
 }

@@ -5,35 +5,28 @@ import { ActiveTabName, siteTabs } from "../../siteBasic"
 export function Tab({ active }: { active: ActiveTabName }) {
   // タブが増えたら横幅は手動で調整すること
   return (
-    <div className="flex flex-row">
+    <div className="relative z-10 flex flex-row justify-center md:mx-auto md:w-3/4 lg:w-3/5">
       {siteTabs.map((tab) =>
         active === tab.name ? (
-          <div key={tab.name} className="mb-8 mt-6 w-1/2 text-center text-sm">
-            <Link href={tab.topPage}>
-              <div className="max-w-screen mx-auto flex items-center justify-center transition-colors hover:text-[#40404088]">
-                <div className="flex w-full flex-col gap-y-1">
-                  <div className="w-full font-semibold leading-snug tracking-[0.4px]">
-                    {tab.displayText}
-                  </div>
-                  <div className="mx-auto h-[0.125rem] w-full rounded-full bg-[#1E6FBA]"></div>
-                </div>
-              </div>
+          <div
+            key={tab.name}
+            className="w-28 rounded-t-md bg-slate-50 py-2 text-center text-sm font-semibold leading-snug tracking-[0.4px] transition-colors hover:text-[#404040cf] md:w-1/4"
+          >
+            <Link className="inline-block h-full w-full" href={tab.topPage}>
+              {tab.displayText}
             </Link>
           </div>
         ) : (
           <div
             key={tab.name}
-            className="mb-8 mt-6 w-1/2 text-center text-sm transition-colors hover:text-[#40404088]"
+            className="w-28 rounded-t-md bg-[#9cbfdf] py-2 text-center text-sm font-light leading-snug tracking-[0.4px] transition-colors hover:bg-[#9cbfdf88]  hover:text-[#404040cf] md:w-1/4"
           >
-            <Link href={tab.topPage}>
-              <div className="max-w-screen mx-auto flex items-center justify-center">
-                <div className="flex w-full flex-col gap-y-1">
-                  <div className="w-full font-light leading-snug tracking-[0.4px]">
-                    {tab.displayText}
-                  </div>
-                  <div className="mx-auto h-[0.125rem] w-full rounded-full bg-[#d9dde3]"></div>
-                </div>
-              </div>
+            <Link
+              key={tab.name}
+              className="inline-block  h-full w-full"
+              href={tab.topPage}
+            >
+              {tab.displayText}
             </Link>
           </div>
         ),
