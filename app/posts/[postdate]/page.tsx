@@ -78,7 +78,7 @@ export default async function Page({
           </h2>
         </div>
 
-        <div className="mx-2 my-10 flex flex-col gap-6 lg:px-2">
+        <div className="mx-2 my-10 flex flex-col gap-8 lg:px-2">
           {content({ components: ArticleTags })}
         </div>
 
