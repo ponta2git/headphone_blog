@@ -7,9 +7,9 @@ export default function Header() {
       <div className="mx-auto flex w-full flex-col gap-y-4 py-10">
         <Link href="/">
           <Image
-            src={"/images/logo.png"}
-            width={144}
-            height={154}
+            src={"/images/headphone_blog_logo.png"}
+            width={300}
+            height={300}
             alt="pontaのヘッドホンブログ"
             priority
             className="mx-auto block"
