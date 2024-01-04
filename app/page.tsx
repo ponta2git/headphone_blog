@@ -13,7 +13,7 @@ export default async function Page() {
     <Wrapper>
       <Tab active="new" />
       <Container>
-        <div className="flex flex-col gap-y-14">
+        <div className="flex flex-col gap-y-10">
           {posts.map((post) => (
             <ExcerptCard key={post.frontmatter.date} post={post} />
           ))}
