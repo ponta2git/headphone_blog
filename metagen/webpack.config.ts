@@ -22,7 +22,7 @@ const config = {
     path: path.resolve(__dirname, 'dist'),
     filename: 'index.js',
   },
-
+  stats: "errors-only"
 } satisfies webpack.Configuration
 
 export default config
