@@ -2,7 +2,7 @@ import { writeFileSync } from "fs"
 
 import { DateTime } from "luxon"
 
-import PostRepository from "../infrastructure/PostRepository"
+import PostRepository from "../../src/infrastructure/PostRepository"
 
 const addIndex = () => {
   const date = DateTime.now()
@@ -31,7 +31,7 @@ const addPost = (date: string) => {
 }
 
 export const generateSitemap = () => {
-  const repo = new PostRepository();
+  const repo = new PostRepository("../posts");
   const posts = repo.getAllPostDates();
 
   const sitemap =
@@ -41,5 +41,5 @@ export const generateSitemap = () => {
     posts.map(addPost).join("\n") +
     "\n</urlset>\n"
 
-  writeFileSync("public/sitemap.xml", sitemap)
+  writeFileSync("../public/sitemap.xml", sitemap)
 }

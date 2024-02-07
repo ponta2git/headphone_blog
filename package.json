@@ -1,8 +1,7 @@
 {
   "scripts": {
-    "dev": "ts-node ./src/buildscripts/index.ts && next dev",
-    "generate-meta": "ts-node ./src/buildscripts/index.ts",
-    "build": "next build",
+    "dev": "next dev",
+    "build": "cd metagen && npm run start && cd .. & next build",
     "start": "next start",
     "lint": "next lint"
   },
@@ -22,8 +21,7 @@
     "remark-gfm": "^4.0.0",
     "remark-images": "^4.0.0",
     "remark-mdx-frontmatter": "^4.0.0",
-    "rss": "^1.2.2",
-    "ts-node": "^10.9.2"
+    "rss": "^1.2.2"
   },
   "devDependencies": {
     "@types/luxon": "^3.3.4",

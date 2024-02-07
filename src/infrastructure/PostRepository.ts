@@ -1,5 +1,4 @@
-import { readdirSync } from "fs"
-import { readFile } from "node:fs/promises"
+import { readFileSync, readdirSync } from "fs"
 import { basename, join } from "path"
 
 import PostFactory from "../domain/PostFactory"
@@ -30,8 +29,8 @@ export default class PostRepository {
     return posts
   }
 
-  constructor() {
-    this.postPathList = this.getAllPostPaths().sort()
+  constructor(path = "posts") {
+    this.postPathList = this.getAllPostPaths(path).sort()
   }
 
   public async getAllPosts() {
@@ -45,14 +44,14 @@ export default class PostRepository {
   }
 
   public async getByDateString(date: string) {
-    const postFile = await readFile(
+    const postFile = readFileSync(
       join("posts", date.slice(0, 4), `${date}.mdx`),
     )
     return await PostFactory.create(postFile)
   }
 
   public async getByFilePath(path: string) {
-    const postFile = await readFile(path)
+    const postFile = readFileSync(path)
     return await PostFactory.create(postFile)
   }
 

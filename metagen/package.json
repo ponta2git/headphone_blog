@@ -1,0 +1,19 @@
+{
+  "name": "metagen",
+  "version": "1.0.0",
+  "description": "headphone_blog metadata generator",
+  "main": "dist/index.js",
+  "scripts": {
+    "start": "webpack && node dist/index.js"
+  },
+  "author": "ponta",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.11.16",
+    "@types/webpack": "^5.28.5",
+    "ts-loader": "^9.5.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3",
+    "webpack-cli": "^5.1.4"
+  }
+}
