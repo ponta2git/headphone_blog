@@ -15,5 +15,9 @@
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3",
     "webpack-cli": "^5.1.4"
+  },
+  "dependencies": {
+    "@types/rss": "^0.0.32",
+    "rss": "^1.2.2"
   }
 }

@@ -4,7 +4,7 @@ import { DateTime } from "luxon"
 
 import PostRepository from "../../src/infrastructure/PostRepository"
 
-const addIndex = () => {
+function addIndex() {
   const date = DateTime.now()
 
   return (
@@ -17,7 +17,7 @@ const addIndex = () => {
   )
 }
 
-const addPost = (date: string) => {
+function addPost(date: string) {
   const year = date.slice(0, 4)
   const month = date.slice(4, 6)
   const day = date.slice(6, 8)
@@ -30,9 +30,9 @@ const addPost = (date: string) => {
   )
 }
 
-export const generateSitemap = () => {
-  const repo = new PostRepository("../posts");
-  const posts = repo.getAllPostDates();
+export function generateSitemap() {
+  const repo = new PostRepository("../posts")
+  const posts = repo.getAllPostDates()
 
   const sitemap =
     `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
