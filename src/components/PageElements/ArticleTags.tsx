@@ -11,9 +11,11 @@ const numberOnly = (num: string | number | undefined) =>
 
 const ArticleTags: MDXComponents = {
   h1: (props: HTMLProps<HTMLHeadingElement>) => (
-    <h3 {...props} className="text-lg" />
+    <h3 {...props} className="text-lg font-semibold" />
   ),
-  h2: (props: HTMLProps<HTMLHeadingElement>) => <h4 {...props} />,
+  h2: (props: HTMLProps<HTMLHeadingElement>) => (
+    <h4 {...props} className="font-semibold" />
+  ),
   a: ({ href, children, ...props }: HTMLProps<HTMLAnchorElement>) =>
     href ? (
       href.startsWith("http") ? (
