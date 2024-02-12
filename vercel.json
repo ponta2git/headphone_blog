@@ -2,11 +2,11 @@
   "rewrites": [
     {
       "destination": "https://ponta-headphone.net/sitemap.xml",
-      "source": "sitemap.xml"
+      "source": "/sitemap.xml"
     },
     {
       "destination": "https://ponta-headphone.net/rss.xml",
-      "source": "rss.xml"
+      "source": "/rss.xml"
     }
   ]
 }
