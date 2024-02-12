@@ -1,7 +1,7 @@
 {
   "scripts": {
     "dev": "next dev",
-    "build": "cd metagen && npm run start && cd .. & next build",
+    "build": "cd metagen && npm ci && npm run start && cd .. & next build",
     "start": "next start",
     "lint": "next lint"
   },
