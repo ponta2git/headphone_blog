@@ -1,0 +1,12 @@
+{
+  "rewrites": [
+    {
+      "source": "https://ponta-headphone.net/sitemap.xml",
+      "destination": "sitemap.xml"
+    },
+    {
+      "source": "https://ponta-headphone.net/rss.xml",
+      "destination": "rss.xml"
+    }
+  ]
+}
