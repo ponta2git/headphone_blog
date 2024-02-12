@@ -1,7 +1,8 @@
 {
+  "name": "headphone_blog",
   "scripts": {
     "dev": "next dev",
-    "build": "cd metagen && npm ci && npm run start && cd .. & next build",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
@@ -40,5 +41,9 @@
     "prettier-plugin-tailwindcss": "^0.5.7",
     "tailwindcss": "^3.3.5",
     "typescript": "^5.1.6"
-  }
+  },
+  "workspaces": [
+    "headphone_blog",
+    "metagen"
+  ]
 }
