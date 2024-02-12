@@ -1,5 +1,5 @@
 import { faTwitter } from "@fortawesome/free-brands-svg-icons"
-import { faEnvelope } from "@fortawesome/free-solid-svg-icons"
+import { faEnvelope, faRss } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { DateTime } from "luxon"
 
@@ -19,6 +19,9 @@ export default function Footer() {
             className="h-4 w-4"
           >
             <FontAwesomeIcon icon={faTwitter} />
+          </a>
+          <a href="/rss.xml" className="h-4 w-4">
+            <FontAwesomeIcon icon={faRss} />
           </a>
         </div>
         <p className="text-xs">このサイトはGoogle Analyticsを使用しています</p>
