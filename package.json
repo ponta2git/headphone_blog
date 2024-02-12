@@ -1,5 +1,4 @@
 {
-  "name": "headphone_blog",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -43,7 +42,6 @@
     "typescript": "^5.1.6"
   },
   "workspaces": [
-    "headphone_blog",
     "metagen"
   ]
 }
