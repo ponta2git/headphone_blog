@@ -9,7 +9,7 @@
   "parserOptions": {
     "project": "./tsconfig.json"
   },
-  "plugins": ["@typescript-eslint", "disable"],
+  "plugins": ["@typescript-eslint"],
   "rules": {
     "import/order": [
       "error",
@@ -32,6 +32,5 @@
       }
     ]
   },
-  "processor": "disable/disable",
   "root": true
 }
