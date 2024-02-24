@@ -1,5 +1,4 @@
-// @ts-ignore
-import { GoogleTagManager } from "@next/third-parties/google" // nextjsのバグっぽいが……？
+import { GoogleTagManager } from "@next/third-parties/google"
 const GTAGMGR_ID = process.env.NEXT_PUBLIC_GTAGMGR_ID || ""
 
 import "./globals.css"

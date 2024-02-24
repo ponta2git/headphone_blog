@@ -18,7 +18,7 @@ type MDXFrontmatter = {
 }
 
 // TODO: type check
-function isIterable<T>(obj: any): obj is Iterable<T> {
+function isIterable<T>(obj: unknown): obj is Iterable<T> {
   return Array.isArray(obj)
 }
 
