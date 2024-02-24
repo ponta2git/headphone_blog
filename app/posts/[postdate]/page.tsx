@@ -11,7 +11,7 @@ import ArticleTags from "../../../src/components/PageElements/ArticleTags"
 import Container from "../../../src/components/PageElements/Container"
 import { TagItem } from "../../../src/components/PageElements/TagItem"
 import PostPageService from "../../../src/services/PostPageService"
-import { siteName } from "../../../src/siteBasic"
+import { siteName, siteUrl } from "../../../src/siteBasic"
 
 export const dynamicParams = false
 
@@ -34,14 +34,14 @@ export async function generateMetadata({
     await service.buildMetadataSource(postdate)
 
   return {
-    metadataBase: new URL("https://ponta-headphone.net"),
+    metadataBase: new URL(siteUrl),
     title: `${frontmatter.title} - ${siteName}`,
     description,
     alternates: {
-      canonical: `https://ponta-headphone.net/posts/${postdate}`,
+      canonical: `${siteUrl}posts/${postdate}`,
     },
     openGraph: {
-      url: `https://ponta-headphone.net/posts/${postdate}`,
+      url: `${siteUrl}posts/${postdate}`,
       locale: "ja_JP",
       type: "article",
       title: `${frontmatter.title} - ${siteName}`,

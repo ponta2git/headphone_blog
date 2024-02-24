@@ -7,7 +7,7 @@ import { ExcerptCard } from "../../../src/components/PageElements/ExcerptCard"
 import { Tab } from "../../../src/components/PageElements/Tab"
 import Wrapper from "../../../src/components/PageElements/Wrapper"
 import TagPageService from "../../../src/services/TagPageService"
-import { siteName } from "../../../src/siteBasic"
+import { siteName, siteUrl } from "../../../src/siteBasic"
 
 export const dynamicParams = false
 
@@ -29,13 +29,14 @@ export function generateMetadata({
   const tag = service.buildMetadataSource(tagalias)
 
   return {
-    metadataBase: new URL("https://ponta-headphone.net"),
+    metadataBase: new URL(siteUrl),
     title: `${tag.title}: ${siteName}`,
+    description: `タグ ${tag.title} の一覧`,
     alternates: {
-      canonical: `https://ponta-headphone.net/tags/${tag.alias}`,
+      canonical: `${siteUrl}tags/${tag.alias}`,
     },
     openGraph: {
-      url: `https://ponta-headphone.net/tags/${tag.alias}`,
+      url: `${siteUrl}tags/${tag.alias}`,
       locale: "ja-JP",
       type: "article",
     },

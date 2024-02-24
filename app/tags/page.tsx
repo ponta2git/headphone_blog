@@ -5,20 +5,25 @@ import Container from "../../src/components/PageElements/Container"
 import { Tab } from "../../src/components/PageElements/Tab"
 import Wrapper from "../../src/components/PageElements/Wrapper"
 import TagIndexPageService from "../../src/services/TagIndexPageService"
-import { siteName } from "../../src/siteBasic"
+import { siteName, siteUrl } from "../../src/siteBasic"
 
 const service = await TagIndexPageService.create()
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://ponta-headphone.net"),
+  metadataBase: new URL(siteUrl),
   title: `タグ一覧 - ${siteName}`,
   alternates: {
-    canonical: "https://ponta-headphone.net/tags",
+    canonical: `${siteUrl}tags`,
   },
   openGraph: {
-    url: "https://ponta-headphone.net/tags",
+    url: `${siteUrl}tags`,
     locale: "ja-JP",
     type: "website",
+    siteName,
+  },
+  twitter: {
+    card: "summary",
+    site: "@ponta2twit",
   },
 }
 

@@ -5,20 +5,20 @@ import "./globals.css"
 
 import Footer from "../src/components/PageElements/Footer"
 import Header from "../src/components/PageElements/Header"
-import { siteName, siteDescription } from "../src/siteBasic"
+import { siteName, siteDescription, siteUrl } from "../src/siteBasic"
 
 import type { Metadata } from "next"
 import type { ReactNode } from "react"
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://ponta-headphone.net"),
+  metadataBase: new URL(siteUrl),
   title: siteName,
   description: siteDescription,
   alternates: {
-    canonical: "https://ponta-headphone.net/",
+    canonical: siteUrl,
   },
   openGraph: {
-    url: "https://ponta-headphone.net/",
+    url: siteUrl,
     locale: "ja_JP",
     type: "website",
     siteName,
