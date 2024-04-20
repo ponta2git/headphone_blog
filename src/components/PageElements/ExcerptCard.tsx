@@ -13,13 +13,13 @@ export function ExcerptCard({
 }: {
   post: Post
 }) {
-  const link = `/posts/${date.replaceAll("-", "")}`
+  const link = `/posts/${date.toISODate({ format: "basic" })}`
   return (
     <div className="flex flex-col gap-y-3">
       <div className="flex flex-col gap-y-1">
         <div className="flex flex-row gap-x-1">
           {tags.map((tag) => (
-            <TagItem key={tag.alias} tag={tag} />
+            <TagItem key={tag.path} tag={tag} />
           ))}
         </div>
         <h2 className="text-xl font-bold leading-snug tracking-[0.4px]">

@@ -2,7 +2,7 @@ import { writeFileSync } from "fs"
 
 import { DateTime } from "luxon"
 
-import PostRepository from "../../src/infrastructure/PostRepository"
+import { getAllPostDates } from "../../src/infrastructure/PostDatesRepository"
 
 function addIndex() {
   const date = DateTime.now()
@@ -10,29 +10,24 @@ function addIndex() {
   return (
     "<url>" +
     `<loc>https://ponta-headphone.net/</loc>` +
-    `<lastmod>${date.year}-${date.month.toString().padStart(2)}-${date.day
+    `<lastmod>${date.year}-${date.month.toString().padStart(2, "0")}-${date.day
       .toString()
-      .padStart(2)}</lastmod>` +
+      .padStart(2, "0")}</lastmod>` +
     "</url>"
   )
 }
 
-function addPost(date: string) {
-  const year = date.slice(0, 4)
-  const month = date.slice(4, 6)
-  const day = date.slice(6, 8)
-
+function addPost(date: DateTime) {
   return (
     "<url>" +
-    `<loc>https://ponta-headphone.net/posts/${date}</loc>` +
-    `<lastmod>${year}-${month}-${day}</lastmod>` +
+    `<loc>https://ponta-headphone.net/posts/${date.toISODate({ format: "basic" })}</loc>` +
+    `<lastmod>${date.year}-${date.month.toString().padStart(2, "0")}-${date.day.toString().padStart(2, "0")}</lastmod>` +
     "</url>"
   )
 }
 
-export function generateSitemap() {
-  const repo = new PostRepository("../posts")
-  const posts = repo.getAllPostDates()
+export async function generateSitemap() {
+  const posts = await getAllPostDates(true)
 
   const sitemap =
     `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +

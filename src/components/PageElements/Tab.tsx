@@ -1,12 +1,12 @@
 import Link from "next/link"
 
-import { ActiveTabName, siteTabs } from "../../siteBasic"
+import { PageTabName, allTabs } from "../../domain/PageTab"
 
-export function Tab({ active }: { active: ActiveTabName }) {
+export function Tab({ active }: { active: PageTabName }) {
   // タブが増えたら横幅は手動で調整すること
   return (
     <div className="relative z-10 flex flex-row justify-center md:mx-auto md:w-3/4 lg:w-3/5">
-      {siteTabs.map((tab) =>
+      {allTabs.map((tab) =>
         active === tab.name ? (
           <div
             key={tab.name}

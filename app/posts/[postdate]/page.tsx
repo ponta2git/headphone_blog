@@ -4,25 +4,28 @@ import {
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { DateTime } from "luxon"
 import { Metadata } from "next"
 import Link from "next/link"
 
 import ArticleTags from "../../../src/components/PageElements/ArticleTags"
 import Container from "../../../src/components/PageElements/Container"
 import { TagItem } from "../../../src/components/PageElements/TagItem"
-import PostPageService from "../../../src/services/PostPageService"
+import {
+  getAllPostDatesWithCache,
+  findPostByWithCache,
+} from "../../../src/infrastructure/CachedInfrastructure"
 import { siteName, siteUrl } from "../../../src/siteBasic"
 
 export const dynamicParams = false
 
-export type PostPageRouteParams = {
+type PostPageRouteParams = {
   postdate: string
 }
 
-const service = new PostPageService()
-
-export function generateStaticParams(): PostPageRouteParams[] {
-  return service.getRouteParams()
+export async function generateStaticParams(): Promise<PostPageRouteParams[]> {
+  const postDates = await getAllPostDatesWithCache()
+  return postDates.map((date) => ({ postdate: date.toFormat("yyyyMMdd") }))
 }
 
 export async function generateMetadata({
@@ -30,8 +33,9 @@ export async function generateMetadata({
 }: {
   params: PostPageRouteParams
 }): Promise<Metadata> {
-  const { frontmatter, description } =
-    await service.buildMetadataSource(postdate)
+  const { frontmatter, excerpt: description } = await findPostByWithCache(
+    DateTime.fromFormat(postdate, "yyyyMMdd"),
+  )
 
   return {
     metadataBase: new URL(siteUrl),
@@ -60,7 +64,19 @@ export default async function Page({
 }: {
   params: PostPageRouteParams
 }) {
-  const { post, prev, next } = await service.getData(postdate)
+  const postDates = await getAllPostDatesWithCache()
+  const pos = postDates.findIndex(
+    (date) => date.toFormat("yyyyMMdd") === postdate,
+  )
+
+  const [prev, post, next] = await Promise.all([
+    pos > 1 ? findPostByWithCache(postDates[pos - 1]) : undefined,
+    findPostByWithCache(postDates[pos]),
+    pos < postDates.length - 1
+      ? findPostByWithCache(postDates[pos + 1])
+      : undefined,
+  ])
+
   const { frontmatter, content } = post
 
   return (
@@ -69,7 +85,7 @@ export default async function Page({
         <div className="flex flex-col gap-y-1">
           <div className="flex flex-row items-baseline gap-x-1">
             {frontmatter.tags.map((tag) => (
-              <TagItem key={tag.alias} tag={tag} />
+              <TagItem key={tag.path} tag={tag} />
             ))}
           </div>
 
@@ -89,10 +105,7 @@ export default async function Page({
               href={
                 `https://twitter.com/intent/tweet` +
                 `?text=${frontmatter.title} - ${siteName}` +
-                `&url=https://ponta-headphone.net/posts/${frontmatter.date.replaceAll(
-                  "-",
-                  "",
-                )}`
+                `&url=https://ponta-headphone.net/posts/${frontmatter.date.toFormat("yyyyMMdd")}`
               }
               rel="noopener noreferrer"
             >
@@ -108,10 +121,10 @@ export default async function Page({
           <div className="w-1/3 shrink-0 pl-2 text-sm leading-6">
             {prev && (
               <Link
-                href={`/posts/${prev.date.replaceAll("-", "")}`}
+                href={`/posts/${prev.frontmatter.date.toFormat("yyyyMMdd")}`}
                 className="text-[#1E6FBA] transition-colors hover:text-[#1E6FBA88]"
               >
-                {prev.title}
+                {prev.frontmatter.title}
               </Link>
             )}
           </div>
@@ -119,10 +132,10 @@ export default async function Page({
           <div className="w-1/3 shrink-0 pr-2 text-right text-sm leading-6">
             {next && (
               <Link
-                href={`/posts/${next.date.replaceAll("-", "")}`}
+                href={`/posts/${next.frontmatter.date.toFormat("yyyyMMdd")}`}
                 className="text-[#1E6FBA] transition-colors hover:text-[#1E6FBA88]"
               >
-                {next.title}
+                {next.frontmatter.title}
               </Link>
             )}
           </div>
