@@ -1,7 +1,7 @@
 import { evaluate } from "@mdx-js/mdx"
 import { MDXModule } from "mdx/types"
 import { Fragment, ReactNode, isValidElement } from "react"
-import runtime from "react/jsx-runtime"
+import runtime, { jsx, jsxs } from "react/jsx-runtime"
 import remarkFrontmatter from "remark-frontmatter"
 import remarkGfm from "remark-gfm"
 import remarkImages from "remark-images"
@@ -67,6 +67,16 @@ export async function toPost(postFile: Buffer) {
         remarkImages,
       ],
       Fragment,
+      jsx: jsx as (
+        type: unknown, // fixme
+        props: unknown,
+        key?: React.Key,
+      ) => JSX.Element,
+      jsxs: jsxs as (
+        type: unknown, // fixme
+        props: unknown,
+        key?: React.Key,
+      ) => JSX.Element,
       development: false,
     })
   } catch (e) {
