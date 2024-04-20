@@ -3,14 +3,14 @@ import { writeFileSync } from "fs"
 import RSS from "rss"
 
 import { Post } from "../../src/domain/Post"
-import PostRepository from "../../src/infrastructure/PostRepository"
+import { getAllPostDates } from "../../src/infrastructure/PostDatesRepository"
+import { findPostBy } from "../../src/infrastructure/PostRepository"
 import { siteName, siteDescription } from "../../src/siteBasic"
 
 async function getLatest5Posts() {
-  const repo = new PostRepository("../posts")
-  const posts = (await repo.getAllPosts()).reverse()
-
-  return posts.slice(0, 5)
+  const postDates = (await getAllPostDates(true)).toReversed()
+  const sliced = postDates.slice(0, 5)
+  return await Promise.all(sliced.map((date) => findPostBy(date, true)))
 }
 
 function addRSSItem(posts: Post[], feed: RSS) {
@@ -18,11 +18,8 @@ function addRSSItem(posts: Post[], feed: RSS) {
     feed.item({
       title: post.frontmatter.title,
       description: post.excerpt,
-      url: `https://ponta-headphone.net/posts/${post.frontmatter.date.replaceAll(
-        "-",
-        "",
-      )}`,
-      date: post.frontmatter.date,
+      url: `https://ponta-headphone.net/posts/${post.frontmatter.date.toISODate({ format: "basic" })}`,
+      date: post.frontmatter.date.toISODate()!,
     })
   })
 }

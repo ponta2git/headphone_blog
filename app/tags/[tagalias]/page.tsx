@@ -6,19 +6,25 @@ import Container from "../../../src/components/PageElements/Container"
 import { ExcerptCard } from "../../../src/components/PageElements/ExcerptCard"
 import { Tab } from "../../../src/components/PageElements/Tab"
 import Wrapper from "../../../src/components/PageElements/Wrapper"
-import TagPageService from "../../../src/services/TagPageService"
+import {
+  allTags,
+  tagInPost,
+  toTagFromPathString,
+} from "../../../src/domain/Tag"
+import {
+  getAllPostDatesWithCache,
+  findPostByWithCache,
+} from "../../../src/infrastructure/CachedInfrastructure"
 import { siteName, siteUrl } from "../../../src/siteBasic"
 
 export const dynamicParams = false
 
-export type TagPageRouteParams = {
+type TagPageRouteParams = {
   tagalias: string
 }
 
-const service = await TagPageService.create()
-
 export function generateStaticParams() {
-  return service.getRouteParams()
+  return allTags().map((tag) => tag.path)
 }
 
 export function generateMetadata({
@@ -26,17 +32,17 @@ export function generateMetadata({
 }: {
   params: TagPageRouteParams
 }): Metadata {
-  const tag = service.buildMetadataSource(tagalias)
+  const tag = toTagFromPathString(tagalias)
 
   return {
     metadataBase: new URL(siteUrl),
     title: `${tag.title}: ${siteName}`,
     description: `タグ ${tag.title} の一覧`,
     alternates: {
-      canonical: `${siteUrl}tags/${tag.alias}`,
+      canonical: `${siteUrl}tags/${tag.path}`,
     },
     openGraph: {
-      url: `${siteUrl}tags/${tag.alias}`,
+      url: `${siteUrl}tags/${tag.path}`,
       locale: "ja-JP",
       type: "article",
     },
@@ -48,12 +54,16 @@ export function generateMetadata({
   }
 }
 
-export default function Page({
+export default async function Page({
   params: { tagalias },
 }: {
   params: TagPageRouteParams
 }) {
-  const { tag, posts } = service.getData(tagalias)
+  const tag = toTagFromPathString(tagalias)
+  const postDates = (await getAllPostDatesWithCache()).toReversed()
+  const posts = (
+    await Promise.all(postDates.map((date) => findPostByWithCache(date)))
+  ).filter((post) => tagInPost(tag, post))
 
   return (
     <Wrapper>
@@ -65,7 +75,7 @@ export default function Page({
         </div>
         <div className="flex flex-col gap-y-14">
           {posts.map((post) => (
-            <ExcerptCard key={post.frontmatter.date} post={post} />
+            <ExcerptCard key={post.frontmatter.date.toISODate()} post={post} />
           ))}
         </div>
       </Container>
