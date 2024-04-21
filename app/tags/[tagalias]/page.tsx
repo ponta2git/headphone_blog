@@ -23,7 +23,7 @@ type TagPageRouteParams = {
   tagalias: string
 }
 
-export function generateStaticParams() {
+export function generateStaticParams(): TagPageRouteParams[] {
   return allTags().map((tag) => ({ tagalias: tag.path }))
 }
 
