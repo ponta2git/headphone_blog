@@ -24,7 +24,7 @@ type TagPageRouteParams = {
 }
 
 export function generateStaticParams() {
-  return allTags().map((tag) => tag.path)
+  return allTags().map((tag) => ({ tagalias: tag.path }))
 }
 
 export function generateMetadata({
