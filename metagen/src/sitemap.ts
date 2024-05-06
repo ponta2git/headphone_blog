@@ -36,5 +36,6 @@ export async function generateSitemap() {
     posts.map(addPost).join("\n") +
     "\n</urlset>\n"
 
+  console.log("sitemap dir: ", __dirname)
   writeFileSync("../public/sitemap.xml", sitemap)
 }
