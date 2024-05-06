@@ -37,5 +37,5 @@ export async function generateSitemap() {
     "\n</urlset>\n"
 
   console.log("sitemap dir: ", __dirname)
-  writeFileSync("../public/sitemap.xml", sitemap)
+  writeFileSync("sitemap.xml", sitemap)
 }
