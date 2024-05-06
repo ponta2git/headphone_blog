@@ -21,7 +21,7 @@ date: "2024-03-23"
 tags: ["イベント"]
 ---
 
-body of mdx
+body of mdx. [link](http://example.com) in contents.
 `
       const mdxBuffer = Buffer.from(mdxStr)
 
@@ -45,7 +45,7 @@ body of mdx
       expect(actual).toStrictEqual<Post>({
         frontmatter,
         content: expect.anything() as MDXContent, // todo: anything
-        excerpt: "body of mdx...",
+        excerpt: "body of mdx. link in contents. ...",
       })
     })
   })

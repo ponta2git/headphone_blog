@@ -29,7 +29,7 @@ function isIterable<T>(obj: unknown): obj is Iterable<T> {
 }
 
 function generateExcerpt(body: string) {
-  return body.trim().substring(0, TRUNC_CHAR_COUNT).concat("...")
+  return body.trim().substring(0, TRUNC_CHAR_COUNT).concat(" ...")
 }
 
 function extractContent(node: ReactNode) {
@@ -43,11 +43,9 @@ function extractContent(node: ReactNode) {
   if (isValidElement<HasChildren>(node)) {
     if (isIterable<ReactNode>(node.props.children)) {
       for (const child of node.props.children) {
-        if (isValidElement<HasChildren>(child)) {
-          result += extractContent(child.props.children)
-        }
+        result += extractContent(child)
       }
-    } else if (typeof node.props.children === "string") {
+    } else {
       result += extractContent(node.props.children)
     }
   }
