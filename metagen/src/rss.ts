@@ -40,6 +40,5 @@ export async function generateRSS() {
 
   addRSSItem(posts, feed)
 
-  console.log("rss dir: ", __dirname)
-  writeFileSync("rss.xml", feed.xml())
+  writeFileSync("../public/rss.xml", feed.xml())
 }
