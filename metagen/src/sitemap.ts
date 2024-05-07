@@ -3,7 +3,6 @@ import { writeFileSync } from "fs"
 import { DateTime } from "luxon"
 
 import { getAllPostDates } from "../../src/infrastructure/PostDatesRepository"
-import { resolve } from "path"
 
 function addIndex() {
   const date = DateTime.now()
@@ -37,6 +36,5 @@ export async function generateSitemap() {
     posts.map(addPost).join("\n") +
     "\n</urlset>\n"
 
-  console.log("sitemap dir: ", resolve("../public/rss.xml"))
   writeFileSync("../public/rss.xml", sitemap)
 }
