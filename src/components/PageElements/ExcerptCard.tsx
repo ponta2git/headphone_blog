@@ -17,7 +17,7 @@ export function ExcerptCard({
   return (
     <div className="flex flex-col gap-y-3">
       <div className="flex flex-col gap-y-1">
-        <div className="flex flex-row gap-x-1">
+        <div className="flex flex-row gap-x-1 overflow-x-scroll whitespace-nowrap">
           {tags.map((tag) => (
             <TagItem key={tag.path} tag={tag} />
           ))}

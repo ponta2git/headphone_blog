@@ -31,14 +31,19 @@ export default function RelatedPosts({
             </Link>
           </p>
         ))}
-        <p className="mt-4 text-xs">
-          <Link
-            href={`/tags/${tags[0].path}`}
-            className="tracking-[0.4px] text-[#7b8ca2]"
-          >
-            他の「{tags[0].title}」の記事を読む
-          </Link>
-        </p>
+        <div className="mt-4 flex flex-col gap-2 text-xs">
+          {tags &&
+            tags.map((tag) => (
+              <p key={tag.path}>
+                <Link
+                  href={`/tags/${tag.path}`}
+                  className="tracking-[0.4px] text-[#7b8ca2]"
+                >
+                  他の「{tag.title}」の記事を読む
+                </Link>
+              </p>
+            ))}
+        </div>
       </div>
     </div>
   )

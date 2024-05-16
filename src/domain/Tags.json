@@ -4,5 +4,8 @@
   "システム": "system",
   "評価指標": "metric",
   "雑談": "chat",
-  "イベント": "event"
+  "イベント": "event",
+  "DAC": "dac",
+  "ヘッドホンアンプ": "hpa",
+  "ヘッドホン": "headphones"
 }

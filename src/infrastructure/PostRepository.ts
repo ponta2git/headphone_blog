@@ -89,5 +89,5 @@ export async function getPostsByTags(
           : 1,
     )
     .filter((post) => !post.frontmatter.date.equals(selfDate))
-    .slice(0, 3)
+    .slice(0, 5)
 }
