@@ -4,8 +4,8 @@ import { basename } from "path"
 
 import { DateTime } from "luxon"
 
-import { IgnoreFiles } from "../domain/PostDates"
 import { FileListCreateError } from "../Errors"
+import { IgnoreFiles } from "../siteBasic"
 import { postDir } from "../siteBasic"
 
 export async function getAllPostDates(metagen?: boolean): Promise<DateTime[]> {
