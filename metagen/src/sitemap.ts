@@ -36,5 +36,5 @@ export async function generateSitemap() {
     posts.map(addPost).join("\n") +
     "\n</urlset>\n"
 
-  writeFileSync("../public/rss.xml", sitemap)
+  writeFileSync("../public/sitemap.xml", sitemap)
 }

@@ -1,11 +1,11 @@
 {
   "rewrites": [
     {
-      "destination": "https://headphone-blog-metagen-git-main-ponta2git.vercel.app/sitemap.xml",
+      "destination": "https://headphone-blog-metagen-ponta2gits-projects.vercel.app/sitemap.xml",
       "source": "/sitemap.xml"
     },
     {
-      "destination": "https://headphone-blog-metagen-git-main-ponta2git.vercel.app/rss.xml",
+      "destination": "https://headphone-blog-metagen-ponta2gits-projects.vercel.app/rss.xml",
       "source": "/rss.xml"
     }
   ]
