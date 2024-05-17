@@ -1,3 +1,4 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import Link from "next/link"
 
 import { PageTabName, allTabs } from "../../domain/PageTab"
@@ -10,22 +11,33 @@ export function Tab({ active }: { active: PageTabName }) {
         active === tab.name ? (
           <div
             key={tab.name}
-            className="w-28 rounded-t-md bg-slate-50 py-2 text-center text-sm font-semibold leading-snug tracking-[0.4px] transition-colors hover:text-[#404040cf] md:w-1/4"
+            className="w-28 items-center rounded-t-md bg-slate-50 text-center text-xs font-semibold leading-snug tracking-[0.4px] text-[#404040] transition-colors hover:text-[#404040cf] md:w-1/4"
           >
-            <Link className="inline-block h-full w-full" href={tab.topPage}>
+            <Link
+              className="inline-flex h-full w-full flex-row items-center justify-center gap-1 py-[0.75rem]"
+              href={tab.topPage}
+            >
+              <FontAwesomeIcon
+                icon={tab.icon}
+                className="inline-block h-4 w-4"
+              />
               {tab.displayText}
             </Link>
           </div>
         ) : (
           <div
             key={tab.name}
-            className="w-28 rounded-t-md bg-[#9cbfdf] py-2 text-center text-sm font-light leading-snug tracking-[0.4px] transition-colors hover:bg-[#9cbfdf88]  hover:text-[#404040cf] md:w-1/4"
+            className=" w-28 items-center rounded-t-md bg-[#a0c1df] text-center text-xs font-light leading-snug tracking-[0.4px] text-[#404040] transition-colors hover:bg-[#9cbfdf88]  hover:text-[#404040cf] md:w-1/4"
           >
             <Link
               key={tab.name}
-              className="inline-block  h-full w-full"
+              className="inline-flex h-full w-full flex-row items-center justify-center gap-1 py-[0.75rem]"
               href={tab.topPage}
             >
+              <FontAwesomeIcon
+                icon={tab.icon}
+                className="inline-block h-4 w-4"
+              />
               {tab.displayText}
             </Link>
           </div>

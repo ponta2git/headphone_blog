@@ -25,7 +25,7 @@ export function ExcerptCard({
         <h2 className="text-xl font-bold leading-snug tracking-[0.4px]">
           <Link
             href={link}
-            className="flex flex-row items-center justify-start gap-x-1 transition-colors hover:text-[#40404088]"
+            className="ml-[0.25rem] flex flex-row items-center justify-start gap-x-1 transition-colors hover:text-[#40404088]"
           >
             {title}
             <FontAwesomeIcon

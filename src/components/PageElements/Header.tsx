@@ -8,8 +8,8 @@ export default function Header() {
         <Link href="/">
           <Image
             src={"/images/headphone_blog_logo.png"}
-            width={300}
-            height={300}
+            width={280}
+            height={280}
             alt="pontaのヘッドホンブログ"
             priority
             className="mx-auto block"
