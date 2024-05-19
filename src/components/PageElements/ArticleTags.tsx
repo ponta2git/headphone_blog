@@ -3,13 +3,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import Image from "next/image"
 import Link from "next/link"
 
-import type { MDXComponents } from "mdx/types"
+import type { MDXRemoteProps } from "next-mdx-remote/rsc"
 import type { HTMLProps } from "react"
 
 const numberOnly = (num: string | number | undefined) =>
   !Number.isNaN(Number(num)) ? Number(num) : undefined
 
-const ArticleTags: MDXComponents = {
+const ArticleTags: Required<MDXRemoteProps["components"]> = {
   h1: (props: HTMLProps<HTMLHeadingElement>) => (
     <h3 {...props} className="text-lg font-semibold" />
   ),

@@ -4,7 +4,7 @@ import { join } from "path"
 
 import { DateTime } from "luxon"
 
-import { Post, toPost } from "../domain/Post"
+import { Post, toPost } from "../domain/OldPost"
 import { Tag } from "../domain/Tag"
 import {
   FileListCreateError,

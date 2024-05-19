@@ -1,25 +1,35 @@
+import { readFile } from "fs/promises"
+
+import matter from "gray-matter"
+
 import Container from "../src/components/PageElements/Container"
 import { ExcerptCard } from "../src/components/PageElements/ExcerptCard"
 import { Tab } from "../src/components/PageElements/Tab"
 import Wrapper from "../src/components/PageElements/Wrapper"
-import {
-  getAllPostDatesWithCache,
-  findPostByWithCache,
-} from "../src/infrastructure/CachedInfrastructure"
+import { toFrontmatter } from "../src/domain/Frontmatter"
+import { getAllPostDatesWithCache } from "../src/infrastructure/CachedInfrastructure"
 
 export default async function Page() {
-  const postDates = (await getAllPostDatesWithCache()).toReversed()
-  const posts = await Promise.all(
-    postDates.map((date) => findPostByWithCache(date)),
-  )
+  const postDates = await getAllPostDatesWithCache()
+
+  const allPosts = await Promise.all([
+    ...postDates.map((date) =>
+      readFile(`posts/${date.year}/${date.toFormat("yyyyMMdd")}.mdx`),
+    ),
+  ])
+
+  const allMatters = allPosts
+    .map((post) => matter(String(post)))
+    .map((raw) => toFrontmatter(raw.data))
+    .toReversed()
 
   return (
     <Wrapper>
       <Tab active="new" />
       <Container>
-        <div className="flex flex-col gap-y-10">
-          {posts.map((post) => (
-            <ExcerptCard key={post.frontmatter.date.toISODate()} post={post} />
+        <div className="flex flex-col gap-y-8">
+          {allMatters.map((matt) => (
+            <ExcerptCard key={matt.date.toISODate()} frontmatter={matt} />
           ))}
         </div>
       </Container>

@@ -2,7 +2,7 @@ import { writeFileSync } from "fs"
 
 import RSS from "rss"
 
-import { Post } from "../../src/domain/Post"
+import { Post } from "../../src/domain/OldPost"
 import { getAllPostDates } from "../../src/infrastructure/PostDatesRepository"
 import { findPostBy } from "../../src/infrastructure/PostRepository"
 import { siteName, siteDescription } from "../../src/siteBasic"

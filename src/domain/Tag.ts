@@ -1,4 +1,4 @@
-import { Post } from "./Post"
+import { Frontmatter } from "./Frontmatter"
 import Definition from "./Tags.json"
 import { TagPathError, TagTitleError } from "../Errors"
 
@@ -24,8 +24,8 @@ function create(title: TagTitle): Tag {
   } satisfies Tag
 }
 
-export function tagInPost(tag: Tag, post: Post) {
-  return post.frontmatter.tags
+export function tagInPost(tag: Tag, matt: Frontmatter) {
+  return matt.tags
     .map((frontmatterTag) => frontmatterTag.title)
     .includes(tag.title)
 }

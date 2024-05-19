@@ -3,15 +3,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import Link from "next/link"
 
 import { TagItem } from "./TagItem"
-import { Post } from "../../domain/Post"
+import { Frontmatter } from "../../domain/Frontmatter"
 
 export function ExcerptCard({
-  post: {
-    frontmatter: { date, title, tags },
-    excerpt,
-  },
+  frontmatter: { date, title, tags },
 }: {
-  post: Post
+  frontmatter: Frontmatter
 }) {
   const link = `/posts/${date.toISODate({ format: "basic" })}`
   return (
@@ -22,7 +19,7 @@ export function ExcerptCard({
             <TagItem key={tag.path} tag={tag} />
           ))}
         </div>
-        <h2 className="text-xl font-bold leading-snug tracking-[0.4px]">
+        <h2 className="text-xl font-bold leading-snug tracking-[0.6px]">
           <Link
             href={link}
             className="ml-[0.25rem] flex flex-row items-center justify-start gap-x-1 transition-colors hover:text-[#40404088]"
@@ -34,9 +31,11 @@ export function ExcerptCard({
             />
           </Link>
         </h2>
-      </div>
-      <div className="px-2">
-        <p>{excerpt}</p>
+        <div className="text-sm leading-5 tracking-[0.2px]">
+          <p className="ml-[0.25rem] text-slate-500">
+            {date.toFormat("yyyy-MM-dd")}
+          </p>
+        </div>
       </div>
     </div>
   )

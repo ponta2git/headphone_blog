@@ -1,22 +1,23 @@
+import { readFile } from "fs/promises"
+
 import { faTwitter } from "@fortawesome/free-brands-svg-icons"
 import {
   faChevronLeft,
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import matter from "gray-matter"
 import { DateTime } from "luxon"
 import { Metadata } from "next"
 import Link from "next/link"
+import { MDXRemote } from "next-mdx-remote/rsc"
 
 import ArticleTags from "../../../src/components/PageElements/ArticleTags"
 import Container from "../../../src/components/PageElements/Container"
 import RelatedPosts from "../../../src/components/PageElements/RelatedPosts"
 import { TagItem } from "../../../src/components/PageElements/TagItem"
-import {
-  getAllPostDatesWithCache,
-  findPostByWithCache,
-  getPostsByTagsWithCache,
-} from "../../../src/infrastructure/CachedInfrastructure"
+import { toFrontmatter } from "../../../src/domain/Frontmatter"
+import { getAllPostDatesWithCache } from "../../../src/infrastructure/CachedInfrastructure"
 import { siteName, siteUrl } from "../../../src/siteBasic"
 
 export const dynamicParams = false
@@ -35,14 +36,16 @@ export async function generateMetadata({
 }: {
   params: PostPageRouteParams
 }): Promise<Metadata> {
-  const { frontmatter, excerpt: description } = await findPostByWithCache(
-    DateTime.fromFormat(postdate, "yyyyMMdd"),
+  const date = DateTime.fromFormat(postdate, "yyyyMMdd")
+  const file = await readFile(
+    `posts/${date.year}/${date.toFormat("yyyyMMdd")}.mdx`,
   )
+
+  const frontmatter = toFrontmatter(matter(file).data)
 
   return {
     metadataBase: new URL(siteUrl),
     title: `${frontmatter.title} - ${siteName}`,
-    description,
     alternates: {
       canonical: `${siteUrl}posts/${postdate}`,
     },
@@ -52,7 +55,6 @@ export async function generateMetadata({
       type: "article",
       title: `${frontmatter.title} - ${siteName}`,
       siteName,
-      description,
     },
     twitter: {
       card: "summary",
@@ -71,20 +73,41 @@ export default async function Page({
     (date) => date.toFormat("yyyyMMdd") === postdate,
   )
 
-  const [prev, post, next] = await Promise.all([
-    pos > 1 ? findPostByWithCache(postDates[pos - 1]) : undefined,
-    findPostByWithCache(postDates[pos]),
-    pos < postDates.length - 1
-      ? findPostByWithCache(postDates[pos + 1])
-      : undefined,
+  const allPosts = await Promise.all([
+    ...postDates.map((date) =>
+      readFile(`posts/${date.year}/${date.toFormat("yyyyMMdd")}.mdx`),
+    ),
   ])
 
-  const { frontmatter, content } = post
+  const [prev, post, next] = await Promise.all([
+    pos > 0 ? allPosts[pos - 1] : undefined,
+    allPosts[pos],
+    pos < postDates.length - 1 ? allPosts[pos + 1] : undefined,
+  ])
 
-  const related = await getPostsByTagsWithCache(
-    frontmatter.tags,
-    frontmatter.date,
-  )
+  const rawMatter = matter(String(post))
+  const frontmatter = toFrontmatter(rawMatter.data)
+
+  const prevRawMatter = prev ? matter(String(prev)) : undefined
+  const prevMatter = prevRawMatter
+    ? toFrontmatter(prevRawMatter.data)
+    : undefined
+  const nextRawMatter = next ? matter(String(next)) : undefined
+  const nextMatter = nextRawMatter
+    ? toFrontmatter(nextRawMatter.data)
+    : undefined
+
+  const related = allPosts
+    .filter((_, idx) => idx !== pos)
+    .map((post) => matter(String(post)))
+    .map((raw) => toFrontmatter(raw.data))
+    .filter((cand) =>
+      frontmatter.tags.some((postTag) =>
+        cand.tags.some((candTag) => postTag.path === candTag.path),
+      ),
+    )
+    .toReversed()
+    .slice(0, 5)
 
   return (
     <>
@@ -97,14 +120,26 @@ export default async function Page({
               ))}
             </div>
 
-            <h2 className="mx-2 text-2xl font-bold leading-snug tracking-[0.4px]">
+            <h2 className="mx-2 text-2xl font-bold leading-snug tracking-[0.6px]">
               {frontmatter.title}
             </h2>
           </div>
 
-          <div className="mx-2 my-10 flex flex-col gap-[1.825rem] lg:px-2">
-            {content({ components: ArticleTags })}
+          <div className="text-sm leading-7 tracking-[0.2px]">
+            <p className="ml-[0.5rem] text-slate-500">
+              {frontmatter.date.toFormat("yyyy-MM-dd")}
+            </p>
           </div>
+
+          <div className="mx-2 my-10 mt-6 flex flex-col gap-[1.825rem] lg:px-2">
+            <MDXRemote
+              source={post}
+              components={ArticleTags}
+              options={{ parseFrontmatter: true }}
+            />
+          </div>
+
+          {/* <PostText date={postdate} /> */}
 
           <div className="inline-flex flex-row items-center justify-start gap-2 text-xs text-[#7b8ca2] lg:px-2">
             <p>Share with</p>
@@ -127,23 +162,23 @@ export default async function Page({
               <FontAwesomeIcon icon={faChevronLeft} className="block h-4 w-4" />
             </div>
             <div className="w-1/3 shrink-0 pl-2 text-sm leading-6">
-              {prev && (
+              {prevMatter && (
                 <Link
-                  href={`/posts/${prev.frontmatter.date.toFormat("yyyyMMdd")}`}
+                  href={`/posts/${prevMatter.date.toFormat("yyyyMMdd")}`}
                   className="text-[#1E6FBA] transition-colors hover:text-[#1E6FBA88]"
                 >
-                  {prev.frontmatter.title}
+                  {prevMatter.title}
                 </Link>
               )}
             </div>
             <div className="w-1/3"></div>
             <div className="w-1/3 shrink-0 pr-2 text-right text-sm leading-6">
-              {next && (
+              {nextMatter && (
                 <Link
-                  href={`/posts/${next.frontmatter.date.toFormat("yyyyMMdd")}`}
+                  href={`/posts/${nextMatter.date.toFormat("yyyyMMdd")}`}
                   className="text-[#1E6FBA] transition-colors hover:text-[#1E6FBA88]"
                 >
-                  {next.frontmatter.title}
+                  {nextMatter.title}
                 </Link>
               )}
             </div>
@@ -156,7 +191,7 @@ export default async function Page({
           </div>
         </article>
       </Container>
-      <RelatedPosts tags={post.frontmatter.tags} posts={related} />
+      <RelatedPosts tags={frontmatter.tags} frontmatters={related} />
     </>
   )
 }

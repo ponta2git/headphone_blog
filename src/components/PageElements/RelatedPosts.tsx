@@ -2,15 +2,15 @@ import { faNewspaper } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import Link from "next/link"
 
-import { Post } from "../../domain/Post"
+import { Frontmatter } from "../../domain/Frontmatter"
 import { Tag } from "../../domain/Tag"
 
 export default function RelatedPosts({
   tags,
-  posts,
+  frontmatters,
 }: {
   tags: Tag[]
-  posts: Post[]
+  frontmatters: Frontmatter[]
 }) {
   return (
     <div className="mx-auto mb-24 w-[85vw] rounded-xl bg-slate-50 px-8 pb-8 pt-6 tracking-wide text-neutral-700 md:mx-auto md:w-3/5 lg:w-1/2">
@@ -21,13 +21,13 @@ export default function RelatedPosts({
         関連記事
       </h3>
       <div className="flex flex-col gap-2 leading-6">
-        {posts.map((post) => (
-          <p key={post.frontmatter.date.toISO()}>
+        {frontmatters.map((matter) => (
+          <p key={matter.date.toISO()}>
             <Link
-              href={`/posts/${post.frontmatter.date.toFormat("yyyyMMdd")}`}
+              href={`/posts/${matter.date.toFormat("yyyyMMdd")}`}
               className=" text-[#1E6FBA] transition-colors hover:text-[#1E6FBA88]"
             >
-              {post.frontmatter.title}
+              {matter.title}
             </Link>
           </p>
         ))}

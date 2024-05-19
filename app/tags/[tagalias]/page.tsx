@@ -1,20 +1,21 @@
+import { readFile } from "fs/promises"
+
 import { faTag } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import matter from "gray-matter"
 import { Metadata } from "next"
 
 import Container from "../../../src/components/PageElements/Container"
 import { ExcerptCard } from "../../../src/components/PageElements/ExcerptCard"
 import { Tab } from "../../../src/components/PageElements/Tab"
 import Wrapper from "../../../src/components/PageElements/Wrapper"
+import { toFrontmatter } from "../../../src/domain/Frontmatter"
 import {
   allTags,
   tagInPost,
   toTagFromPathString,
 } from "../../../src/domain/Tag"
-import {
-  getAllPostDatesWithCache,
-  findPostByWithCache,
-} from "../../../src/infrastructure/CachedInfrastructure"
+import { getAllPostDatesWithCache } from "../../../src/infrastructure/CachedInfrastructure"
 import { siteName, siteUrl } from "../../../src/siteBasic"
 
 export const dynamicParams = false
@@ -61,9 +62,17 @@ export default async function Page({
 }) {
   const tag = toTagFromPathString(tagalias)
   const postDates = (await getAllPostDatesWithCache()).toReversed()
-  const posts = (
-    await Promise.all(postDates.map((date) => findPostByWithCache(date)))
-  ).filter((post) => tagInPost(tag, post))
+
+  const allPosts = await Promise.all([
+    ...postDates.map((date) =>
+      readFile(`posts/${date.year}/${date.toFormat("yyyyMMdd")}.mdx`),
+    ),
+  ])
+
+  const frontmatters = allPosts
+    .map((file) => matter(file))
+    .map((raw) => toFrontmatter(raw.data))
+    .filter((matt) => tagInPost(tag, matt))
 
   return (
     <Wrapper>
@@ -71,11 +80,11 @@ export default async function Page({
       <Container>
         <div className="mb-6 flex flex-row items-center justify-center gap-x-1">
           <FontAwesomeIcon icon={faTag} size="sm" className="h-4 w-4" />
-          <span className="block text-sm">{tag.title}</span>
+          <span className="block">{tag.title}</span>
         </div>
-        <div className="flex flex-col gap-y-14">
-          {posts.map((post) => (
-            <ExcerptCard key={post.frontmatter.date.toISODate()} post={post} />
+        <div className="flex flex-col gap-y-8">
+          {frontmatters.map((matt) => (
+            <ExcerptCard key={matt.date.toISODate()} frontmatter={matt} />
           ))}
         </div>
       </Container>
