@@ -18,7 +18,6 @@ async function getLatest5PostMatters() {
 
 function addRSSItem(matters: Frontmatter[], feed: RSS) {
   matters.forEach((matt) => {
-    console.log(matt.date.toISO({ format: "extended", includeOffset: true })!)
     feed.item({
       title: matt.title,
       description: matt.title,
