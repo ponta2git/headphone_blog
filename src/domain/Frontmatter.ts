@@ -1,3 +1,4 @@
+import matter from "gray-matter"
 import { DateTime } from "luxon"
 
 import { Tag, toTagFromTitleString } from "./Tag"
@@ -9,7 +10,9 @@ export type Frontmatter = {
   tags: Tag[]
 }
 
-export function toFrontmatter(rawData: unknown) {
+export function toFrontmatter(file: Buffer) {
+  const { data: rawData } = matter(file)
+
   if (typeof rawData !== "object" || rawData === null) {
     throw ParseFrontmatterError("Frontmatter is not object")
   }

@@ -1,7 +1,3 @@
-import { readFile } from "fs/promises"
-
-import matter from "gray-matter"
-import { Metadata } from "next"
 import Link from "next/link"
 
 import Container from "../../src/components/PageElements/Container"
@@ -9,8 +5,13 @@ import { Tab } from "../../src/components/PageElements/Tab"
 import Wrapper from "../../src/components/PageElements/Wrapper"
 import { toFrontmatter } from "../../src/domain/Frontmatter"
 import { allTags, tagInPost } from "../../src/domain/Tag"
-import { getAllPostDatesWithCache } from "../../src/infrastructure/CachedInfrastructure"
+import {
+  findPostByDateWithCache,
+  getAllPostDatesWithCache,
+} from "../../src/infrastructure/CachedInfrastructure"
 import { siteName, siteUrl } from "../../src/siteBasic"
+
+import type { Metadata } from "next"
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -34,14 +35,10 @@ export default async function Page() {
   const tagList = allTags()
   const postDates = await getAllPostDatesWithCache()
   const allPosts = await Promise.all([
-    ...postDates.map((date) =>
-      readFile(`posts/${date.year}/${date.toFormat("yyyyMMdd")}.mdx`),
-    ),
+    ...postDates.map((date) => findPostByDateWithCache(date)),
   ])
 
-  const frontmatters = allPosts
-    .map((file) => matter(file))
-    .map((raw) => toFrontmatter(raw.data))
+  const frontmatters = allPosts.map((post) => toFrontmatter(post))
 
   const stats = tagList.map((tag) => ({
     tag,

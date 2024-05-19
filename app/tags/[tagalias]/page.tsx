@@ -1,8 +1,5 @@
-import { readFile } from "fs/promises"
-
 import { faTag } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import matter from "gray-matter"
 import { Metadata } from "next"
 
 import Container from "../../../src/components/PageElements/Container"
@@ -15,7 +12,10 @@ import {
   tagInPost,
   toTagFromPathString,
 } from "../../../src/domain/Tag"
-import { getAllPostDatesWithCache } from "../../../src/infrastructure/CachedInfrastructure"
+import {
+  findPostByDateWithCache,
+  getAllPostDatesWithCache,
+} from "../../../src/infrastructure/CachedInfrastructure"
 import { siteName, siteUrl } from "../../../src/siteBasic"
 
 export const dynamicParams = false
@@ -64,14 +64,11 @@ export default async function Page({
   const postDates = (await getAllPostDatesWithCache()).toReversed()
 
   const allPosts = await Promise.all([
-    ...postDates.map((date) =>
-      readFile(`posts/${date.year}/${date.toFormat("yyyyMMdd")}.mdx`),
-    ),
+    ...postDates.map((date) => findPostByDateWithCache(date)),
   ])
 
   const frontmatters = allPosts
-    .map((file) => matter(file))
-    .map((raw) => toFrontmatter(raw.data))
+    .map((file) => toFrontmatter(file))
     .filter((matt) => tagInPost(tag, matt))
 
   return (

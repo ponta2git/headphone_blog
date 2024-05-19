@@ -1,27 +1,21 @@
-import { readFile } from "fs/promises"
-
-import matter from "gray-matter"
-
 import Container from "../src/components/PageElements/Container"
 import { ExcerptCard } from "../src/components/PageElements/ExcerptCard"
 import { Tab } from "../src/components/PageElements/Tab"
 import Wrapper from "../src/components/PageElements/Wrapper"
 import { toFrontmatter } from "../src/domain/Frontmatter"
-import { getAllPostDatesWithCache } from "../src/infrastructure/CachedInfrastructure"
+import {
+  findPostByDateWithCache,
+  getAllPostDatesWithCache,
+} from "../src/infrastructure/CachedInfrastructure"
 
 export default async function Page() {
   const postDates = await getAllPostDatesWithCache()
 
   const allPosts = await Promise.all([
-    ...postDates.map((date) =>
-      readFile(`posts/${date.year}/${date.toFormat("yyyyMMdd")}.mdx`),
-    ),
+    ...postDates.map((date) => findPostByDateWithCache(date)),
   ])
 
-  const allMatters = allPosts
-    .map((post) => matter(String(post)))
-    .map((raw) => toFrontmatter(raw.data))
-    .toReversed()
+  const allMatters = allPosts.map((post) => toFrontmatter(post)).toReversed()
 
   return (
     <Wrapper>

@@ -1,12 +1,9 @@
-import { readFile } from "fs/promises"
-
 import { faTwitter } from "@fortawesome/free-brands-svg-icons"
 import {
   faChevronLeft,
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import matter from "gray-matter"
 import { DateTime } from "luxon"
 import { Metadata } from "next"
 import Link from "next/link"
@@ -17,7 +14,10 @@ import Container from "../../../src/components/PageElements/Container"
 import RelatedPosts from "../../../src/components/PageElements/RelatedPosts"
 import { TagItem } from "../../../src/components/PageElements/TagItem"
 import { toFrontmatter } from "../../../src/domain/Frontmatter"
-import { getAllPostDatesWithCache } from "../../../src/infrastructure/CachedInfrastructure"
+import {
+  findPostByDateWithCache,
+  getAllPostDatesWithCache,
+} from "../../../src/infrastructure/CachedInfrastructure"
 import { siteName, siteUrl } from "../../../src/siteBasic"
 
 export const dynamicParams = false
@@ -37,11 +37,9 @@ export async function generateMetadata({
   params: PostPageRouteParams
 }): Promise<Metadata> {
   const date = DateTime.fromFormat(postdate, "yyyyMMdd")
-  const file = await readFile(
-    `posts/${date.year}/${date.toFormat("yyyyMMdd")}.mdx`,
-  )
+  const file = await findPostByDateWithCache(date)
 
-  const frontmatter = toFrontmatter(matter(file).data)
+  const frontmatter = toFrontmatter(file)
 
   return {
     metadataBase: new URL(siteUrl),
@@ -74,33 +72,25 @@ export default async function Page({
   )
 
   const allPosts = await Promise.all([
-    ...postDates.map((date) =>
-      readFile(`posts/${date.year}/${date.toFormat("yyyyMMdd")}.mdx`),
-    ),
+    ...postDates.map((date) => findPostByDateWithCache(date)),
   ])
 
-  const [prev, post, next] = await Promise.all([
+  const allMatters = allPosts.map((post) => toFrontmatter(post))
+
+  const [prev, post, next] = [
     pos > 0 ? allPosts[pos - 1] : undefined,
     allPosts[pos],
     pos < postDates.length - 1 ? allPosts[pos + 1] : undefined,
-  ])
+  ]
 
-  const rawMatter = matter(String(post))
-  const frontmatter = toFrontmatter(rawMatter.data)
+  const [prevMatter, frontmatter, nextMatter] = [
+    prev ? allMatters[pos - 1] : undefined,
+    allMatters[pos],
+    next ? allMatters[pos + 1] : undefined,
+  ]
 
-  const prevRawMatter = prev ? matter(String(prev)) : undefined
-  const prevMatter = prevRawMatter
-    ? toFrontmatter(prevRawMatter.data)
-    : undefined
-  const nextRawMatter = next ? matter(String(next)) : undefined
-  const nextMatter = nextRawMatter
-    ? toFrontmatter(nextRawMatter.data)
-    : undefined
-
-  const related = allPosts
+  const related = allMatters
     .filter((_, idx) => idx !== pos)
-    .map((post) => matter(String(post)))
-    .map((raw) => toFrontmatter(raw.data))
     .filter((cand) =>
       frontmatter.tags.some((postTag) =>
         cand.tags.some((candTag) => postTag.path === candTag.path),
@@ -138,8 +128,6 @@ export default async function Page({
               options={{ parseFrontmatter: true }}
             />
           </div>
-
-          {/* <PostText date={postdate} /> */}
 
           <div className="inline-flex flex-row items-center justify-start gap-2 text-xs text-[#7b8ca2] lg:px-2">
             <p>Share with</p>
