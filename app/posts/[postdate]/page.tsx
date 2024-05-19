@@ -36,7 +36,10 @@ export async function generateMetadata({
 }: {
   params: PostPageRouteParams
 }): Promise<Metadata> {
-  const date = DateTime.fromFormat(postdate, "yyyyMMdd")
+  const date = DateTime.fromFormat(postdate, "yyyyMMdd", {
+    zone: "Asia/Tokyo",
+    locale: "ja-JP",
+  })
   const file = await findPostByDateWithCache(date)
 
   const frontmatter = toFrontmatter(file)

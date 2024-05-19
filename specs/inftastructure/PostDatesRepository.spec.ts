@@ -38,8 +38,14 @@ describe("PostDatesRepository", () => {
     ] as Dirent[]
     vi.mocked(readdir).mockResolvedValueOnce(files)
     const expected = [
-      DateTime.fromFormat("20231010", "yyyyMMdd"),
-      DateTime.fromFormat("20240204", "yyyyMMdd"),
+      DateTime.fromFormat("20231010", "yyyyMMdd", {
+        zone: "Asia/Tokyo",
+        locale: "ja-JP",
+      }),
+      DateTime.fromFormat("20240204", "yyyyMMdd", {
+        zone: "Asia/Tokyo",
+        locale: "ja-JP",
+      }),
     ]
 
     const actual = await getAllPostDates()

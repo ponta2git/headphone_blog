@@ -23,7 +23,10 @@ export function toFrontmatter(file: Buffer) {
   if (!("date" in rawData)) {
     throw ParseFrontmatterError("Date is not found")
   }
-  const date = DateTime.fromFormat(rawData.date as string, "yyyy-MM-dd")
+  const date = DateTime.fromFormat(rawData.date as string, "yyyy-MM-dd", {
+    zone: "Asia/Tokyo",
+    locale: "ja-JP",
+  })
   if (!date.isValid) {
     throw ParseFrontmatterError(
       `Cannot parse the date: ${rawData.date as string}`,

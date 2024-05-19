@@ -2,24 +2,28 @@ import { writeFileSync } from "fs"
 
 import RSS from "rss"
 
-import { Post } from "../../src/domain/OldPost"
+import { Frontmatter, toFrontmatter } from "../../src/domain/Frontmatter"
 import { getAllPostDates } from "../../src/infrastructure/PostDatesRepository"
-import { findPostBy } from "../../src/infrastructure/PostRepository"
+import { findPostByDate } from "../../src/infrastructure/PostRepository"
 import { siteName, siteDescription } from "../../src/siteBasic"
 
-async function getLatest5Posts() {
+async function getLatest5PostMatters() {
   const postDates = (await getAllPostDates(true)).toReversed()
   const sliced = postDates.slice(0, 5)
-  return await Promise.all(sliced.map((date) => findPostBy(date, true)))
+  const files = await Promise.all(
+    sliced.map((date) => findPostByDate(date, true)),
+  )
+  return files.map((file) => toFrontmatter(file))
 }
 
-function addRSSItem(posts: Post[], feed: RSS) {
-  posts.forEach((post) => {
+function addRSSItem(matters: Frontmatter[], feed: RSS) {
+  matters.forEach((matt) => {
+    console.log(matt.date.toISO({ format: "extended", includeOffset: true })!)
     feed.item({
-      title: post.frontmatter.title,
-      description: post.excerpt,
-      url: `https://ponta-headphone.net/posts/${post.frontmatter.date.toISODate({ format: "basic" })}`,
-      date: post.frontmatter.date.toISODate()!,
+      title: matt.title,
+      description: matt.title,
+      url: `https://ponta-headphone.net/posts/${matt.date.toISODate({ format: "basic" })}`,
+      date: matt.date.toISODate({ format: "extended" })!,
     })
   })
 }
@@ -36,7 +40,7 @@ function generateNewRSS() {
 
 export async function generateRSS() {
   const feed = generateNewRSS()
-  const posts = await getLatest5Posts()
+  const posts = await getLatest5PostMatters()
 
   addRSSItem(posts, feed)
 

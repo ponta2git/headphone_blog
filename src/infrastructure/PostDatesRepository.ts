@@ -22,7 +22,10 @@ export async function getAllPostDates(metagen?: boolean): Promise<DateTime[]> {
   return dirents
     .filter((dirent) => dirent.isFile() && !IgnoreFiles.includes(dirent.name))
     .map((dirent) =>
-      DateTime.fromFormat(basename(dirent.name, ".mdx"), "yyyyMMdd"),
+      DateTime.fromFormat(basename(dirent.name, ".mdx"), "yyyyMMdd", {
+        zone: "Asia/Tokyo",
+        locale: "ja-JP",
+      }),
     )
     .filter((date) => date.isValid)
     .toSorted()
