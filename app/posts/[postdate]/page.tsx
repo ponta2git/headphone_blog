@@ -8,6 +8,8 @@ import { DateTime } from "luxon"
 import { Metadata } from "next"
 import Link from "next/link"
 import { MDXRemote } from "next-mdx-remote/rsc"
+import remarkGfm from "remark-gfm"
+import remarkImages from "remark-images"
 
 import ArticleTags from "../../../src/components/PageElements/ArticleTags"
 import Container from "../../../src/components/PageElements/Container"
@@ -128,7 +130,12 @@ export default async function Page({
             <MDXRemote
               source={post}
               components={ArticleTags}
-              options={{ parseFrontmatter: true }}
+              options={{
+                parseFrontmatter: true,
+                mdxOptions: {
+                  remarkPlugins: [remarkGfm, remarkImages],
+                },
+              }}
             />
           </div>
 

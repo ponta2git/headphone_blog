@@ -1,10 +1,14 @@
-import { faExternalLink } from "@fortawesome/free-solid-svg-icons"
+import {
+  faCircleExclamation,
+  faExternalLink,
+  faInfoCircle,
+} from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import Image from "next/image"
 import Link from "next/link"
 
 import type { MDXRemoteProps } from "next-mdx-remote/rsc"
-import type { HTMLProps } from "react"
+import type { HTMLProps, PropsWithChildren } from "react"
 
 const numberOnly = (num: string | number | undefined) =>
   !Number.isNaN(Number(num)) ? Number(num) : undefined
@@ -67,6 +71,25 @@ const ArticleTags: Required<MDXRemoteProps["components"]> = {
   ),
   td: (props: HTMLProps<HTMLTableCellElement>) => (
     <td {...props} className="py-1 pl-1 pr-4 text-sm leading-6" />
+  ),
+  Info: (props: PropsWithChildren) => (
+    <div className="flex flex-row items-center gap-x-4 rounded-lg bg-sky-100 p-4 text-sm leading-6 tracking-[0.4px]">
+      <p className="h-[20px] w-[20px] shrink-0 text-sky-600">
+        <FontAwesomeIcon icon={faInfoCircle} />
+      </p>
+      {props.children}
+    </div>
+  ),
+  Warning: (props: PropsWithChildren) => (
+    <div className="flex flex-row items-center gap-x-4 rounded-lg bg-amber-100 p-4 text-sm leading-6 tracking-[0.4px]">
+      <p className="h-[20px] w-[20px] shrink-0 text-yellow-600">
+        <FontAwesomeIcon icon={faCircleExclamation} />
+      </p>
+      {props.children}
+    </div>
+  ),
+  Postscript: (props: PropsWithChildren) => (
+    <div className="text-sm text-slate-500">{props.children}</div>
   ),
 }
 
