@@ -109,19 +109,19 @@ export default async function Page({
       <Container postMode>
         <article>
           <div className="flex flex-col gap-y-1">
-            <div className="flex flex-row items-baseline gap-x-1">
+            <div className="flex flex-row items-baseline gap-x-1 leading-snug">
               {frontmatter.tags.map((tag) => (
                 <TagItem key={tag.path} tag={tag} />
               ))}
             </div>
 
-            <h2 className="mx-2 text-2xl font-bold leading-snug tracking-[0.6px]">
+            <h2 className="text-2xl font-bold leading-snug tracking-[0.6px]">
               {frontmatter.title}
             </h2>
           </div>
 
           <div className="text-sm leading-7 tracking-[0.2px]">
-            <p className="ml-[0.5rem] text-slate-500">
+            <p className="text-slate-500">
               {frontmatter.date.toFormat("yyyy-MM-dd")}
             </p>
           </div>
