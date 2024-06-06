@@ -38,7 +38,7 @@ const ArticleTags: Required<MDXRemoteProps["components"]> = {
       ) : (
         <Link
           href={href}
-          className=" text-[#1E6FBA] transition-colors hover:text-[#1E6FBA88]"
+          className="text-[#1E6FBA] transition-colors hover:text-[#1E6FBA88]"
         >
           {children}
         </Link>

@@ -27,7 +27,7 @@ export function Tab({ active }: { active: PageTabName }) {
         ) : (
           <div
             key={tab.name}
-            className=" w-28 items-center rounded-t-md bg-[#a0c1df] text-center text-xs font-light leading-snug tracking-[0.4px] text-[#404040] transition-colors hover:bg-[#9cbfdf88]  hover:text-[#404040cf] md:w-1/4"
+            className="w-28 items-center rounded-t-md bg-[#a0c1df] text-center text-xs font-light leading-snug tracking-[0.4px] text-[#404040] transition-colors hover:bg-[#9cbfdf88] hover:text-[#404040cf] md:w-1/4"
           >
             <Link
               key={tab.name}

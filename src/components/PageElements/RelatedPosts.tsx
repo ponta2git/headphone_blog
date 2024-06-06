@@ -25,7 +25,7 @@ export default function RelatedPosts({
           <p key={matter.date.toISO()}>
             <Link
               href={`/posts/${matter.date.toFormat("yyyyMMdd")}`}
-              className=" text-[#1E6FBA] transition-colors hover:text-[#1E6FBA88]"
+              className="text-[#1E6FBA] transition-colors hover:text-[#1E6FBA88]"
             >
               {matter.title}
             </Link>
