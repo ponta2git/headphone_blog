@@ -1,5 +1,3 @@
-import { faChevronRight } from "@fortawesome/free-solid-svg-icons"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import Link from "next/link"
 
 import { TagItem } from "./TagItem"
@@ -14,21 +12,17 @@ export function ExcerptCard({
   return (
     <div className="flex flex-col gap-y-3">
       <div className="flex flex-col gap-y-1">
-        <div className="flex flex-row gap-x-1 overflow-x-auto leading-snug">
+        <div className="flex flex-row items-baseline gap-x-1 leading-tight">
           {tags.map((tag) => (
             <TagItem key={tag.path} tag={tag} />
           ))}
         </div>
-        <h2 className="text-xl font-bold leading-snug tracking-[0.6px]">
+        <h2 className="line-break-strict text-xl font-bold leading-snug tracking-[0.6px]">
           <Link
             href={link}
-            className="ml-[0.25rem] flex flex-row items-center justify-start gap-x-1 transition-colors hover:text-[#40404088]"
+            className="ml-[0.25rem] transition-colors hover:text-[#40404088]"
           >
             {title}
-            <FontAwesomeIcon
-              icon={faChevronRight}
-              className="-mb-[0.15rem] h-3 w-3"
-            />
           </Link>
         </h2>
         <div className="text-sm leading-5 tracking-[0.2px]">

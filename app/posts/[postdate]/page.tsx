@@ -109,15 +109,15 @@ export default async function Page({
       <Container postMode>
         <article>
           <div className="flex flex-col gap-y-1">
-            <div className="flex flex-row items-baseline gap-x-1 leading-snug">
+            <div className="flex flex-row items-baseline gap-x-1 leading-tight">
               {frontmatter.tags.map((tag) => (
                 <TagItem key={tag.path} tag={tag} />
               ))}
             </div>
 
-            <h2 className="text-2xl font-bold leading-snug tracking-[0.6px]">
+            <h1 className="line-break-strict text-2xl font-bold leading-snug tracking-[0.6px]">
               {frontmatter.title}
-            </h2>
+            </h1>
           </div>
 
           <div className="text-sm leading-7 tracking-[0.2px]">
@@ -163,7 +163,7 @@ export default async function Page({
               {prevMatter && (
                 <Link
                   href={`/posts/${prevMatter.date.toFormat("yyyyMMdd")}`}
-                  className="text-[#1E6FBA] transition-colors hover:text-[#1E6FBA88]"
+                  className="line-break-strict text-[#1E6FBA] transition-colors hover:text-[#1E6FBA88]"
                 >
                   {prevMatter.title}
                 </Link>
@@ -174,7 +174,7 @@ export default async function Page({
               {nextMatter && (
                 <Link
                   href={`/posts/${nextMatter.date.toFormat("yyyyMMdd")}`}
-                  className="text-[#1E6FBA] transition-colors hover:text-[#1E6FBA88]"
+                  className="line-break-strict text-[#1E6FBA] transition-colors hover:text-[#1E6FBA88]"
                 >
                   {nextMatter.title}
                 </Link>
