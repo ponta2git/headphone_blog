@@ -15,10 +15,10 @@ const numberOnly = (num: string | number | undefined) =>
 
 const ArticleTags: Required<MDXRemoteProps["components"]> = {
   h1: (props: HTMLProps<HTMLHeadingElement>) => (
-    <h2 {...props} className="text-lg font-semibold" />
+    <h2 {...props} className="text-lg font-bold" />
   ),
   h2: (props: HTMLProps<HTMLHeadingElement>) => (
-    <h3 {...props} className="font-semibold" />
+    <h3 {...props} className="font-bold" />
   ),
   a: ({ href, children, ...props }: HTMLProps<HTMLAnchorElement>) =>
     href ? (
