@@ -18,6 +18,9 @@ export const metadata: Metadata = {
   title: `タグ一覧 - ${siteName}`,
   alternates: {
     canonical: `${siteUrl}tags`,
+    types: {
+      "application/rss+xml": "/rss.xml",
+    },
   },
   openGraph: {
     url: `${siteUrl}tags`,

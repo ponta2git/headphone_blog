@@ -41,6 +41,9 @@ export function generateMetadata({
     description: `タグ ${tag.title} の一覧`,
     alternates: {
       canonical: `${siteUrl}tags/${tag.path}`,
+      types: {
+        "application/rss+xml": "/rss.xml",
+      },
     },
     openGraph: {
       url: `${siteUrl}tags/${tag.path}`,

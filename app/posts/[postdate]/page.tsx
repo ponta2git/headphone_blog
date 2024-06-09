@@ -51,6 +51,9 @@ export async function generateMetadata({
     title: `${frontmatter.title} - ${siteName}`,
     alternates: {
       canonical: `${siteUrl}posts/${postdate}`,
+      types: {
+        "application/rss+xml": "/rss.xml",
+      },
     },
     openGraph: {
       url: `${siteUrl}posts/${postdate}`,

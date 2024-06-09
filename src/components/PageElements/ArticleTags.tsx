@@ -73,7 +73,7 @@ const ArticleTags: Required<MDXRemoteProps["components"]> = {
     <td {...props} className="py-1 pl-1 pr-4 text-sm leading-6" />
   ),
   p: (props: HTMLProps<HTMLParagraphElement>) => (
-    <p {...props} className="content tracking-[0.1px]" />
+    <p {...props} className="content tracking-normal" />
   ),
   Info: (props: PropsWithChildren) => (
     <div className="flex flex-row items-center gap-x-4 rounded-lg bg-sky-100 p-4 text-sm leading-6 tracking-[0.4px]">

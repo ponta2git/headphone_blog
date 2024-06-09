@@ -17,10 +17,10 @@ export function ExcerptCard({
             <TagItem key={tag.path} tag={tag} />
           ))}
         </div>
-        <h2 className="line-break-strict text-xl font-bold leading-snug tracking-[0.6px]">
+        <h2 className="line-break-strict ml-[0.25rem] text-xl font-bold leading-snug tracking-[0.6px]">
           <Link
             href={link}
-            className="ml-[0.25rem] transition-colors hover:text-[#40404088]"
+            className="transition-colors hover:text-[#40404088]"
           >
             {title}
           </Link>

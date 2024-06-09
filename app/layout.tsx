@@ -16,6 +16,9 @@ export const metadata: Metadata = {
   description: siteDescription,
   alternates: {
     canonical: siteUrl,
+    types: {
+      "application/rss+xml": "/rss.xml",
+    },
   },
   openGraph: {
     url: siteUrl,
