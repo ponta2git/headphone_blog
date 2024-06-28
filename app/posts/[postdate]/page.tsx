@@ -147,7 +147,7 @@ export default async function Page({
             <p className="h-4 w-4">
               <a
                 href={
-                  `https://twitter.com/intent/tweet` +
+                  "https://twitter.com/intent/tweet" +
                   `?text=${frontmatter.title} - ${siteName}` +
                   `&url=https://ponta-headphone.net/posts/${frontmatter.date.toFormat("yyyyMMdd")}`
                 }
