@@ -9,7 +9,7 @@ function addIndex() {
 
   return (
     "<url>" +
-    `<loc>https://ponta-headphone.net/</loc>` +
+    "<loc>https://ponta-headphone.net/</loc>" +
     `<lastmod>${date.year}-${date.month.toString().padStart(2, "0")}-${date.day
       .toString()
       .padStart(2, "0")}</lastmod>` +
@@ -30,9 +30,9 @@ export async function generateSitemap() {
   const posts = await getAllPostDates(true)
 
   const sitemap =
-    `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
+    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
     addIndex() +
-    `\n` +
+    "\n" +
     posts.map(addPost).join("\n") +
     "\n</urlset>\n"
 
