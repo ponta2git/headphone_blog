@@ -3,7 +3,7 @@ import { writeFileSync } from "fs"
 import RSS from "rss"
 
 import { Frontmatter, toFrontmatter } from "../../src/domain/Frontmatter"
-import { getAllPostDates } from "../../src/infrastructure/PostDatesRepository"
+import { getAllPostDates } from "../../src/infrastructure/PostDateRepository"
 import { findPostByDate } from "../../src/infrastructure/PostRepository"
 import { siteName, siteDescription } from "../../src/siteBasic"
 

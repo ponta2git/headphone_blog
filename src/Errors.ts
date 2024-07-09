@@ -17,3 +17,12 @@ export function TagTitleError(str: string) {
 export function TagPathError(str: string) {
   return new Error(`${str} is not in tag paths.`)
 }
+
+export function InvalidDateStringFormatError(
+  str: string,
+  expectedFormat: string,
+) {
+  return new Error(
+    `${str} is not valid date format. Expected format is ${expectedFormat}.`,
+  )
+}

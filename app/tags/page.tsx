@@ -1,8 +1,6 @@
 import Link from "next/link"
 
-import Container from "../../src/components/PageElements/Container"
-import { Tab } from "../../src/components/PageElements/Tab"
-import Wrapper from "../../src/components/PageElements/Wrapper"
+import TabContainer from "../../src/components/layout/Tab/TabContainer"
 import { toFrontmatter } from "../../src/domain/Frontmatter"
 import { allTags, tagInPost } from "../../src/domain/Tag"
 import {
@@ -52,26 +50,23 @@ export default async function Page() {
   }))
 
   return (
-    <Wrapper>
-      <Tab active="tags" />
-      <Container>
-        {stats.map((stat) => (
-          <p
-            key={stat.tag.path}
-            className="flex flex-row items-center justify-center gap-x-[0.125rem]"
+    <TabContainer activeTab="tags">
+      {stats.map((stat) => (
+        <p
+          key={stat.tag.path}
+          className="flex flex-row items-center justify-center gap-x-[0.125rem]"
+        >
+          <Link
+            href={`/tags/${stat.tag.path}`}
+            className="block tracking-[0.4px] transition-colors hover:text-[#40404088]"
           >
-            <Link
-              href={`/tags/${stat.tag.path}`}
-              className="block tracking-[0.4px] transition-colors hover:text-[#40404088]"
-            >
-              {stat.tag.title}
-            </Link>
-            <span className="block text-xs tracking-[0.4px] text-[#7b8ca2]">
-              ({stat.count})
-            </span>
-          </p>
-        ))}
-      </Container>
-    </Wrapper>
+            {stat.tag.title}
+          </Link>
+          <span className="block text-xs tracking-[0.4px] text-[#7b8ca2]">
+            ({stat.count})
+          </span>
+        </p>
+      ))}
+    </TabContainer>
   )
 }

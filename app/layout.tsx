@@ -3,8 +3,8 @@ const GTAGMGR_ID = process.env.NEXT_PUBLIC_GTAGMGR_ID || ""
 
 import "./globals.css"
 
-import Footer from "../src/components/PageElements/Footer"
-import Header from "../src/components/PageElements/Header"
+import Footer from "../src/components/layout/Footer"
+import Header from "../src/components/layout/Header"
 import { siteName, siteDescription, siteUrl } from "../src/siteBasic"
 
 import type { Metadata } from "next"

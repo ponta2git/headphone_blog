@@ -2,16 +2,10 @@ import { faTag } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { Metadata } from "next"
 
-import Container from "../../../src/components/PageElements/Container"
-import { ExcerptCard } from "../../../src/components/PageElements/ExcerptCard"
-import { Tab } from "../../../src/components/PageElements/Tab"
-import Wrapper from "../../../src/components/PageElements/Wrapper"
+import TabContainer from "../../../src/components/layout/Tab/TabContainer"
+import { ExcerptCard } from "../../../src/components/sections/article/ExcerptCard"
 import { toFrontmatter } from "../../../src/domain/Frontmatter"
-import {
-  allTags,
-  tagInPost,
-  toTagFromPathString,
-} from "../../../src/domain/Tag"
+import { allTags, tagInPost, toTagFromPath } from "../../../src/domain/Tag"
 import {
   findPostByDateWithCache,
   getAllPostDatesWithCache,
@@ -33,7 +27,7 @@ export function generateMetadata({
 }: {
   params: TagPageRouteParams
 }): Metadata {
-  const tag = toTagFromPathString(tagalias)
+  const tag = toTagFromPath(tagalias)
 
   return {
     metadataBase: new URL(siteUrl),
@@ -63,31 +57,28 @@ export default async function Page({
 }: {
   params: TagPageRouteParams
 }) {
-  const tag = toTagFromPathString(tagalias)
+  const tag = toTagFromPath(tagalias)
   const postDates = (await getAllPostDatesWithCache()).toReversed()
-
   const allPosts = await Promise.all([
     ...postDates.map((date) => findPostByDateWithCache(date)),
   ])
 
-  const frontmatters = allPosts
+  const displayDates = allPosts
     .map((file) => toFrontmatter(file))
     .filter((matt) => tagInPost(tag, matt))
+    .map((matter) => matter.date)
 
   return (
-    <Wrapper>
-      <Tab active="tags" />
-      <Container>
-        <div className="mb-6 flex flex-row items-center justify-center gap-x-1">
-          <FontAwesomeIcon icon={faTag} size="sm" className="h-4 w-4" />
-          <span className="block">{tag.title}</span>
-        </div>
-        <div className="flex flex-col gap-y-8">
-          {frontmatters.map((matt) => (
-            <ExcerptCard key={matt.date.toISODate()} frontmatter={matt} />
-          ))}
-        </div>
-      </Container>
-    </Wrapper>
+    <TabContainer activeTab="tags">
+      <div className="mb-6 flex flex-row items-center justify-center gap-x-1">
+        <FontAwesomeIcon icon={faTag} size="sm" className="h-4 w-4" />
+        <span className="block">{tag.title}</span>
+      </div>
+      <div className="flex flex-col gap-y-8">
+        {displayDates.map((date) => (
+          <ExcerptCard key={date.toISODate()} selfDate={date} />
+        ))}
+      </div>
+    </TabContainer>
   )
 }

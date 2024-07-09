@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import Link from "next/link"
 
-import { PageTabName, allTabs } from "../../domain/PageTab"
+import { PageTabName, allTabs } from "../../../domain/PageTab"
 
 export function Tab({ active }: { active: PageTabName }) {
   // タブが増えたら横幅は手動で調整すること

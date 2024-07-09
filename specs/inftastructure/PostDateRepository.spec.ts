@@ -4,7 +4,7 @@ import { readdir } from "fs/promises"
 import { DateTime } from "luxon"
 import { describe, test, afterEach, vi, expect } from "vitest"
 
-import { getAllPostDates } from "../../src/infrastructure/PostDatesRepository"
+import { getAllPostDates } from "../../src/infrastructure/PostDateRepository"
 
 vi.mock("fs/promises")
 

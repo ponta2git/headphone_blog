@@ -1,13 +1,14 @@
 import Link from "next/link"
 
-import { TagItem } from "./TagItem"
-import { Frontmatter } from "../../domain/Frontmatter"
+import { toFrontmatter } from "../../../domain/Frontmatter"
+import { PostDate } from "../../../domain/PostDate"
+import { findPostByDateWithCache } from "../../../infrastructure/CachedInfrastructure"
+import { TagItem } from "../../elements/TagItem"
 
-export function ExcerptCard({
-  frontmatter: { date, title, tags },
-}: {
-  frontmatter: Frontmatter
-}) {
+export async function ExcerptCard({ selfDate }: { selfDate: PostDate }) {
+  const post = await findPostByDateWithCache(selfDate)
+  const { date, tags, title } = toFrontmatter(post)
+
   const link = `/posts/${date.toISODate({ format: "basic" })}`
   return (
     <div className="flex flex-col gap-y-3">

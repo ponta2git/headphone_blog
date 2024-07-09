@@ -4,7 +4,7 @@ export default function Container({
   postMode = false,
   children,
 }: {
-  children?: ReactNode
+  children: ReactNode
   postMode?: boolean
 }) {
   return (

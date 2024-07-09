@@ -2,7 +2,7 @@ import { writeFileSync } from "fs"
 
 import { DateTime } from "luxon"
 
-import { getAllPostDates } from "../../src/infrastructure/PostDatesRepository"
+import { getAllPostDates } from "../../src/infrastructure/PostDateRepository"
 
 function addIndex() {
   const date = DateTime.now()

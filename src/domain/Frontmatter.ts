@@ -1,7 +1,8 @@
 import matter from "gray-matter"
 import { DateTime } from "luxon"
 
-import { Tag, toTagFromTitleString } from "./Tag"
+import { Post } from "./Post"
+import { Tag, toTagFromTitle } from "./Tag"
 import { ParseFrontmatterError } from "../Errors"
 
 export type Frontmatter = {
@@ -10,8 +11,8 @@ export type Frontmatter = {
   tags: Tag[]
 }
 
-export function toFrontmatter(file: Buffer) {
-  const { data: rawData } = matter(file)
+export function toFrontmatter(post: Post) {
+  const { data: rawData } = matter(post)
 
   if (typeof rawData !== "object" || rawData === null) {
     throw ParseFrontmatterError("Frontmatter is not object")
@@ -43,6 +44,6 @@ export function toFrontmatter(file: Buffer) {
   return {
     title: rawData.title as string,
     date,
-    tags: rawData.tags.map((rawTag) => toTagFromTitleString(rawTag as string)),
+    tags: rawData.tags.map((rawTag) => toTagFromTitle(rawTag as string)),
   } satisfies Frontmatter
 }

@@ -30,7 +30,7 @@ export function tagInPost(tag: Tag, matt: Frontmatter) {
     .includes(tag.title)
 }
 
-export function toTagFromTitleString(str: string) {
+export function toTagFromTitle(str: string) {
   if (!isTitle(str)) {
     throw TagTitleError(str)
   }
@@ -38,7 +38,7 @@ export function toTagFromTitleString(str: string) {
   return create(str)
 }
 
-export function toTagFromPathString(str: string) {
+export function toTagFromPath(str: string) {
   if (!isPath(str)) {
     throw TagPathError(str)
   }
@@ -51,4 +51,8 @@ export function toTagFromPathString(str: string) {
 
 export function allTags() {
   return Object.keys(Definition).map((key) => create(key as TagTitle))
+}
+
+export function isTagEqual(a: Tag, b: Tag) {
+  return a.path === b.path
 }

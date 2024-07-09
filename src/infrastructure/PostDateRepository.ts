@@ -4,11 +4,12 @@ import { basename } from "path"
 
 import { DateTime } from "luxon"
 
+import { PostDate } from "../domain/PostDate"
 import { FileListCreateError } from "../Errors"
 import { IgnoreFiles } from "../siteBasic"
 import { postDir } from "../siteBasic"
 
-export async function getAllPostDates(metagen?: boolean): Promise<DateTime[]> {
+export async function getAllPostDates(metagen?: boolean): Promise<PostDate[]> {
   let dirents: Dirent[]
   try {
     dirents = await readdir(metagen ? `../${postDir}` : postDir, {
