@@ -27,6 +27,15 @@ export default function Footer() {
           <Link href="/privacy">Privacy Policy</Link>
         </div>
         <p className="text-xs">(C){year} ponta.</p>
+        <p className="text-xs">
+          under{" "}
+          <a
+            href="https://creativecommons.org/licenses/by-nc-nd/4.0/"
+            rel="noopener noreferrer"
+          >
+            CC BY-NC-ND 4.0
+          </a>
+        </p>
       </div>
     </footer>
   );
