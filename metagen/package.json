@@ -7,17 +7,16 @@
     "start": "webpack && node dist/index.js"
   },
   "author": "ponta",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
-    "@types/node": "^20.11.16",
+    "@types/node": "^20.17.19",
+    "@types/rss": "^0.0.32",
     "@types/webpack": "^5.28.5",
-    "ts-loader": "^9.5.1",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.3.3",
-    "webpack-cli": "^5.1.4"
+    "ts-loader": "^9.5.2",
+    "typescript": "^5.7.3",
+    "webpack-cli": "^6.0.1"
   },
   "dependencies": {
-    "@types/rss": "^0.0.32",
     "rss": "^1.2.2"
   }
 }

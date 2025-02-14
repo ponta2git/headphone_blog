@@ -2,7 +2,7 @@ import path from "path"
 
 import webpack from "webpack"
 
-const config = {
+const config: webpack.Configuration = {
   target: "node",
   mode: "production",
   entry: "./src/index.ts",
@@ -10,19 +10,19 @@ const config = {
     rules: [
       {
         test: /\.ts$/,
-        use: 'ts-loader',
+        use: "ts-loader",
         exclude: /node_modules/,
       },
     ],
   },
   resolve: {
-    extensions: ['.ts', '.js'],
+    extensions: [".ts", ".js"],
   },
   output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: 'index.js',
+    path: path.resolve(__dirname, "dist"),
+    filename: "index.js",
   },
-  stats: "errors-only"
-} satisfies webpack.Configuration
+  stats: "errors-only",
+}
 
 export default config
