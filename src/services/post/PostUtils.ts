@@ -1,5 +1,6 @@
 import { evaluateSync } from "@mdx-js/mdx";
 import React from "react";
+import runtime from "react/jsx-runtime";
 import remarkFrontmatter from "remark-frontmatter";
 import remarkGfm from "remark-gfm";
 import remarkImages from "remark-images";
@@ -9,7 +10,10 @@ import { unified } from "unified";
 import { visit } from "unist-util-visit";
 
 import { PostdateService } from "../date/PostdateService";
-import { createMdxCompileError, createParseFrontmatterError } from "../errors/ErrorFactory";
+import {
+  createMdxCompileError,
+  createParseFrontmatterError,
+} from "../errors/ErrorFactory";
 import { TagService } from "../tag/TagService";
 
 import type { Post } from "./PostTypes";
@@ -20,6 +24,8 @@ export function evaluateMdxContent(file: Buffer): Post {
   let mdxModule: MDXModule;
   try {
     mdxModule = evaluateSync(file, {
+      jsx: runtime.jsx as Parameters<typeof evaluateSync>[1]["jsx"],
+      jsxs: runtime.jsxs as Parameters<typeof evaluateSync>[1]["jsxs"],
       Fragment: React.Fragment,
       remarkPlugins: [
         remarkFrontmatter,
@@ -79,7 +85,11 @@ function convertFrontmatter(raw: unknown): Post["frontmatter"] {
 }
 
 function createExcerpt(file: Buffer): string {
-  const tree = unified().use(remarkParse).parse(file);
+  const content = file.toString();
+  const frontmatterEndIndex = content.indexOf("---", 3) + 3; // Find the end of the frontmatter
+  const contentWithoutFrontmatter = content.slice(frontmatterEndIndex).trim();
+
+  const tree = unified().use(remarkParse).parse(contentWithoutFrontmatter);
   let textContent = "";
 
   visit(tree, "text", (node) => {
