@@ -1,6 +1,6 @@
-import Link from "next/link"
+import Link from "next/link";
 
-import { Tag } from "../../domain/Tag"
+import { Tag } from "../../domain/Tag";
 
 export function TagItem({ tag }: { tag: Tag }) {
   return (
@@ -12,5 +12,5 @@ export function TagItem({ tag }: { tag: Tag }) {
         <span className="shadow-slate-900 drop-shadow-lg">{tag.title}</span>
       </Link>
     </div>
-  )
+  );
 }

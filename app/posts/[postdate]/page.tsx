@@ -1,41 +1,44 @@
-import { Metadata } from "next"
-import { MDXRemote } from "next-mdx-remote/rsc"
-import remarkGfm from "remark-gfm"
-import remarkImages from "remark-images"
+import { MDXRemote } from "next-mdx-remote/rsc";
+import remarkGfm from "remark-gfm";
+import remarkImages from "remark-images";
 
-import ArticleTags from "../../../src/ArticleTags"
-import RelatedPosts from "../../../src/components/elements/RelatedPosts"
-import { TagItem } from "../../../src/components/elements/TagItem"
-import Container from "../../../src/components/layout/Container"
-import { Neighbours } from "../../../src/components/sections/article/Neighbours"
-import { toFrontmatter } from "../../../src/domain/Frontmatter"
-import { toPostDate_yyyyMMdd } from "../../../src/domain/PostDate"
+import ArticleTags from "../../../src/ArticleTags";
+import RelatedPosts from "../../../src/components/elements/RelatedPosts";
+import { TagItem } from "../../../src/components/elements/TagItem";
+import Container from "../../../src/components/layout/Container";
+import { Neighbours } from "../../../src/components/sections/article/Neighbours";
+import { toFrontmatter } from "../../../src/domain/Frontmatter";
+import { toPostDate_yyyyMMdd } from "../../../src/domain/PostDate";
 import {
   findPostByDateWithCache,
   getAllPostDatesWithCache,
-} from "../../../src/infrastructure/CachedInfrastructure"
-import { siteName, siteUrl } from "../../../src/siteBasic"
+} from "../../../src/infrastructure/CachedInfrastructure";
+import { siteName, siteUrl } from "../../../src/siteBasic";
 
-export const dynamicParams = false
+import type { Metadata } from "next";
+
+export const dynamicParams = false;
 
 type PostPageRouteParams = {
-  postdate: string
-}
+  postdate: string;
+};
 
 export async function generateStaticParams(): Promise<PostPageRouteParams[]> {
-  const postDates = await getAllPostDatesWithCache()
-  return postDates.map((date) => ({ postdate: date.toFormat("yyyyMMdd") }))
+  const postDates = await getAllPostDatesWithCache();
+  return postDates.map((date) => ({ postdate: date.toFormat("yyyyMMdd") }));
 }
 
-export async function generateMetadata({
-  params: { postdate },
-}: {
-  params: PostPageRouteParams
+export async function generateMetadata(props: {
+  params: Promise<PostPageRouteParams>;
 }): Promise<Metadata> {
-  const date = toPostDate_yyyyMMdd(postdate)
-  const file = await findPostByDateWithCache(date)
+  const params = await props.params;
 
-  const frontmatter = toFrontmatter(file)
+  const { postdate } = params;
+
+  const date = toPostDate_yyyyMMdd(postdate);
+  const file = await findPostByDateWithCache(date);
+
+  const frontmatter = toFrontmatter(file);
 
   return {
     metadataBase: new URL(siteUrl),
@@ -57,17 +60,19 @@ export async function generateMetadata({
       card: "summary",
       site: "@ponta2twit",
     },
-  }
+  };
 }
 
-export default async function Page({
-  params: { postdate },
-}: {
-  params: PostPageRouteParams
+export default async function Page(props: {
+  params: Promise<PostPageRouteParams>;
 }) {
-  const postDate = toPostDate_yyyyMMdd(postdate)
-  const post = await findPostByDateWithCache(postDate)
-  const frontmatter = toFrontmatter(post)
+  const params = await props.params;
+
+  const { postdate } = params;
+
+  const postDate = toPostDate_yyyyMMdd(postdate);
+  const post = await findPostByDateWithCache(postDate);
+  const frontmatter = toFrontmatter(post);
 
   return (
     <>
@@ -80,7 +85,7 @@ export default async function Page({
               ))}
             </div>
 
-            <h1 className="line-break-strict text-2xl font-bold leading-snug tracking-[0.6px]">
+            <h1 className="line-break-strict text-2xl leading-snug font-bold tracking-[0.6px]">
               {frontmatter.title}
             </h1>
           </div>
@@ -113,5 +118,5 @@ export default async function Page({
         <RelatedPosts selfTags={frontmatter.tags} selfDate={postDate} />
       </div>
     </>
-  )
+  );
 }

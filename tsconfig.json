@@ -25,11 +25,11 @@
     ".next/types/**/*.ts",
     "**/*.ts",
     "**/*.tsx",
-    "**/*.mjs",
-    "metagen/rollup.config.js"
+    "**/*.mjs"
   ],
   "exclude": ["node_modules"],
   "path": {
-    "@/*": ["./src/*"]
+    "@app/*": ["./app/*"],
+    "@src/*": ["./src/*"]
   }
 }

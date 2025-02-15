@@ -1,28 +1,28 @@
-import { faNewspaper } from "@fortawesome/free-solid-svg-icons"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import Link from "next/link"
+import { faNewspaper } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Link from "next/link";
 
-import { toFrontmatter } from "../../domain/Frontmatter"
-import { PostDate } from "../../domain/PostDate"
-import { isTagEqual, Tag } from "../../domain/Tag"
+import { toFrontmatter } from "../../domain/Frontmatter";
+import { PostDate } from "../../domain/PostDate";
+import { isTagEqual, Tag } from "../../domain/Tag";
 import {
   findPostByDateWithCache,
   getAllPostDatesWithCache,
-} from "../../infrastructure/CachedInfrastructure"
+} from "../../infrastructure/CachedInfrastructure";
 
 export default async function RelatedPosts({
   selfTags,
   selfDate,
 }: {
-  selfTags: Tag[]
-  selfDate: PostDate
+  selfTags: Tag[];
+  selfDate: PostDate;
 }) {
-  const allDates = await getAllPostDatesWithCache()
-  const dates = allDates.filter((date) => !date.equals(selfDate))
+  const allDates = await getAllPostDatesWithCache();
+  const dates = allDates.filter((date) => !date.equals(selfDate));
   const posts = await Promise.all([
     ...dates.map((date) => findPostByDateWithCache(date)),
-  ])
-  const matters = posts.map((post) => toFrontmatter(post))
+  ]);
+  const matters = posts.map((post) => toFrontmatter(post));
 
   const frontmatters = matters
     .filter((cand) =>
@@ -31,11 +31,11 @@ export default async function RelatedPosts({
       ),
     )
     .toReversed()
-    .slice(0, 5)
+    .slice(0, 5);
 
   return (
-    <div className="rounded-xl bg-slate-50 px-8 pb-8 pt-6 tracking-wide text-neutral-700">
-      <h3 className="mb-4 flex flex-row items-center gap-2 font-semibold leading-8">
+    <div className="rounded-xl bg-slate-50 px-8 pt-6 pb-8 tracking-wide text-neutral-700">
+      <h3 className="mb-4 flex flex-row items-center gap-2 leading-8 font-semibold">
         <span className="inline-block h-4 w-4">
           <FontAwesomeIcon icon={faNewspaper} />
         </span>
@@ -66,5 +66,5 @@ export default async function RelatedPosts({
         </div>
       </div>
     </div>
-  )
+  );
 }

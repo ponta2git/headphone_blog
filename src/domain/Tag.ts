@@ -1,58 +1,59 @@
-import { Frontmatter } from "./Frontmatter"
-import Definition from "./Tags.json"
-import { TagPathError, TagTitleError } from "../Errors"
+import Definition from "./Tags.json";
+import { TagPathError, TagTitleError } from "../Errors";
 
-type TagTitle = keyof typeof Definition
+import type { Frontmatter } from "./Frontmatter";
+
+type TagTitle = keyof typeof Definition;
 
 export type Tag = {
-  title: TagTitle
-  path: string
-}
+  title: TagTitle;
+  path: string;
+};
 
 function isTitle(str: string): str is TagTitle {
-  return str in Definition
+  return str in Definition;
 }
 
 function isPath(str: string) {
-  return Object.values(Definition).includes(str)
+  return Object.values(Definition).includes(str);
 }
 
 function create(title: TagTitle): Tag {
   return {
     title,
     path: Definition[title],
-  } satisfies Tag
+  } satisfies Tag;
 }
 
 export function tagInPost(tag: Tag, matt: Frontmatter) {
   return matt.tags
     .map((frontmatterTag) => frontmatterTag.title)
-    .includes(tag.title)
+    .includes(tag.title);
 }
 
 export function toTagFromTitle(str: string) {
   if (!isTitle(str)) {
-    throw TagTitleError(str)
+    throw TagTitleError(str);
   }
 
-  return create(str)
+  return create(str);
 }
 
 export function toTagFromPath(str: string) {
   if (!isPath(str)) {
-    throw TagPathError(str)
+    throw TagPathError(str);
   }
 
   const title = Object.keys(Definition).find(
     (key) => Definition[key as TagTitle] === str,
-  ) as TagTitle
-  return create(title)
+  ) as TagTitle;
+  return create(title);
 }
 
 export function allTags() {
-  return Object.keys(Definition).map((key) => create(key as TagTitle))
+  return Object.keys(Definition).map((key) => create(key as TagTitle));
 }
 
 export function isTagEqual(a: Tag, b: Tag) {
-  return a.path === b.path
+  return a.path === b.path;
 }

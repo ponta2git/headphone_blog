@@ -1,33 +1,36 @@
-import { faTag } from "@fortawesome/free-solid-svg-icons"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { Metadata } from "next"
+import { faTag } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import TabContainer from "../../../src/components/layout/Tab/TabContainer"
-import { ExcerptCard } from "../../../src/components/sections/article/ExcerptCard"
-import { toFrontmatter } from "../../../src/domain/Frontmatter"
-import { allTags, tagInPost, toTagFromPath } from "../../../src/domain/Tag"
+import TabContainer from "../../../src/components/layout/Tab/TabContainer";
+import { ExcerptCard } from "../../../src/components/sections/article/ExcerptCard";
+import { toFrontmatter } from "../../../src/domain/Frontmatter";
+import { allTags, tagInPost, toTagFromPath } from "../../../src/domain/Tag";
 import {
   findPostByDateWithCache,
   getAllPostDatesWithCache,
-} from "../../../src/infrastructure/CachedInfrastructure"
-import { siteName, siteUrl } from "../../../src/siteBasic"
+} from "../../../src/infrastructure/CachedInfrastructure";
+import { siteName, siteUrl } from "../../../src/siteBasic";
 
-export const dynamicParams = false
+import type { Metadata } from "next";
+
+export const dynamicParams = false;
 
 type TagPageRouteParams = {
-  tagalias: string
-}
+  tagalias: string;
+};
 
 export function generateStaticParams(): TagPageRouteParams[] {
-  return allTags().map((tag) => ({ tagalias: tag.path }))
+  return allTags().map((tag) => ({ tagalias: tag.path }));
 }
 
-export function generateMetadata({
-  params: { tagalias },
-}: {
-  params: TagPageRouteParams
-}): Metadata {
-  const tag = toTagFromPath(tagalias)
+export async function generateMetadata(props: {
+  params: Promise<TagPageRouteParams>;
+}): Promise<Metadata> {
+  const params = await props.params;
+
+  const { tagalias } = params;
+
+  const tag = toTagFromPath(tagalias);
 
   return {
     metadataBase: new URL(siteUrl),
@@ -49,24 +52,26 @@ export function generateMetadata({
       site: "@ponta2twit",
       description: `タグ ${tag.title} の一覧`,
     },
-  }
+  };
 }
 
-export default async function Page({
-  params: { tagalias },
-}: {
-  params: TagPageRouteParams
+export default async function Page(props: {
+  params: Promise<TagPageRouteParams>;
 }) {
-  const tag = toTagFromPath(tagalias)
-  const postDates = (await getAllPostDatesWithCache()).toReversed()
+  const params = await props.params;
+
+  const { tagalias } = params;
+
+  const tag = toTagFromPath(tagalias);
+  const postDates = (await getAllPostDatesWithCache()).toReversed();
   const allPosts = await Promise.all([
     ...postDates.map((date) => findPostByDateWithCache(date)),
-  ])
+  ]);
 
   const displayDates = allPosts
     .map((file) => toFrontmatter(file))
     .filter((matt) => tagInPost(tag, matt))
-    .map((matter) => matter.date)
+    .map((matter) => matter.date);
 
   return (
     <TabContainer activeTab="tags">
@@ -80,5 +85,5 @@ export default async function Page({
         ))}
       </div>
     </TabContainer>
-  )
+  );
 }

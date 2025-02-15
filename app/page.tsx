@@ -1,9 +1,9 @@
-import TabContainer from "../src/components/layout/Tab/TabContainer"
-import { ExcerptCard } from "../src/components/sections/article/ExcerptCard"
-import { getAllPostDatesWithCache } from "../src/infrastructure/CachedInfrastructure"
+import TabContainer from "../src/components/layout/Tab/TabContainer";
+import { ExcerptCard } from "../src/components/sections/article/ExcerptCard";
+import { getAllPostDatesWithCache } from "../src/infrastructure/CachedInfrastructure";
 
 export default async function Page() {
-  const postDates = await getAllPostDatesWithCache()
+  const postDates = await getAllPostDatesWithCache();
 
   return (
     <TabContainer activeTab="new">
@@ -13,5 +13,5 @@ export default async function Page() {
         ))}
       </div>
     </TabContainer>
-  )
+  );
 }

@@ -1,19 +1,19 @@
-import { writeFileSync } from "fs"
+import { writeFileSync } from "fs";
 
-import RSS from "rss"
+import RSS from "rss";
 
-import { type Frontmatter, toFrontmatter } from "../../src/domain/Frontmatter"
-import { getAllPostDates } from "../../src/infrastructure/PostDateRepository"
-import { findPostByDate } from "../../src/infrastructure/PostRepository"
-import { siteName, siteDescription } from "../../src/siteBasic"
+import { type Frontmatter, toFrontmatter } from "../../src/domain/Frontmatter";
+import { getAllPostDates } from "../../src/infrastructure/PostDateRepository";
+import { findPostByDate } from "../../src/infrastructure/PostRepository";
+import { siteName, siteDescription } from "../../src/siteBasic";
 
 async function getLatest5PostMatters() {
-  const postDates = (await getAllPostDates(true)).toReversed()
-  const sliced = postDates.slice(0, 5)
+  const postDates = (await getAllPostDates(true)).toReversed();
+  const sliced = postDates.slice(0, 5);
   const files = await Promise.all(
     sliced.map((date) => findPostByDate(date, true)),
-  )
-  return files.map((file) => toFrontmatter(file))
+  );
+  return files.map((file) => toFrontmatter(file));
 }
 
 function addRSSItem(matters: Frontmatter[], feed: RSS) {
@@ -23,8 +23,8 @@ function addRSSItem(matters: Frontmatter[], feed: RSS) {
       description: matt.title,
       url: `https://ponta-headphone.net/posts/${matt.date.toISODate({ format: "basic" })}`,
       date: matt.date.toISODate({ format: "extended" })!,
-    })
-  })
+    });
+  });
 }
 
 function generateNewRSS() {
@@ -34,16 +34,16 @@ function generateNewRSS() {
     site_url: "https://ponta-headphone.net/",
     feed_url: "https://ponta-headphone.net/rss.xml",
     language: "ja",
-  })
+  });
 }
 
 export async function generateRSS() {
-  console.log("Generating RSS...")
-  const feed = generateNewRSS()
-  const posts = await getLatest5PostMatters()
+  console.log("Generating RSS...");
+  const feed = generateNewRSS();
+  const posts = await getLatest5PostMatters();
 
-  addRSSItem(posts, feed)
+  addRSSItem(posts, feed);
 
-  writeFileSync("../public/rss.xml", feed.xml())
-  console.log("RSS generated.")
+  writeFileSync("../public/rss.xml", feed.xml());
+  console.log("RSS generated.");
 }

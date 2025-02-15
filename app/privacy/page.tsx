@@ -1,7 +1,7 @@
-import Container from "../../src/components/layout/Container"
-import { siteName, siteUrl } from "../../src/siteBasic"
+import Container from "../../src/components/layout/Container";
+import { siteName, siteUrl } from "../../src/siteBasic";
 
-import type { Metadata } from "next"
+import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -22,12 +22,12 @@ export const metadata: Metadata = {
     card: "summary",
     site: "@ponta2twit",
   },
-}
+};
 
 export default function Page() {
   return (
     <Container postMode>
-      <h1 className="line-break-strict text-2xl font-bold leading-snug tracking-[0.6px]">
+      <h1 className="line-break-strict text-2xl leading-snug font-bold tracking-[0.6px]">
         プライバシーポリシー
       </h1>
       <div className="text-sm leading-7 tracking-[0.2px]">
@@ -78,5 +78,5 @@ export default function Page() {
         </p>
       </div>
     </Container>
-  )
+  );
 }

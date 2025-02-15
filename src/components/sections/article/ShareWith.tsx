@@ -1,14 +1,14 @@
-import { faTwitter } from "@fortawesome/free-brands-svg-icons"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faTwitter } from "@fortawesome/free-brands-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { toFrontmatter } from "../../../domain/Frontmatter"
-import { PostDate } from "../../../domain/PostDate"
-import { findPostByDateWithCache } from "../../../infrastructure/CachedInfrastructure"
-import { siteName } from "../../../siteBasic"
+import { toFrontmatter } from "../../../domain/Frontmatter";
+import { PostDate } from "../../../domain/PostDate";
+import { findPostByDateWithCache } from "../../../infrastructure/CachedInfrastructure";
+import { siteName } from "../../../siteBasic";
 
 export async function ShareWith({ postDate }: { postDate: PostDate }) {
-  const post = await findPostByDateWithCache(postDate)
-  const frontmatter = toFrontmatter(post)
+  const post = await findPostByDateWithCache(postDate);
+  const frontmatter = toFrontmatter(post);
 
   return (
     <div className="inline-flex flex-row items-center justify-start gap-2 text-xs text-[#7b8ca2] lg:px-2">
@@ -26,5 +26,5 @@ export async function ShareWith({ postDate }: { postDate: PostDate }) {
         </a>
       </p>
     </div>
-  )
+  );
 }

@@ -2,16 +2,16 @@ import {
   faCircleExclamation,
   faExternalLink,
   faInfoCircle,
-} from "@fortawesome/free-solid-svg-icons"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import Image from "next/image"
-import Link from "next/link"
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Image from "next/image";
+import Link from "next/link";
 
-import type { MDXRemoteProps } from "next-mdx-remote/rsc"
-import type { HTMLProps, PropsWithChildren } from "react"
+import type { MDXRemoteProps } from "next-mdx-remote/rsc";
+import type { HTMLProps, PropsWithChildren } from "react";
 
 const numberOnly = (num: string | number | undefined) =>
-  !Number.isNaN(Number(num)) ? Number(num) : undefined
+  !Number.isNaN(Number(num)) ? Number(num) : undefined;
 
 const ArticleTags: Required<MDXRemoteProps["components"]> = {
   h1: (props: HTMLProps<HTMLHeadingElement>) => (
@@ -51,7 +51,7 @@ const ArticleTags: Required<MDXRemoteProps["components"]> = {
         alt={alt ?? ""}
         width={numberOnly(width) ?? 640}
         height={numberOnly(height) ?? 480}
-        className="mx-auto block rounded-sm shadow shadow-gray-600"
+        className="mx-auto block rounded-xs shadow-sm shadow-gray-600"
       />
     ) : undefined,
   ul: (props: HTMLProps<HTMLUListElement>) => (
@@ -70,7 +70,7 @@ const ArticleTags: Required<MDXRemoteProps["components"]> = {
     />
   ),
   td: (props: HTMLProps<HTMLTableCellElement>) => (
-    <td {...props} className="py-1 pl-1 pr-4 text-sm leading-6" />
+    <td {...props} className="py-1 pr-4 pl-1 text-sm leading-6" />
   ),
   p: (props: HTMLProps<HTMLParagraphElement>) => (
     <p {...props} className="content tracking-normal" />
@@ -94,6 +94,6 @@ const ArticleTags: Required<MDXRemoteProps["components"]> = {
   Postscript: (props: PropsWithChildren) => (
     <div className="text-sm text-slate-500">{props.children}</div>
   ),
-}
+};
 
-export default ArticleTags
+export default ArticleTags;
