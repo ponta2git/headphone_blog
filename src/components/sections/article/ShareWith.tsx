@@ -2,9 +2,10 @@ import { faTwitter } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { toFrontmatter } from "../../../domain/Frontmatter";
-import { PostDate } from "../../../domain/PostDate";
 import { findPostByDateWithCache } from "../../../infrastructure/CachedInfrastructure";
 import { siteName } from "../../../siteBasic";
+
+import type { PostDate } from "../../../domain/PostDate";
 
 export async function ShareWith({ postDate }: { postDate: PostDate }) {
   const post = await findPostByDateWithCache(postDate);

@@ -3,12 +3,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 
 import { toFrontmatter } from "../../domain/Frontmatter";
-import { PostDate } from "../../domain/PostDate";
-import { isTagEqual, Tag } from "../../domain/Tag";
+import { isTagEqual } from "../../domain/Tag";
 import {
   findPostByDateWithCache,
   getAllPostDatesWithCache,
 } from "../../infrastructure/CachedInfrastructure";
+
+import type { PostDate } from "../../domain/PostDate";
+import type { Tag } from "../../domain/Tag";
 
 export default async function RelatedPosts({
   selfTags,

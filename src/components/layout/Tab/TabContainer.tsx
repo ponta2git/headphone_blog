@@ -1,7 +1,7 @@
 import { Tab } from "./Tab";
-import { PageTabName } from "../../../domain/PageTab";
 import Container from "../Container";
 
+import type { PageTabName } from "../../../domain/PageTab";
 import type { ReactNode } from "react";
 
 export default function TabContainer({

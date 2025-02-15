@@ -6,9 +6,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 
 import { toFrontmatter } from "../../../domain/Frontmatter";
-import { PostDate } from "../../../domain/PostDate";
 import { getAllPostDatesWithCache } from "../../../infrastructure/CachedInfrastructure";
 import { findPostByDate } from "../../../infrastructure/PostRepository";
+
+import type { PostDate } from "../../../domain/PostDate";
 
 export async function Neighbours({ selfDate }: { selfDate: PostDate }) {
   const postDates = await getAllPostDatesWithCache();

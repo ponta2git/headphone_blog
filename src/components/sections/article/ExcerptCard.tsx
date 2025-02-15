@@ -1,9 +1,10 @@
 import Link from "next/link";
 
 import { toFrontmatter } from "../../../domain/Frontmatter";
-import { PostDate } from "../../../domain/PostDate";
 import { findPostByDateWithCache } from "../../../infrastructure/CachedInfrastructure";
 import { TagItem } from "../../elements/TagItem";
+
+import type { PostDate } from "../../../domain/PostDate";
 
 export async function ExcerptCard({ selfDate }: { selfDate: PostDate }) {
   const post = await findPostByDateWithCache(selfDate);
