@@ -9,7 +9,7 @@ import {
   findPostByDateWithCache,
   getAllPostDatesWithCache,
 } from "../../../src/infrastructure/CachedInfrastructure";
-import { siteName, siteUrl } from "../../../src/siteBasic";
+import { MetaInfo } from "../../../src/MetaInfo";
 
 import type { Metadata } from "next";
 
@@ -33,23 +33,20 @@ export async function generateMetadata(props: {
   const tag = toTagFromPath(tagalias);
 
   return {
-    metadataBase: new URL(siteUrl),
-    title: `${tag.title}: ${siteName}`,
+    ...MetaInfo.metadataBase,
+    title: `${tag.title}: ${MetaInfo.siteInfo.name}`,
     description: `タグ ${tag.title} の一覧`,
     alternates: {
-      canonical: `${siteUrl}tags/${tag.path}`,
-      types: {
-        "application/rss+xml": "/rss.xml",
-      },
+      ...MetaInfo.metadataBase.alternates,
+      canonical: `${MetaInfo.siteInfo.url}tags/${tag.path}`,
     },
     openGraph: {
-      url: `${siteUrl}tags/${tag.path}`,
-      locale: "ja-JP",
+      ...MetaInfo.metadataBase.openGraph,
+      url: `${MetaInfo.siteInfo.url}tags/${tag.path}`,
       type: "article",
     },
     twitter: {
-      card: "summary",
-      site: "@ponta2twit",
+      ...MetaInfo.metadataBase.twitter,
       description: `タグ ${tag.title} の一覧`,
     },
   };

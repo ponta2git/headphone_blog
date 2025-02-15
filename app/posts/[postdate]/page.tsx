@@ -13,7 +13,7 @@ import {
   findPostByDateWithCache,
   getAllPostDatesWithCache,
 } from "../../../src/infrastructure/CachedInfrastructure";
-import { siteName, siteUrl } from "../../../src/siteBasic";
+import { MetaInfo } from "../../../src/MetaInfo";
 
 import type { Metadata } from "next";
 
@@ -41,24 +41,16 @@ export async function generateMetadata(props: {
   const frontmatter = toFrontmatter(file);
 
   return {
-    metadataBase: new URL(siteUrl),
-    title: `${frontmatter.title} - ${siteName}`,
+    ...MetaInfo.metadataBase,
+    title: `${frontmatter.title}: ${MetaInfo.siteInfo.name}`,
     alternates: {
-      canonical: `${siteUrl}posts/${postdate}`,
-      types: {
-        "application/rss+xml": "/rss.xml",
-      },
+      ...MetaInfo.metadataBase.alternates,
+      canonical: `${MetaInfo.siteInfo.url}posts/${postdate}`,
     },
     openGraph: {
-      url: `${siteUrl}posts/${postdate}`,
-      locale: "ja_JP",
-      type: "article",
-      title: `${frontmatter.title} - ${siteName}`,
-      siteName,
-    },
-    twitter: {
-      card: "summary",
-      site: "@ponta2twit",
+      ...MetaInfo.metadataBase.openGraph,
+      url: `${MetaInfo.siteInfo.url}posts/${postdate}`,
+      title: `${frontmatter.title}: ${MetaInfo.siteInfo.name}`,
     },
   };
 }

@@ -7,28 +7,20 @@ import {
   findPostByDateWithCache,
   getAllPostDatesWithCache,
 } from "../../src/infrastructure/CachedInfrastructure";
-import { siteName, siteUrl } from "../../src/siteBasic";
+import { MetaInfo } from "../../src/MetaInfo";
 
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
-  title: `タグ一覧 - ${siteName}`,
+  ...MetaInfo.metadataBase,
+  title: `タグ一覧 - ${MetaInfo.siteInfo.name}`,
   alternates: {
-    canonical: `${siteUrl}tags`,
-    types: {
-      "application/rss+xml": "/rss.xml",
-    },
+    ...MetaInfo.metadataBase.alternates,
+    canonical: `${MetaInfo.siteInfo.url}tags`,
   },
   openGraph: {
-    url: `${siteUrl}tags`,
-    locale: "ja-JP",
-    type: "website",
-    siteName,
-  },
-  twitter: {
-    card: "summary",
-    site: "@ponta2twit",
+    ...MetaInfo.metadataBase.openGraph,
+    url: `${MetaInfo.siteInfo.url}tags`,
   },
 };
 

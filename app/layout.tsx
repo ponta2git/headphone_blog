@@ -5,34 +5,12 @@ import "./globals.css";
 
 import Footer from "../src/components/layout/Footer";
 import Header from "../src/components/layout/Header";
-import { siteName, siteDescription, siteUrl } from "../src/siteBasic";
+import { MetaInfo } from "../src/MetaInfo";
 
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 
-export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
-  title: siteName,
-  description: siteDescription,
-  alternates: {
-    canonical: siteUrl,
-    types: {
-      "application/rss+xml": "/rss.xml",
-    },
-  },
-  openGraph: {
-    url: siteUrl,
-    locale: "ja_JP",
-    type: "website",
-    siteName,
-    title: siteName,
-    description: siteDescription,
-  },
-  twitter: {
-    card: "summary",
-    site: "@ponta2twit",
-  },
-};
+export const metadata: Metadata = MetaInfo.metadataBase;
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (

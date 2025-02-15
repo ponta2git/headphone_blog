@@ -5,7 +5,7 @@ import RSS from "rss";
 import { type Frontmatter, toFrontmatter } from "../../src/domain/Frontmatter";
 import { getAllPostDates } from "../../src/infrastructure/PostDateRepository";
 import { findPostByDate } from "../../src/infrastructure/PostRepository";
-import { siteName, siteDescription } from "../../src/siteBasic";
+import { MetaInfo } from "../../src/MetaInfo";
 
 async function getLatest5PostMatters() {
   const postDates = (await getAllPostDates(true)).toReversed();
@@ -29,8 +29,8 @@ function addRSSItem(matters: Frontmatter[], feed: RSS) {
 
 function generateNewRSS() {
   return new RSS({
-    title: siteName,
-    description: siteDescription,
+    title: MetaInfo.siteInfo.name,
+    description: MetaInfo.siteInfo.description,
     site_url: "https://ponta-headphone.net/",
     feed_url: "https://ponta-headphone.net/rss.xml",
     language: "ja",

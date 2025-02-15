@@ -2,7 +2,7 @@ import { readFileSync } from "node:fs";
 import path from "node:path";
 
 import { evaluateMdxContent } from "./PostUtils";
-import MetaInfo from "../../MetaInfo";
+import { MetaInfo } from "../../MetaInfo";
 import { createFileLoadError } from "../errors/ErrorFactory";
 
 import type { Post } from "./PostTypes"; // ※後述

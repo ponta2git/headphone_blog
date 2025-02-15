@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { toFrontmatter } from "../../../domain/Frontmatter";
 import { findPostByDateWithCache } from "../../../infrastructure/CachedInfrastructure";
-import { siteName } from "../../../siteBasic";
+import { MetaInfo } from "../../../MetaInfo";
 
 import type { PostDate } from "../../../domain/PostDate";
 
@@ -18,7 +18,7 @@ export async function ShareWith({ postDate }: { postDate: PostDate }) {
         <a
           href={
             "https://twitter.com/intent/tweet" +
-            `?text=${frontmatter.title} - ${siteName}` +
+            `?text=${frontmatter.title}: ${MetaInfo.siteInfo.name}` +
             `&url=https://ponta-headphone.net/posts/${frontmatter.date.toFormat("yyyyMMdd")}`
           }
           rel="noopener noreferrer"

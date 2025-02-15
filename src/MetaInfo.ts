@@ -30,9 +30,7 @@ const metadataBase: Metadata = {
   },
 };
 
-const metaInfo = {
+export const MetaInfo = {
   siteInfo,
   metadataBase,
 };
-
-export default metaInfo;

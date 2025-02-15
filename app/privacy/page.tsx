@@ -1,26 +1,18 @@
 import Container from "../../src/components/layout/Container";
-import { siteName, siteUrl } from "../../src/siteBasic";
+import { MetaInfo } from "../../src/MetaInfo";
 
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
-  title: `プライバシーポリシー - ${siteName}`,
+  ...MetaInfo.metadataBase,
+  title: `プライバシーポリシー: ${MetaInfo.siteInfo.name}`,
   alternates: {
-    canonical: `${siteUrl}privacy`,
-    types: {
-      "application/rss+xml": "/rss.xml",
-    },
+    ...MetaInfo.metadataBase.alternates,
+    canonical: `${MetaInfo.siteInfo.url}privacy`,
   },
   openGraph: {
-    url: `${siteUrl}privacy`,
-    locale: "ja-JP",
-    type: "website",
-    siteName,
-  },
-  twitter: {
-    card: "summary",
-    site: "@ponta2twit",
+    ...MetaInfo.metadataBase.openGraph,
+    url: `${MetaInfo.siteInfo.url}privacy`,
   },
 };
 
