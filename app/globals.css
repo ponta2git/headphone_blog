@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
+html {
+  color-scheme: unset;
+  scrollbar-gutter: stable;
+}
+
 body {
   font-feature-settings: "palt" 0;
   font-kerning: none;
