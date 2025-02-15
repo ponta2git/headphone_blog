@@ -27,6 +27,7 @@ function addPost(date: DateTime) {
 }
 
 export async function generateSitemap() {
+  console.log("Generating sitemap...")
   const posts = await getAllPostDates(true)
 
   const sitemap =
@@ -37,4 +38,5 @@ export async function generateSitemap() {
     "\n</urlset>\n"
 
   writeFileSync("../public/sitemap.xml", sitemap)
+  console.log("Sitemap generated.")
 }

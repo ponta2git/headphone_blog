@@ -2,7 +2,7 @@ import { writeFileSync } from "fs"
 
 import RSS from "rss"
 
-import { Frontmatter, toFrontmatter } from "../../src/domain/Frontmatter"
+import { type Frontmatter, toFrontmatter } from "../../src/domain/Frontmatter"
 import { getAllPostDates } from "../../src/infrastructure/PostDateRepository"
 import { findPostByDate } from "../../src/infrastructure/PostRepository"
 import { siteName, siteDescription } from "../../src/siteBasic"
@@ -38,10 +38,12 @@ function generateNewRSS() {
 }
 
 export async function generateRSS() {
+  console.log("Generating RSS...")
   const feed = generateNewRSS()
   const posts = await getLatest5PostMatters()
 
   addRSSItem(posts, feed)
 
   writeFileSync("../public/rss.xml", feed.xml())
+  console.log("RSS generated.")
 }
