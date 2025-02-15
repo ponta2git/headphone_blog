@@ -19,7 +19,11 @@ const postsPath = path.resolve(
  * 指定の日付フォルダから .mdx ファイルを読み込み、Postオブジェクトとして返す
  */
 export function loadPost(date: Postdate): Post {
-  const filePath = path.join(postsPath, date.toFormat("yyyyMMdd"), ".mdx");
+  const filePath = path.join(
+    postsPath,
+    date.toFormat("yyyy"),
+    `${date.toFormat("yyyyMMdd")}.mdx`,
+  );
 
   let fileBuffer: Buffer;
   try {

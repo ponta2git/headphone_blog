@@ -1,4 +1,5 @@
 import { readdir } from "node:fs/promises";
+import path from "node:path";
 
 import { DateTime } from "luxon";
 
@@ -36,7 +37,10 @@ export const PostdateService = {
     try {
       dirents = await readdir(
         metagen
-          ? `../${MetaInfo.siteInfo.postsPath}`
+          ? path.resolve(
+              import.meta.dirname,
+              `../../${MetaInfo.siteInfo.postsPath}`,
+            )
           : MetaInfo.siteInfo.postsPath,
         {
           recursive: true,
@@ -50,7 +54,7 @@ export const PostdateService = {
     return dirents
       .filter((dirent) => dirent.isFile())
       .map((dirent) =>
-        DateTime.fromFormat(dirent.name, "yyyyMMdd", {
+        DateTime.fromFormat(path.parse(dirent.name).name, "yyyyMMdd", {
           zone: "Asia/Tokyo",
           locale: "ja-JP",
         }),
