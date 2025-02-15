@@ -1,22 +1,22 @@
 {
   "name": "metagen",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "headphone_blog metadata generator",
   "main": "dist/index.js",
   "scripts": {
-    "start": "webpack && node dist/index.js"
+    "start": "vite build && node dist/index.js"
   },
   "author": "ponta",
   "license": "MIT",
   "devDependencies": {
     "@types/node": "^20.17.19",
     "@types/rss": "^0.0.32",
-    "@types/webpack": "^5.28.5",
-    "ts-loader": "^9.5.2",
     "typescript": "^5.7.3",
-    "webpack-cli": "^6.0.1"
+    "vite": "^6.1.0"
   },
   "dependencies": {
+    "gray-matter": "^4.0.3",
+    "luxon": "^3.5.0",
     "rss": "^1.2.2"
   }
 }
