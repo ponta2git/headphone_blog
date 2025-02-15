@@ -7,6 +7,7 @@ const siteInfo = {
   url: "https://ponta-headphone.net/",
   twitter: "@ponta2twit",
   postsPath: "posts",
+  ignoreFiles: [".DS_store"],
 } as const;
 
 const metadataBase: Metadata = {
