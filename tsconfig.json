@@ -25,7 +25,8 @@
     ".next/types/**/*.ts",
     "**/*.ts",
     "**/*.tsx",
-    "**/*.mjs"
+    "**/*.mjs",
+    "metagen/rollup.config.js"
   ],
   "exclude": ["node_modules"],
   "path": {
