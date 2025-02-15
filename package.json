@@ -1,40 +1,38 @@
 {
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^6.5.1",
-    "@fortawesome/free-brands-svg-icons": "^6.5.1",
-    "@fortawesome/free-solid-svg-icons": "^6.5.1",
+    "@fortawesome/fontawesome-svg-core": "^6.7.2",
+    "@fortawesome/free-brands-svg-icons": "^6.7.2",
+    "@fortawesome/free-solid-svg-icons": "^6.7.2",
     "@fortawesome/react-fontawesome": "^0.2.2",
-    "@next/third-parties": "^14.2.3",
+    "@next/third-parties": "15.1.7",
     "gray-matter": "^4.0.3",
-    "luxon": "^3.4.4",
-    "next": "^14.2.3",
+    "luxon": "^3.5.0",
+    "next": "15.1.7",
     "next-mdx-remote": "^5.0.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
     "remark-frontmatter": "^5.0.0",
-    "remark-gfm": "^4.0.0",
-    "remark-images": "^4.0.0",
+    "remark-gfm": "^4.0.1",
+    "remark-images": "^4.1.0",
     "remark-mdx-frontmatter": "^5.0.0"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.0.0",
-    "@testing-library/react": "^16.0.0",
     "@types/luxon": "^3.4.2",
     "@types/mdx": "^2.0.11",
     "@types/node": "^20.11.20",
-    "@types/react": "^18.2.58",
-    "@types/react-dom": "^18.2.19",
+    "@types/react": "19.0.8",
+    "@types/react-dom": "19.0.3",
     "@typescript-eslint/eslint-plugin": "^7.0.2",
     "@typescript-eslint/parser": "^7.0.2",
-    "@vitejs/plugin-react": "^4.2.1",
     "eslint": "^8.57.0",
-    "eslint-config-next": "^14.2.3",
+    "eslint-config-next": "15.1.7",
     "eslint-config-prettier": "^10.0.1",
     "postcss": "^8.4.35",
     "prettier": "^3.5.1",
@@ -44,5 +42,9 @@
   },
   "workspaces": [
     "metagen"
-  ]
+  ],
+  "overrides": {
+    "@types/react": "19.0.8",
+    "@types/react-dom": "19.0.3"
+  }
 }

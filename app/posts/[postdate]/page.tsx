@@ -27,11 +27,17 @@ export async function generateStaticParams(): Promise<PostPageRouteParams[]> {
   return postDates.map((date) => ({ postdate: date.toFormat("yyyyMMdd") }))
 }
 
-export async function generateMetadata({
-  params: { postdate },
-}: {
-  params: PostPageRouteParams
-}): Promise<Metadata> {
+export async function generateMetadata(
+  props: {
+    params: Promise<PostPageRouteParams>
+  }
+): Promise<Metadata> {
+  const params = await props.params;
+
+  const {
+    postdate
+  } = params;
+
   const date = toPostDate_yyyyMMdd(postdate)
   const file = await findPostByDateWithCache(date)
 
@@ -60,11 +66,17 @@ export async function generateMetadata({
   }
 }
 
-export default async function Page({
-  params: { postdate },
-}: {
-  params: PostPageRouteParams
-}) {
+export default async function Page(
+  props: {
+    params: Promise<PostPageRouteParams>
+  }
+) {
+  const params = await props.params;
+
+  const {
+    postdate
+  } = params;
+
   const postDate = toPostDate_yyyyMMdd(postdate)
   const post = await findPostByDateWithCache(postDate)
   const frontmatter = toFrontmatter(post)

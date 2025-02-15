@@ -22,11 +22,17 @@ export function generateStaticParams(): TagPageRouteParams[] {
   return allTags().map((tag) => ({ tagalias: tag.path }))
 }
 
-export function generateMetadata({
-  params: { tagalias },
-}: {
-  params: TagPageRouteParams
-}): Metadata {
+export async function generateMetadata(
+  props: {
+    params: Promise<TagPageRouteParams>
+  }
+): Promise<Metadata> {
+  const params = await props.params;
+
+  const {
+    tagalias
+  } = params;
+
   const tag = toTagFromPath(tagalias)
 
   return {
@@ -52,11 +58,17 @@ export function generateMetadata({
   }
 }
 
-export default async function Page({
-  params: { tagalias },
-}: {
-  params: TagPageRouteParams
-}) {
+export default async function Page(
+  props: {
+    params: Promise<TagPageRouteParams>
+  }
+) {
+  const params = await props.params;
+
+  const {
+    tagalias
+  } = params;
+
   const tag = toTagFromPath(tagalias)
   const postDates = (await getAllPostDatesWithCache()).toReversed()
   const allPosts = await Promise.all([
