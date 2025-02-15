@@ -25,7 +25,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           <Footer />
         </div>
       </body>
-      <GoogleTagManager gtmId={`GTM-${GTAGMGR_ID}`} />
+      {process.env.NODE_ENV === "production" ? (
+        <GoogleTagManager gtmId={`GTM-${GTAGMGR_ID}`} />
+      ) : null}
     </html>
   );
 }
