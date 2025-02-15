@@ -1,6 +1,6 @@
 import { faTag } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Metadata } from "next";
+
 
 import TabContainer from "../../../src/components/layout/Tab/TabContainer";
 import { ExcerptCard } from "../../../src/components/sections/article/ExcerptCard";
@@ -11,6 +11,8 @@ import {
   getAllPostDatesWithCache,
 } from "../../../src/infrastructure/CachedInfrastructure";
 import { siteName, siteUrl } from "../../../src/siteBasic";
+
+import type { Metadata } from "next";
 
 export const dynamicParams = false;
 

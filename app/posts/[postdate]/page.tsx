@@ -1,4 +1,3 @@
-import { Metadata } from "next";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
 import remarkImages from "remark-images";
@@ -15,6 +14,8 @@ import {
   getAllPostDatesWithCache,
 } from "../../../src/infrastructure/CachedInfrastructure";
 import { siteName, siteUrl } from "../../../src/siteBasic";
+
+import type { Metadata } from "next";
 
 export const dynamicParams = false;
 

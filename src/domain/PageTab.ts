@@ -1,5 +1,6 @@
-import { IconDefinition } from "@fortawesome/free-brands-svg-icons";
 import { faBolt, faTags } from "@fortawesome/free-solid-svg-icons";
+
+import type { IconDefinition } from "@fortawesome/free-brands-svg-icons";
 
 export type PageTabName = "new" | "tags";
 

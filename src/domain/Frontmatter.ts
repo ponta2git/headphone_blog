@@ -1,9 +1,11 @@
 import matter from "gray-matter";
 import { DateTime } from "luxon";
 
-import { Post } from "./Post";
-import { Tag, toTagFromTitle } from "./Tag";
+import { toTagFromTitle } from "./Tag";
 import { ParseFrontmatterError } from "../Errors";
+
+import type { Post } from "./Post";
+import type { Tag} from "./Tag";
 
 export type Frontmatter = {
   title: string;

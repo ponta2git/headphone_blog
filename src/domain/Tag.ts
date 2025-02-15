@@ -1,6 +1,7 @@
-import { Frontmatter } from "./Frontmatter";
 import Definition from "./Tags.json";
 import { TagPathError, TagTitleError } from "../Errors";
+
+import type { Frontmatter } from "./Frontmatter";
 
 type TagTitle = keyof typeof Definition;
 

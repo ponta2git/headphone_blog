@@ -1,11 +1,12 @@
 import { readFile } from "fs/promises";
 import { join } from "path";
 
-import { DateTime } from "luxon";
 
-import { Post } from "../domain/Post";
 import { FileLoadError } from "../Errors";
 import { postDir } from "../siteBasic";
+
+import type { Post } from "../domain/Post";
+import type { DateTime } from "luxon";
 
 export async function findPostByDate(
   date: DateTime,
