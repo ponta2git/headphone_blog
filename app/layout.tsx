@@ -40,7 +40,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <head />
       <body className="bg-[#d2dee7] text-[#121a24]">
         <div className="flex min-h-screen flex-col">
-          <div className="flex-grow">
+          <div className="grow">
             <Header />
             {children}
           </div>

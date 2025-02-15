@@ -51,7 +51,7 @@ const ArticleTags: Required<MDXRemoteProps["components"]> = {
         alt={alt ?? ""}
         width={numberOnly(width) ?? 640}
         height={numberOnly(height) ?? 480}
-        className="mx-auto block rounded-sm shadow shadow-gray-600"
+        className="mx-auto block rounded-xs shadow-sm shadow-gray-600"
       />
     ) : undefined,
   ul: (props: HTMLProps<HTMLUListElement>) => (
