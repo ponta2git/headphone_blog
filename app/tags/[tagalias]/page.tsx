@@ -1,7 +1,6 @@
 import { faTag } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-
 import TabContainer from "../../../src/components/layout/Tab/TabContainer";
 import { ExcerptCard } from "../../../src/components/sections/article/ExcerptCard";
 import { toFrontmatter } from "../../../src/domain/Frontmatter";

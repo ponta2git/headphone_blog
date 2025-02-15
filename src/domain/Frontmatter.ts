@@ -5,7 +5,7 @@ import { toTagFromTitle } from "./Tag";
 import { ParseFrontmatterError } from "../Errors";
 
 import type { Post } from "./Post";
-import type { Tag} from "./Tag";
+import type { Tag } from "./Tag";
 
 export type Frontmatter = {
   title: string;
