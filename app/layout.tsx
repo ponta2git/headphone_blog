@@ -1,14 +1,14 @@
-import { GoogleTagManager } from "@next/third-parties/google"
-const GTAGMGR_ID = process.env.NEXT_PUBLIC_GTAGMGR_ID || ""
+import { GoogleTagManager } from "@next/third-parties/google";
+const GTAGMGR_ID = process.env.NEXT_PUBLIC_GTAGMGR_ID || "";
 
-import "./globals.css"
+import "./globals.css";
 
-import Footer from "../src/components/layout/Footer"
-import Header from "../src/components/layout/Header"
-import { siteName, siteDescription, siteUrl } from "../src/siteBasic"
+import Footer from "../src/components/layout/Footer";
+import Header from "../src/components/layout/Header";
+import { siteName, siteDescription, siteUrl } from "../src/siteBasic";
 
-import type { Metadata } from "next"
-import type { ReactNode } from "react"
+import type { Metadata } from "next";
+import type { ReactNode } from "react";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     card: "summary",
     site: "@ponta2twit",
   },
-}
+};
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
@@ -49,5 +49,5 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       </body>
       <GoogleTagManager gtmId={`GTM-${GTAGMGR_ID}`} />
     </html>
-  )
+  );
 }

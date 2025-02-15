@@ -1,11 +1,11 @@
-import { faTwitter } from "@fortawesome/free-brands-svg-icons"
-import { faEnvelope, faRss } from "@fortawesome/free-solid-svg-icons"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { DateTime } from "luxon"
-import Link from "next/link"
+import { faTwitter } from "@fortawesome/free-brands-svg-icons";
+import { faEnvelope, faRss } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { DateTime } from "luxon";
+import Link from "next/link";
 
 export default function Footer() {
-  const year = DateTime.now().year
+  const year = DateTime.now().year;
 
   return (
     <footer className="w-screen bg-slate-50 py-8">
@@ -29,5 +29,5 @@ export default function Footer() {
         <p className="text-xs">(C){year} ponta.</p>
       </div>
     </footer>
-  )
+  );
 }

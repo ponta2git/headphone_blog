@@ -1,1 +1,1 @@
-export type Post = Buffer
+export type Post = Buffer;

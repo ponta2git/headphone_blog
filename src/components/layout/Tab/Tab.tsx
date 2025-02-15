@@ -1,7 +1,7 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import Link from "next/link"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Link from "next/link";
 
-import { PageTabName, allTabs } from "../../../domain/PageTab"
+import { PageTabName, allTabs } from "../../../domain/PageTab";
 
 export function Tab({ active }: { active: PageTabName }) {
   // タブが増えたら横幅は手動で調整すること
@@ -11,7 +11,7 @@ export function Tab({ active }: { active: PageTabName }) {
         active === tab.name ? (
           <div
             key={tab.name}
-            className="w-28 items-center rounded-t-md bg-slate-50 text-center text-xs font-semibold leading-snug tracking-[0.4px] text-[#404040] transition-colors hover:text-[#404040cf] md:w-1/4"
+            className="w-28 items-center rounded-t-md bg-slate-50 text-center text-xs leading-snug font-semibold tracking-[0.4px] text-[#404040] transition-colors hover:text-[#404040cf] md:w-1/4"
           >
             <Link
               className="inline-flex h-full w-full flex-row items-center justify-center gap-1 py-[0.75rem]"
@@ -27,7 +27,7 @@ export function Tab({ active }: { active: PageTabName }) {
         ) : (
           <div
             key={tab.name}
-            className="w-28 items-center rounded-t-md bg-[#a0c1df] text-center text-xs font-light leading-snug tracking-[0.4px] text-[#404040] transition-colors hover:bg-[#9cbfdf88] hover:text-[#404040cf] md:w-1/4"
+            className="w-28 items-center rounded-t-md bg-[#a0c1df] text-center text-xs leading-snug font-light tracking-[0.4px] text-[#404040] transition-colors hover:bg-[#9cbfdf88] hover:text-[#404040cf] md:w-1/4"
           >
             <Link
               key={tab.name}
@@ -44,5 +44,5 @@ export function Tab({ active }: { active: PageTabName }) {
         ),
       )}
     </div>
-  )
+  );
 }

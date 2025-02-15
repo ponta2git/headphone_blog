@@ -1,15 +1,15 @@
-import Link from "next/link"
+import Link from "next/link";
 
-import TabContainer from "../../src/components/layout/Tab/TabContainer"
-import { toFrontmatter } from "../../src/domain/Frontmatter"
-import { allTags, tagInPost } from "../../src/domain/Tag"
+import TabContainer from "../../src/components/layout/Tab/TabContainer";
+import { toFrontmatter } from "../../src/domain/Frontmatter";
+import { allTags, tagInPost } from "../../src/domain/Tag";
 import {
   findPostByDateWithCache,
   getAllPostDatesWithCache,
-} from "../../src/infrastructure/CachedInfrastructure"
-import { siteName, siteUrl } from "../../src/siteBasic"
+} from "../../src/infrastructure/CachedInfrastructure";
+import { siteName, siteUrl } from "../../src/siteBasic";
 
-import type { Metadata } from "next"
+import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -30,16 +30,16 @@ export const metadata: Metadata = {
     card: "summary",
     site: "@ponta2twit",
   },
-}
+};
 
 export default async function Page() {
-  const tagList = allTags()
-  const postDates = await getAllPostDatesWithCache()
+  const tagList = allTags();
+  const postDates = await getAllPostDatesWithCache();
   const allPosts = await Promise.all([
     ...postDates.map((date) => findPostByDateWithCache(date)),
-  ])
+  ]);
 
-  const frontmatters = allPosts.map((post) => toFrontmatter(post))
+  const frontmatters = allPosts.map((post) => toFrontmatter(post));
 
   const stats = tagList.map((tag) => ({
     tag,
@@ -47,7 +47,7 @@ export default async function Page() {
       (acc, matt) => (tagInPost(tag, matt) ? ++acc : acc),
       0,
     ),
-  }))
+  }));
 
   return (
     <TabContainer activeTab="tags">
@@ -68,5 +68,5 @@ export default async function Page() {
         </p>
       ))}
     </TabContainer>
-  )
+  );
 }
