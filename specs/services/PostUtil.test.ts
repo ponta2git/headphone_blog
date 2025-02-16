@@ -1,6 +1,15 @@
 import { evaluateMdxContent } from "../../src/services/post/PostUtils";
 import { PostdateService } from "../../src/services/date/PostdateService";
 import { TagService } from "../../src/services/tag/TagService";
+import TagsJson from "../../src/services/tag/Tags.json";
+
+vi.mock(
+  import("../../src/services/tag/Tags.json"),
+  () =>
+    ({
+      default: { test: "test-slug", mdx: "mdx-slug" },
+    }) as unknown as typeof TagsJson,
+);
 
 describe("PostUtils", () => {
   describe("evaluateMdxContent", () => {
@@ -18,10 +27,10 @@ tags: ["test", "mdx"]
 
       expect(post.frontmatter.title).toBe("Test Post");
       expect(post.frontmatter.date).toStrictEqual(
-        PostdateService.from_yyyyMMdd("2023-01-01"),
+        PostdateService.from_yyyyMMdd_hyphenated("2023-01-01"),
       );
       expect(post.frontmatter.tags).toEqual(
-        ["test", "mdx"].map((tag) => TagService.from(tag)),
+        ["test", "mdx"].map((tag) => TagService.fromName(tag)),
       );
       expect(post.excerpt).toBe("Hello World ...");
       expect(post.body).toBeDefined();
@@ -43,10 +52,10 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor i
 
       expect(post.frontmatter.title).toBe("Long Post");
       expect(post.frontmatter.date).toStrictEqual(
-        PostdateService.from_yyyyMMdd("2023-01-01"),
+        PostdateService.from_yyyyMMdd_hyphenated("2023-01-01"),
       );
       expect(post.frontmatter.tags).toEqual(
-        ["test", "mdx"].map((tag) => TagService.from(tag)),
+        ["test", "mdx"].map((tag) => TagService.fromName(tag)),
       );
       expect(post.excerpt.length).toBeLessThanOrEqual(204); // 200 chars + " ..."
       expect(post.excerpt.endsWith(" ...")).toBe(true);

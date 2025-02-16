@@ -17,9 +17,20 @@ export const PostdateService = {
   /**
    * yyyy-MM-dd フォーマットの日付文字列を JST として解釈し、DateTime を返す
    */
-  from_yyyyMMdd(dateStr: string): Postdate {
+  from_yyyyMMdd_hyphenated(dateStr: string): Postdate {
     return DateTime.fromFormat(dateStr, "yyyy-MM-dd", {
       zone: "Asia/Tokyo",
+      locale: "ja-JP",
+    });
+  },
+
+  /**
+   * yyyyMMdd フォーマットの日付文字列を JST として解釈し、DateTime を返す
+   */
+  from_yyyyMMdd(dateStr: string): Postdate {
+    return DateTime.fromFormat(dateStr, "yyyyMMdd", {
+      zone: "Asia/Tokyo",
+      locale: "ja-JP",
     });
   },
 

@@ -79,8 +79,8 @@ function convertFrontmatter(raw: unknown): Post["frontmatter"] {
   // ここで必要に応じてタグの型や日付のパースを行う
   return {
     title,
-    date: PostdateService.from_yyyyMMdd(date),
-    tags: tags.map((tag) => TagService.from(tag)),
+    date: PostdateService.from_yyyyMMdd_hyphenated(date),
+    tags: tags.map((tag) => TagService.fromName(tag)),
   };
 }
 
