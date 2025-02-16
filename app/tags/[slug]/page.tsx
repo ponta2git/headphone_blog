@@ -25,7 +25,6 @@ export async function generateMetadata(props: {
   params: Promise<TagPageRouteParams>;
 }): Promise<Metadata> {
   const params = await props.params;
-  console.info(params);
 
   const { slug } = params;
   const tag = TagService.fromSlug(slug);
