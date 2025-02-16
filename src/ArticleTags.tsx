@@ -7,18 +7,24 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import Link from "next/link";
 
-import type { MDXRemoteProps } from "next-mdx-remote/rsc";
+import type { MDXComponents } from "mdx/types";
 import type { HTMLProps, PropsWithChildren } from "react";
 
 const numberOnly = (num: string | number | undefined) =>
   !Number.isNaN(Number(num)) ? Number(num) : undefined;
 
-const ArticleTags: Required<MDXRemoteProps["components"]> = {
+const ArticleTags: MDXComponents = {
   h1: (props: HTMLProps<HTMLHeadingElement>) => (
-    <h2 {...props} className="text-lg font-bold" />
+    <h2
+      {...props}
+      className="font-header-setting text-lg leading-snug font-bold tracking-[0.6px] text-[#2F4F4F]"
+    />
   ),
   h2: (props: HTMLProps<HTMLHeadingElement>) => (
-    <h3 {...props} className="font-bold" />
+    <h3
+      {...props}
+      className="font-header-setting leading-snug font-bold tracking-[0.6px] text-[#2F4F4F]"
+    />
   ),
   a: ({ href, children, ...props }: HTMLProps<HTMLAnchorElement>) =>
     href ? (
@@ -51,7 +57,7 @@ const ArticleTags: Required<MDXRemoteProps["components"]> = {
         alt={alt ?? ""}
         width={numberOnly(width) ?? 640}
         height={numberOnly(height) ?? 480}
-        className="mx-auto block rounded-xs shadow-sm shadow-gray-600"
+        className="mx-auto block rounded-md shadow-sm shadow-[#484848]"
       />
     ) : undefined,
   ul: (props: HTMLProps<HTMLUListElement>) => (
@@ -66,33 +72,44 @@ const ArticleTags: Required<MDXRemoteProps["components"]> = {
   th: (props: HTMLProps<HTMLTableCellElement>) => (
     <th
       {...props}
-      className="border-b-[1px] border-slate-300 pb-1 pl-1 text-left text-sm"
+      className="font-header-setting border-b-[1px] border-[#7b8ca2] pb-2 pl-1 text-left text-sm text-[#2F4F4F]"
     />
   ),
+  tr: (props: HTMLProps<HTMLTableRowElement>) => (
+    <tr {...props} className="rounded-lg hover:bg-[#f0f8ff]" />
+  ),
   td: (props: HTMLProps<HTMLTableCellElement>) => (
-    <td {...props} className="py-1 pr-4 pl-1 text-sm leading-6" />
+    <td
+      {...props}
+      className="py-1.5 pr-4 pl-1 text-justify text-sm tracking-[-0.0125rem] break-words"
+    />
   ),
   p: (props: HTMLProps<HTMLParagraphElement>) => (
-    <p {...props} className="content tracking-normal" />
+    <p {...props} className="text-justify tracking-[-0.0125rem] break-words" />
+  ),
+  del: (props: HTMLProps<HTMLModElement>) => (
+    <del {...props} className="text-[#7b8ca2]" />
   ),
   Info: (props: PropsWithChildren) => (
-    <div className="flex flex-row items-center gap-x-4 rounded-lg bg-sky-100 p-4 text-sm leading-6 tracking-[0.4px]">
-      <p className="h-[20px] w-[20px] shrink-0 text-sky-600">
+    <div className="flex flex-row items-center gap-x-4 rounded-lg bg-[#f0f8ff] p-4 text-justify text-sm leading-6 tracking-[-0.0125rem] break-words">
+      <p className="h-[20px] w-[20px] shrink-0 text-[#0d98ba]">
         <FontAwesomeIcon icon={faInfoCircle} />
       </p>
       {props.children}
     </div>
   ),
   Warning: (props: PropsWithChildren) => (
-    <div className="flex flex-row items-center gap-x-4 rounded-lg bg-amber-100 p-4 text-sm leading-6 tracking-[0.4px]">
-      <p className="h-[20px] w-[20px] shrink-0 text-yellow-600">
+    <div className="flex flex-row items-center gap-x-4 rounded-lg bg-[#FFFACD] p-4 text-sm leading-6 tracking-[0.4px]">
+      <p className="h-[20px] w-[20px] shrink-0 text-[#FFD700]">
         <FontAwesomeIcon icon={faCircleExclamation} />
       </p>
       {props.children}
     </div>
   ),
   Postscript: (props: PropsWithChildren) => (
-    <div className="text-sm text-slate-500">{props.children}</div>
+    <div className="text-justify text-sm tracking-[-0.0125rem] break-words text-[#7b8ca2]">
+      {props.children}
+    </div>
   ),
 };
 

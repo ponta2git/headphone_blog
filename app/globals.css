@@ -5,6 +5,16 @@ html {
   scrollbar-gutter: stable;
 }
 
+.font-header-setting {
+  font-feature-settings: "palt" 1;
+  font-kerning: auto;
+  line-break: strict;
+}
+
+.text-align-justify {
+  text-justify: inter-character;
+}
+
 body {
   font-feature-settings: "palt" 0;
   font-kerning: none;

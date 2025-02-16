@@ -5,54 +5,56 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 
-import { toFrontmatter } from "../../../domain/Frontmatter";
-import { getAllPostDatesWithCache } from "../../../infrastructure/CachedInfrastructure";
-import { findPostByDate } from "../../../infrastructure/PostRepository";
+import {
+  PostdateService,
+  type Postdate,
+} from "../../../services/date/PostdateService";
+import { PostService } from "../../../services/post/PostService";
 
-import type { PostDate } from "../../../domain/PostDate";
+export async function Neighbours({ selfDate }: { selfDate: Postdate }) {
+  const postdates = await PostdateService.getAllPostdates();
+  const pos = postdates.findIndex((date) => date.equals(selfDate));
 
-export async function Neighbours({ selfDate }: { selfDate: PostDate }) {
-  const postDates = await getAllPostDatesWithCache();
-  const pos = postDates.findIndex((date) => date.equals(selfDate));
-
-  const [prev, next] = await Promise.all([
-    pos > 0 ? findPostByDate(postDates[pos - 1]) : undefined,
-    pos < postDates.length - 1 ? findPostByDate(postDates[pos + 1]) : undefined,
-  ]);
+  const [prev, next] = [
+    pos > 0 ? PostService.getByPostdate(postdates[pos - 1]) : undefined,
+    pos < postdates.length - 1
+      ? PostService.getByPostdate(postdates[pos + 1])
+      : undefined,
+  ];
 
   const [prevMatter, nextMatter] = [
-    prev ? toFrontmatter(prev) : undefined,
-    next ? toFrontmatter(next) : undefined,
+    prev ? prev.frontmatter : undefined,
+    next ? next.frontmatter : undefined,
   ];
 
   return (
     <div className="flex w-full flex-row items-center justify-start">
       <div className="w-[20px] shrink-0 items-center">
-        <FontAwesomeIcon icon={faChevronLeft} className="block h-4 w-4" />
+        <FontAwesomeIcon icon={faChevronLeft} className="block h-3 w-3" />
       </div>
-      <div className="w-1/3 shrink-0 pl-2 text-sm leading-6">
+      <div className="w-1/3 shrink-0 pl-1.5 leading-relaxed">
         {prevMatter && (
           <Link
             href={`/posts/${prevMatter.date.toFormat("yyyyMMdd")}`}
-            className="line-break-strict text-[#1E6FBA] transition-colors hover:text-[#1E6FBA88]"
+            className="font-header-setting text-sm tracking-[0.6px] text-[#1E6FBA] transition-colors hover:text-[#1E6FBA88]"
           >
             {prevMatter.title}
           </Link>
         )}
       </div>
       <div className="w-1/3"></div>
-      <div className="w-1/3 shrink-0 pr-2 text-right text-sm leading-6">
+      <div className="w-1/3 shrink-0 pr-1.5 text-right leading-relaxed">
         {nextMatter && (
           <Link
             href={`/posts/${nextMatter.date.toFormat("yyyyMMdd")}`}
-            className="line-break-strict text-[#1E6FBA] transition-colors hover:text-[#1E6FBA88]"
+            className="font-header-setting text-sm tracking-[0.6px] text-[#1E6FBA] transition-colors hover:text-[#1E6FBA88]"
           >
             {nextMatter.title}
           </Link>
         )}
       </div>
       <div className="w-[20px] shrink-0 items-center">
-        <FontAwesomeIcon icon={faChevronRight} className="ml-2 block h-4 w-4" />
+        <FontAwesomeIcon icon={faChevronRight} className="ml-2 block h-3 w-3" />
       </div>
     </div>
   );

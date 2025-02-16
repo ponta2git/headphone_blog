@@ -5,6 +5,7 @@ import "./globals.css";
 
 import Footer from "../src/components/layout/Footer";
 import Header from "../src/components/layout/Header";
+import NavMenu from "../src/components/layout/NavMenu";
 import { MetaInfo } from "../src/MetaInfo";
 
 import type { Metadata } from "next";
@@ -16,10 +17,15 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="ja">
       <head />
-      <body className="bg-[#d2dee7] text-[#121a24]">
+      <body className="bg-[#F0FFFF] text-[#484848]">
         <div className="flex min-h-screen flex-col">
           <div className="grow">
-            <Header />
+            <div className="pt-10 pb-6">
+              <Header />
+            </div>
+            <div className="mx-4 mb-6 md:mx-auto md:w-3/5">
+              <NavMenu />
+            </div>
             {children}
           </div>
           <Footer />

@@ -1,19 +1,12 @@
-import { MDXRemote } from "next-mdx-remote/rsc";
-import remarkGfm from "remark-gfm";
-import remarkImages from "remark-images";
-
 import ArticleTags from "../../../src/ArticleTags";
-import RelatedPosts from "../../../src/components/elements/RelatedPosts";
 import { TagItem } from "../../../src/components/elements/TagItem";
 import Container from "../../../src/components/layout/Container";
 import { Neighbours } from "../../../src/components/sections/article/Neighbours";
-import { toFrontmatter } from "../../../src/domain/Frontmatter";
-import { toPostDate_yyyyMMdd } from "../../../src/domain/PostDate";
-import {
-  findPostByDateWithCache,
-  getAllPostDatesWithCache,
-} from "../../../src/infrastructure/CachedInfrastructure";
+import { ShareWith } from "../../../src/components/sections/article/ShareWith";
+import RelatedPosts from "../../../src/components/sections/RelatedPosts";
 import { MetaInfo } from "../../../src/MetaInfo";
+import { PostdateService } from "../../../src/services/date/PostdateService";
+import { PostService } from "../../../src/services/post/PostService";
 
 import type { Metadata } from "next";
 
@@ -24,25 +17,22 @@ type PostPageRouteParams = {
 };
 
 export async function generateStaticParams(): Promise<PostPageRouteParams[]> {
-  const postDates = await getAllPostDatesWithCache();
-  return postDates.map((date) => ({ postdate: date.toFormat("yyyyMMdd") }));
+  const postdates = await PostdateService.getAllPostdates();
+  return postdates.map((date) => ({ postdate: date.toFormat("yyyyMMdd") }));
 }
 
 export async function generateMetadata(props: {
   params: Promise<PostPageRouteParams>;
 }): Promise<Metadata> {
   const params = await props.params;
-
   const { postdate } = params;
 
-  const date = toPostDate_yyyyMMdd(postdate);
-  const file = await findPostByDateWithCache(date);
-
-  const frontmatter = toFrontmatter(file);
+  const date = PostdateService.from_yyyyMMdd(postdate);
+  const post = PostService.getByPostdate(date);
 
   return {
     ...MetaInfo.metadataBase,
-    title: `${frontmatter.title}: ${MetaInfo.siteInfo.name}`,
+    title: `${post.frontmatter.title}: ${MetaInfo.siteInfo.name}`,
     alternates: {
       ...MetaInfo.metadataBase.alternates,
       canonical: `${MetaInfo.siteInfo.url}posts/${postdate}`,
@@ -50,7 +40,7 @@ export async function generateMetadata(props: {
     openGraph: {
       ...MetaInfo.metadataBase.openGraph,
       url: `${MetaInfo.siteInfo.url}posts/${postdate}`,
-      title: `${frontmatter.title}: ${MetaInfo.siteInfo.name}`,
+      title: `${post.frontmatter.title}: ${MetaInfo.siteInfo.name}`,
     },
   };
 }
@@ -59,55 +49,50 @@ export default async function Page(props: {
   params: Promise<PostPageRouteParams>;
 }) {
   const params = await props.params;
-
   const { postdate } = params;
 
-  const postDate = toPostDate_yyyyMMdd(postdate);
-  const post = await findPostByDateWithCache(postDate);
-  const frontmatter = toFrontmatter(post);
+  const date = PostdateService.from_yyyyMMdd(postdate);
+  const { frontmatter, body } = PostService.getByPostdate(date);
 
   return (
     <>
-      <Container postMode>
+      <Container>
         <article>
           <div className="flex flex-col gap-y-1">
-            <div className="flex flex-row items-baseline gap-x-1 leading-tight">
+            <div className="flex flex-row items-baseline gap-x-1">
               {frontmatter.tags.map((tag) => (
-                <TagItem key={tag.path} tag={tag} />
+                <TagItem key={tag.slug} tag={tag} />
               ))}
             </div>
 
-            <h1 className="line-break-strict text-2xl leading-snug font-bold tracking-[0.6px]">
+            <h1 className="font-header-setting text-2xl leading-snug font-bold tracking-[0.6px] text-[#2F4F4F]">
               {frontmatter.title}
             </h1>
           </div>
 
-          <div className="text-sm leading-7 tracking-[0.2px]">
-            <p className="text-slate-500">
-              {frontmatter.date.toFormat("yyyy-MM-dd")}
-            </p>
+          <p className="text-sm leading-5 tracking-[0.2px] text-[#7b8ca2]">
+            {frontmatter.date.toFormat("yyyy-MM-dd")}
+          </p>
+
+          <div className="my-10 mt-4 flex flex-col gap-[1.725rem] px-3 lg:px-6">
+            {body({ components: ArticleTags })}
           </div>
 
-          <div className="mx-2 my-10 mt-6 flex flex-col gap-[1.825rem] lg:px-2">
-            <MDXRemote
-              source={post}
-              components={ArticleTags}
-              options={{
-                parseFrontmatter: true,
-                mdxOptions: {
-                  remarkPlugins: [remarkGfm, remarkImages],
-                },
-              }}
+          <div className="px-6">
+            <ShareWith
+              date={frontmatter.date}
+              title={frontmatter.title}
+              tags={frontmatter.tags}
             />
           </div>
 
           <div className="mt-10">
-            <Neighbours selfDate={postDate} />
+            <Neighbours selfDate={frontmatter.date} />
           </div>
         </article>
       </Container>
-      <div className="mx-auto mb-24 w-[85vw] md:mx-auto md:w-3/5 lg:w-1/2">
-        <RelatedPosts selfTags={frontmatter.tags} selfDate={postDate} />
+      <div className="mx-auto mb-16 w-[85vw] md:w-3/5 lg:w-1/3">
+        <RelatedPosts selfTags={frontmatter.tags} selfDate={date} />
       </div>
     </>
   );
