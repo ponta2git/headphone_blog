@@ -41,6 +41,7 @@ export async function generateMetadata(props: {
       ...MetaInfo.metadataBase.openGraph,
       url: `${MetaInfo.siteInfo.url}posts/${postdate}`,
       title: `${post.frontmatter.title}: ${MetaInfo.siteInfo.name}`,
+      type: "article",
     },
   };
 }

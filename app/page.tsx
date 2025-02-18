@@ -85,7 +85,7 @@ export default async function Page() {
 
           <div className="text-justify tracking-[-0.0125rem] break-words">
             その他、過去の記事の一覧は
-            <Link href="posts/20231211">
+            <Link href="all-articles">
               <span className="text-[#4682B4] transition-colors hover:text-[#4682B488]">
                 こちらです。
               </span>
