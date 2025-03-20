@@ -1,6 +1,6 @@
 import { faTwitter } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Image from "next/image";
+// import Image from "next/image";
 
 import { WithClipboard } from "./ShareWith/WithClipboard";
 import { MetaInfo } from "../../../MetaInfo";
@@ -29,7 +29,7 @@ export function ShareWith(frontmatter: Post["frontmatter"]) {
           <WithClipboard />
         </p>
       </div>
-      <div className="font-header-setting mt-2 text-sm text-[#7b8ca2]">
+      {/* <div className="font-header-setting mt-2 text-sm text-[#7b8ca2]">
         <p>
           投げ銭は
           <a
@@ -47,7 +47,7 @@ export function ShareWith(frontmatter: Post["frontmatter"]) {
             (Buy me a coffee)
           </a>
         </p>
-      </div>
+      </div> */}
     </>
   );
 }
