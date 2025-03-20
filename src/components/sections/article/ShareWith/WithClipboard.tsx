@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-misused-promises */
 "use client";
 
 import { faClipboard } from "@fortawesome/free-solid-svg-icons";

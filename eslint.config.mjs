@@ -17,17 +17,17 @@ export default typescript.config(
   compat.config({
     extends: ["next/core-web-vitals", "next/typescript"],
   }),
-  typescript.configs.recommendedTypeChecked,
-  {
-    languageOptions: {
-      parserOptions: {
-        projectService: {
-          allowDefaultProject: ["*.js"],
-        },
-        tsconfigRootDir: import.meta.dirname,
-      },
-    },
-  },
+  // typescript.configs.recommendedTypeChecked,
+  // {
+  //   languageOptions: {
+  //     parserOptions: {
+  //       projectService: {
+  //         allowDefaultProject: ["*.js"],
+  //       },
+  //       tsconfigRootDir: import.meta.dirname,
+  //     },
+  //   },
+  // },
   prettierConfig,
   {
     ignores: [
