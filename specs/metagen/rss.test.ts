@@ -40,17 +40,17 @@ describe("rss", () => {
       await generateRSS();
 
       expect(writeFileSync).toHaveBeenCalledWith(
-        "../public/rss.xml",
+        "public/rss.xml",
         expect.stringContaining('version="2.0"'),
       );
       expect(writeFileSync).toHaveBeenCalledWith(
-        "../public/rss.xml",
+        "public/rss.xml",
         expect.stringContaining(
           "<title><![CDATA[Post on 2023-01-01]]></title>",
         ),
       );
       expect(writeFileSync).toHaveBeenCalledWith(
-        "../public/rss.xml",
+        "public/rss.xml",
         expect.stringContaining(
           "<title><![CDATA[Post on 2023-01-02]]></title>",
         ),

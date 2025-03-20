@@ -21,23 +21,23 @@ describe("sitemap", () => {
       await generateSitemap();
 
       expect(writeFileSync).toHaveBeenCalledWith(
-        "../public/sitemap.xml",
+        "public/sitemap.xml",
         expect.stringContaining(
           '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
         ),
       );
       expect(writeFileSync).toHaveBeenCalledWith(
-        "../public/sitemap.xml",
+        "public/sitemap.xml",
         expect.stringContaining("<loc>https://ponta-headphone.net/</loc>"),
       );
       expect(writeFileSync).toHaveBeenCalledWith(
-        "../public/sitemap.xml",
+        "public/sitemap.xml",
         expect.stringContaining(
           "<loc>https://ponta-headphone.net/posts/20230101</loc>",
         ),
       );
       expect(writeFileSync).toHaveBeenCalledWith(
-        "../public/sitemap.xml",
+        "public/sitemap.xml",
         expect.stringContaining(
           "<loc>https://ponta-headphone.net/posts/20230102</loc>",
         ),
