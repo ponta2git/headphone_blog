@@ -42,12 +42,13 @@ export default typescript.config(
   {
     files: [
       "app/**/*.tsx",
-      "src/**/*.ts",
+      "src/**/*.{ts,tsx}",
       "metagen/vite.config.mts",
       "metagen/src/**/*.ts",
     ],
     rules: {
       "@typescript-eslint/consistent-type-imports": "error",
+      "@typescript-eslint/no-import-type-side-effects": "error",
       "import/order": [
         "error",
         {
@@ -70,6 +71,17 @@ export default typescript.config(
           },
         },
       ],
+    },
+  },
+  {
+    files: ["specs/**/*.ts"],
+    rules: {
+      "@typescript-eslint/no-unsafe-assignment": "off",
+      "@typescript-eslint/no-unsafe-call": "off",
+      "@typescript-eslint/no-unsafe-member-access": "off",
+      "@typescript-eslint/no-unsafe-return": "off",
+      "@typescript-eslint/no-unsafe-argument": "off",
+      "@typescript-eslint/unbound-method": "off",
     },
   },
 );

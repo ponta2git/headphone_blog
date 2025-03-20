@@ -4,7 +4,7 @@ import { TagItem } from "../../elements/TagItem";
 
 import type { Post } from "../../../services/post/PostTypes";
 
-export function ExcerptCard({ post }: { post: Post }) {
+export function MetaCard({ post }: { post: Post }) {
   const { frontmatter } = post;
   const { date, tags, title } = frontmatter;
 
@@ -28,9 +28,6 @@ export function ExcerptCard({ post }: { post: Post }) {
         <p className="ml-[0.25rem] text-sm leading-5 tracking-[0.2px] text-[#7b8ca2]">
           {date.toFormat("yyyy-MM-dd")}
         </p>
-      </div>
-      <div className="px-3 text-justify tracking-[-0.0125rem] break-words md:px-5">
-        {post.excerpt}
       </div>
     </div>
   );

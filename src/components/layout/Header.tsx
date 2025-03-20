@@ -4,12 +4,12 @@ import Link from "next/link";
 export default function Header() {
   return (
     <header>
-      <div className="mx-auto flex w-full flex-col gap-y-4 py-10">
+      <div className="w-full">
         <Link href="/">
           <Image
             src={"/images/headphone_blog_logo.png"}
-            width={280}
-            height={280}
+            width={230}
+            height={230}
             alt="pontaのヘッドホンブログ"
             priority
             className="mx-auto block"

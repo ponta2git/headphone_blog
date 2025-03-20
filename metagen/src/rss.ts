@@ -2,21 +2,23 @@ import { writeFileSync } from "fs";
 
 import RSS from "rss";
 
-import { type Frontmatter, toFrontmatter } from "../../src/domain/Frontmatter";
-import { getAllPostDates } from "../../src/infrastructure/PostDateRepository";
-import { findPostByDate } from "../../src/infrastructure/PostRepository";
-import { siteName, siteDescription } from "../../src/siteBasic";
+import { MetaInfo } from "../../src/MetaInfo";
+import { PostdateService } from "../../src/services/date/PostdateService";
+import { PostService } from "../../src/services/post/PostService";
+
+import type { Post } from "../../src/services/post/PostTypes";
 
 async function getLatest5PostMatters() {
-  const postDates = (await getAllPostDates(true)).toReversed();
-  const sliced = postDates.slice(0, 5);
-  const files = await Promise.all(
-    sliced.map((date) => findPostByDate(date, true)),
+  const all = (await PostdateService.getAllPostdates(true)).toReversed();
+  const sliced = all.slice(0, Math.min(5, all.length));
+
+  const posts = await Promise.all(
+    sliced.map((date) => PostService.getByPostdate(date)),
   );
-  return files.map((file) => toFrontmatter(file));
+  return posts.map((file) => file.frontmatter);
 }
 
-function addRSSItem(matters: Frontmatter[], feed: RSS) {
+function addRSSItem(matters: Post["frontmatter"][], feed: RSS) {
   matters.forEach((matt) => {
     feed.item({
       title: matt.title,
@@ -29,8 +31,8 @@ function addRSSItem(matters: Frontmatter[], feed: RSS) {
 
 function generateNewRSS() {
   return new RSS({
-    title: siteName,
-    description: siteDescription,
+    title: MetaInfo.siteInfo.name,
+    description: MetaInfo.siteInfo.description,
     site_url: "https://ponta-headphone.net/",
     feed_url: "https://ponta-headphone.net/rss.xml",
     language: "ja",
@@ -44,6 +46,6 @@ export async function generateRSS() {
 
   addRSSItem(posts, feed);
 
-  writeFileSync("../public/rss.xml", feed.xml());
+  writeFileSync("public/rss.xml", feed.xml());
   console.log("RSS generated.");
 }
