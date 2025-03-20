@@ -45,6 +45,6 @@ async function generateSitemapContent(): Promise<string> {
 export async function generateSitemap(): Promise<void> {
   console.log("Generating sitemap...");
   const sitemapContent = await generateSitemapContent();
-  writeFileSync("../public/sitemap.xml", sitemapContent.trim());
+  writeFileSync("public/sitemap.xml", sitemapContent.trim());
   console.log("Sitemap generated.");
 }
