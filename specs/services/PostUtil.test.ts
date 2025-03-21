@@ -63,7 +63,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor i
     });
 
     it("should throw an error if MDX compilation fails", () => {
-      const file = Buffer.from(`invalid mdx content`);
+      const file = Buffer.from("invalid mdx content");
 
       expect(() => evaluateMdxContent(file)).toThrow();
     });

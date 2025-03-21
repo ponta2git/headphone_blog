@@ -11,27 +11,39 @@ import type { Dirent } from "node:fs";
 /**
  * Luxon の DateTime を Postdate として扱う
  */
-export type Postdate = DateTime;
+export type Postdate = DateTime<true>;
 
 export const PostdateService = {
   /**
    * yyyy-MM-dd フォーマットの日付文字列を JST として解釈し、DateTime を返す
    */
   from_yyyyMMdd_hyphenated(dateStr: string): Postdate {
-    return DateTime.fromFormat(dateStr, "yyyy-MM-dd", {
+    const result = DateTime.fromFormat(dateStr, "yyyy-MM-dd", {
       zone: "Asia/Tokyo",
       locale: "ja-JP",
     });
+
+    if (!result.isValid) {
+      throw new Error(`Invalid date string: ${dateStr}`);
+    }
+
+    return result;
   },
 
   /**
    * yyyyMMdd フォーマットの日付文字列を JST として解釈し、DateTime を返す
    */
   from_yyyyMMdd(dateStr: string): Postdate {
-    return DateTime.fromFormat(dateStr, "yyyyMMdd", {
+    const result = DateTime.fromFormat(dateStr, "yyyyMMdd", {
       zone: "Asia/Tokyo",
       locale: "ja-JP",
     });
+
+    if (!result.isValid) {
+      throw new Error(`Invalid date string: ${dateStr}`);
+    }
+
+    return result;
   },
 
   /**

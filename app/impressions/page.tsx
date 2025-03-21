@@ -14,7 +14,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   ...MetaInfo.metadataBase,
   title: `感想: ${MetaInfo.siteInfo.name}`,
-  description: `機材の感想を集めたページ`,
+  description: "機材の感想を集めたページ",
   alternates: {
     ...MetaInfo.metadataBase.alternates,
     canonical: `${MetaInfo.siteInfo.url}impressions`,
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     ...MetaInfo.metadataBase.twitter,
-    description: `機材の感想を集めたページ`,
+    description: "機材の感想を集めたページ",
   },
 };
 

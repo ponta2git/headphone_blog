@@ -4,6 +4,6 @@ import { generateSitemap } from "./sitemap";
 // change current directory to the upper directory.
 process.chdir("../");
 
-void (async () => {
+(async () => {
   await Promise.all([generateRSS(), generateSitemap()]);
 })();

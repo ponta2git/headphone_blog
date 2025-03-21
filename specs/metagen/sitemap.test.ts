@@ -15,7 +15,7 @@ describe("sitemap", () => {
       const mockDates = [
         DateTime.fromISO("2023-01-01"),
         DateTime.fromISO("2023-01-02"),
-      ];
+      ] as DateTime<true>[];
       vi.mocked(PostdateService.getAllPostdates).mockResolvedValue(mockDates);
 
       await generateSitemap();

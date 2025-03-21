@@ -2,23 +2,28 @@
 
 import { faClipboard } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 
 export function WithClipboard() {
   const [copied, setCopied] = useState(false);
 
-  async function handleClick() {
+  const handleClick = useCallback(async () => {
     await navigator.clipboard.writeText(window.location.href);
     setCopied(true);
 
     setTimeout(() => {
       setCopied(false);
     }, 3000);
-  }
+  }, []);
 
   return (
     <>
-      <span onClick={handleClick} className="cursor-pointer">
+      <span
+        onClick={handleClick}
+        className="cursor-pointer"
+        tabIndex={0}
+        role="button"
+      >
         <FontAwesomeIcon icon={faClipboard} />
       </span>
       &nbsp;

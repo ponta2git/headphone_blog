@@ -12,7 +12,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   ...MetaInfo.metadataBase,
   title: `全記事一覧: ${MetaInfo.siteInfo.name}`,
-  description: `すべての記事を集めたページ`,
+  description: "すべての記事を集めたページ",
   alternates: {
     ...MetaInfo.metadataBase.alternates,
     canonical: `${MetaInfo.siteInfo.url}all-articles`,
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     ...MetaInfo.metadataBase.twitter,
-    description: `すべての記事を集めたページ`,
+    description: "すべての記事を集めたページ",
   },
 };
 

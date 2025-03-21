@@ -14,7 +14,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   ...MetaInfo.metadataBase,
   title: `考察: ${MetaInfo.siteInfo.name}`,
-  description: `考察を集めたページ`,
+  description: "考察を集めたページ",
   alternates: {
     ...MetaInfo.metadataBase.alternates,
     canonical: `${MetaInfo.siteInfo.url}kousatsu`,
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     ...MetaInfo.metadataBase.twitter,
-    description: `考察を集めたページ`,
+    description: "考察を集めたページ",
   },
 };
 

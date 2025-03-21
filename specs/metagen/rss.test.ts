@@ -18,13 +18,13 @@ describe("rss", () => {
       const mockDates = [
         DateTime.fromISO("2023-01-01"),
         DateTime.fromISO("2023-01-02"),
-      ];
+      ] as DateTime<true>[];
       const mockPosts = mockDates.map(
         (date) =>
           ({
             frontmatter: {
               title: `Post on ${date.toISODate()}`,
-              date: date,
+              date,
               tags: ["test"],
             },
           }) as unknown as Post,

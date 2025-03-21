@@ -11,9 +11,7 @@ export default function NavMenu() {
       <ul className="flex items-center justify-evenly space-x-2">
         <li className="text-center">
           <Link href="/">
-            <span
-              className={`rounded-md px-2 py-2 align-middle text-sm font-medium text-[#121a2488] hover:bg-[#C8E6C9]`}
-            >
+            <span className="rounded-md px-2 py-2 align-middle text-sm font-medium text-[#121a2488] hover:bg-[#C8E6C9]">
               <FontAwesomeIcon icon={faBolt} className="inline-block h-4 w-4" />{" "}
               新着
             </span>
@@ -21,9 +19,7 @@ export default function NavMenu() {
         </li>
         <li className="text-center">
           <Link href="/impressions">
-            <span
-              className={`rounded-md px-2 py-2 align-middle text-sm font-medium text-[#121a2488] hover:bg-[#C8E6C9]`}
-            >
+            <span className="rounded-md px-2 py-2 align-middle text-sm font-medium text-[#121a2488] hover:bg-[#C8E6C9]">
               <FontAwesomeIcon
                 icon={faHeadphonesSimple}
                 className="inline-block h-4 w-4"
@@ -34,9 +30,7 @@ export default function NavMenu() {
         </li>
         <li className="text-center">
           <Link href="/discussions">
-            <span
-              className={`rounded-md px-2 py-2 align-middle text-sm font-medium text-[#121a2488] hover:bg-[#C8E6C9]`}
-            >
+            <span className="rounded-md px-2 py-2 align-middle text-sm font-medium text-[#121a2488] hover:bg-[#C8E6C9]">
               <FontAwesomeIcon
                 icon={faCommentDots}
                 className="inline-block h-4 w-4"
@@ -47,9 +41,7 @@ export default function NavMenu() {
         </li>
         <li className="text-center">
           <Link href="/tags">
-            <span
-              className={`rounded-md px-2 py-2 align-middle text-sm font-medium text-[#121a2488] hover:bg-[#C8E6C9]`}
-            >
+            <span className="rounded-md px-2 py-2 align-middle text-sm font-medium text-[#121a2488] hover:bg-[#C8E6C9]">
               <FontAwesomeIcon
                 icon={faMagnifyingGlass}
                 className="inline-block h-4 w-4"
