@@ -1,5 +1,17 @@
 version = 1
 
+exclude_patterns = [
+  "**/node_modules/",
+  "**/out/",
+  "**/dist/",
+  "**/.next/",
+  "*.toml"
+]
+
+test_patterns = [
+  "specs/**/*.spec.ts"
+]
+
 [[analyzers]]
 name = "javascript"
 
