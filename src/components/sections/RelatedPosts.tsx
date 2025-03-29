@@ -34,8 +34,8 @@ export default async function RelatedPosts({
     .slice(0, 5);
 
   return (
-    <div className="flex flex-col gap-y-3 rounded-lg border-2 border-[#f0f8ff] bg-white px-8 py-6 leading-8">
-      <h3 className="font-header-setting flex flex-row items-center gap-x-2 leading-snug tracking-[0.6px] text-[#2F4F4F]">
+    <div className="flex flex-col gap-y-3 rounded-lg border-2 border-bg-alt bg-white px-8 py-6 leading-8">
+      <h3 className="font-header-setting flex flex-row items-center gap-x-2 leading-snug tracking-[0.6px] text-text-heading">
         <span className="inline-block">
           <FontAwesomeIcon icon={faNewspaper} />
         </span>
@@ -46,7 +46,7 @@ export default async function RelatedPosts({
           <p key={matter.date.toISO()}>
             <Link
               href={`/posts/${matter.date.toFormat("yyyyMMdd")}`}
-              className="text-justify tracking-[-0.0125rem] break-words text-[#1E6FBA] transition-colors hover:text-[#1E6FBA88]"
+              className="text-justify tracking-[-0.0125rem] break-words text-primary transition-colors hover:text-primary-hover"
             >
               {matter.title}
             </Link>
@@ -58,7 +58,7 @@ export default async function RelatedPosts({
           <p key={tag.slug}>
             <Link
               href={`/tags/${tag.slug}`}
-              className="text-justify tracking-[-0.0125rem] break-words text-[#7b8ca2]"
+              className="text-justify tracking-[-0.0125rem] break-words text-text-meta"
             >
               他の「{tag.name}」の記事を読む
             </Link>

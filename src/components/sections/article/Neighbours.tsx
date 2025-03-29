@@ -36,7 +36,7 @@ export async function Neighbours({ selfDate }: { selfDate: Postdate }) {
         {prevMatter && (
           <Link
             href={`/posts/${prevMatter.date.toFormat("yyyyMMdd")}`}
-            className="font-header-setting text-sm tracking-[0.6px] text-[#1E6FBA] transition-colors hover:text-[#1E6FBA88]"
+            className="font-header-setting text-sm tracking-[0.6px] text-primary transition-colors hover:text-primary-hover"
           >
             {prevMatter.title}
           </Link>
@@ -47,7 +47,7 @@ export async function Neighbours({ selfDate }: { selfDate: Postdate }) {
         {nextMatter && (
           <Link
             href={`/posts/${nextMatter.date.toFormat("yyyyMMdd")}`}
-            className="font-header-setting text-sm tracking-[0.6px] text-[#1E6FBA] transition-colors hover:text-[#1E6FBA88]"
+            className="font-header-setting text-sm tracking-[0.6px] text-primary transition-colors hover:text-primary-hover"
           >
             {nextMatter.title}
           </Link>

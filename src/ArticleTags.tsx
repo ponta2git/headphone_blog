@@ -17,13 +17,13 @@ const ArticleTags: MDXComponents = {
   h1: (props: HTMLProps<HTMLHeadingElement>) => (
     <h2
       {...props}
-      className="font-header-setting text-lg leading-snug font-bold tracking-[0.6px] text-[#2F4F4F]"
+      className="font-header-setting text-lg leading-snug font-bold tracking-[0.6px] text-text-heading"
     />
   ),
   h2: (props: HTMLProps<HTMLHeadingElement>) => (
     <h3
       {...props}
-      className="font-header-setting leading-snug font-bold tracking-[0.6px] text-[#2F4F4F]"
+      className="font-header-setting leading-snug font-bold tracking-[0.6px] text-text-heading"
     />
   ),
   a: ({ href, children, ...props }: HTMLProps<HTMLAnchorElement>) =>
@@ -33,7 +33,7 @@ const ArticleTags: MDXComponents = {
           {...props}
           href={href}
           rel="noopener noreferrer"
-          className="mr-1 inline-flex flex-row items-center gap-x-1 text-[#1E6FBA] transition-colors hover:text-[#1E6FBA88]"
+          className="mr-1 inline-flex flex-row items-center gap-x-1 text-primary transition-colors hover:text-primary-hover"
         >
           {children}
           <FontAwesomeIcon
@@ -44,7 +44,7 @@ const ArticleTags: MDXComponents = {
       ) : (
         <Link
           href={href}
-          className="text-[#1E6FBA] transition-colors hover:text-[#1E6FBA88]"
+          className="text-primary transition-colors hover:text-primary-hover"
         >
           {children}
         </Link>
@@ -57,7 +57,7 @@ const ArticleTags: MDXComponents = {
         alt={alt ?? ""}
         width={numberOnly(width) ?? 640}
         height={numberOnly(height) ?? 480}
-        className="mx-auto block rounded-md shadow-sm shadow-[#484848]"
+        className="mx-auto block rounded-md shadow-sm shadow-universal-shadow"
       />
     ) : undefined,
   ul: (props: HTMLProps<HTMLUListElement>) => (
@@ -72,11 +72,11 @@ const ArticleTags: MDXComponents = {
   th: (props: HTMLProps<HTMLTableCellElement>) => (
     <th
       {...props}
-      className="font-header-setting border-b-[1px] border-[#7b8ca2] pb-2 pl-1 text-left text-sm text-[#2F4F4F]"
+      className="font-header-setting border-b-[1px] border-text-meta pb-2 pl-1 text-left text-sm text-text-heading"
     />
   ),
   tr: (props: HTMLProps<HTMLTableRowElement>) => (
-    <tr {...props} className="rounded-lg hover:bg-[#f0f8ff]" />
+    <tr {...props} className="rounded-lg hover:bg-bg-alt" />
   ),
   td: (props: HTMLProps<HTMLTableCellElement>) => (
     <td
@@ -88,10 +88,10 @@ const ArticleTags: MDXComponents = {
     <p {...props} className="text-justify tracking-[-0.0125rem] break-words" />
   ),
   del: (props: HTMLProps<HTMLModElement>) => (
-    <del {...props} className="text-[#7b8ca2]" />
+    <del {...props} className="text-text-meta" />
   ),
   Info: (props: PropsWithChildren) => (
-    <div className="flex flex-row items-center gap-x-4 rounded-lg bg-[#f0f8ff] p-4 text-justify text-sm leading-6 tracking-[-0.0125rem] break-words">
+    <div className="flex flex-row items-center gap-x-4 rounded-lg bg-bg-alt p-4 text-justify text-sm leading-6 tracking-[-0.0125rem] break-words">
       <p className="h-[20px] w-[20px] shrink-0 text-[#0d98ba]">
         <FontAwesomeIcon icon={faInfoCircle} />
       </p>
@@ -107,7 +107,7 @@ const ArticleTags: MDXComponents = {
     </div>
   ),
   Postscript: (props: PropsWithChildren) => (
-    <div className="text-justify text-sm tracking-[-0.0125rem] break-words text-[#7b8ca2]">
+    <div className="text-justify text-sm tracking-[-0.0125rem] break-words text-text-meta">
       {props.children}
     </div>
   ),

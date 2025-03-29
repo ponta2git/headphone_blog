@@ -35,7 +35,7 @@ export default async function Page() {
 
   return (
     <Container>
-      <h1 className="font-header-setting mb-4 flex flex-row items-center gap-x-1.5 text-lg text-[#2F4F4F]">
+      <h1 className="font-header-setting mb-4 flex flex-row items-center gap-x-1.5 text-lg text-text-heading">
         <FontAwesomeIcon icon={faNewspaper} className="inline-block h-5 w-5" />
         <span className="inline-block">全記事一覧</span>
       </h1>

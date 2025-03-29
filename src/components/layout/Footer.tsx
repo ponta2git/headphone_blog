@@ -8,8 +8,8 @@ export default function Footer() {
   const year = DateTime.now().year;
 
   return (
-    <footer className="bg-[#CCE0FF] py-8">
-      <div className="flex flex-col gap-y-2 text-center text-sm tracking-[0.4px] text-[#555555]">
+    <footer className="bg-bg-footer py-8">
+      <div className="flex flex-col gap-y-2 text-center text-sm tracking-[0.4px] text-text-secondary">
         <div className="mb-2 flex flex-row justify-center gap-x-6">
           <a href="mailto:coshun@gmail.com" className="h-4 w-4">
             <FontAwesomeIcon icon={faEnvelope} />

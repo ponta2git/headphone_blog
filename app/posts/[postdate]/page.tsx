@@ -66,12 +66,12 @@ export default async function Page(props: {
               ))}
             </div>
 
-            <h1 className="font-header-setting text-2xl leading-snug font-bold tracking-[0.6px] text-[#2F4F4F]">
+            <h1 className="font-header-setting text-2xl leading-snug font-bold tracking-[0.6px] text-text-heading">
               {frontmatter.title}
             </h1>
           </div>
 
-          <p className="text-sm leading-5 tracking-[0.2px] text-[#7b8ca2]">
+          <p className="text-sm leading-5 tracking-[0.2px] text-text-meta">
             {frontmatter.date.toFormat("yyyy-MM-dd")}
           </p>
 
