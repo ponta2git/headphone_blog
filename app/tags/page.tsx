@@ -42,7 +42,7 @@ export default async function Page() {
 
   return (
     <Container>
-      <h1 className="font-header-setting mb-4 flex flex-row items-center gap-x-1.5 text-lg text-[#2F4F4F]">
+      <h1 className="font-header-setting mb-4 flex flex-row items-center gap-x-1.5 text-lg text-text-heading">
         <FontAwesomeIcon
           icon={faMagnifyingGlass}
           className="inline-block h-5 w-5"
@@ -61,11 +61,11 @@ export default async function Page() {
             >
               <Link
                 href={`/tags/${stat.tag.slug}`}
-                className="block tracking-[0.4px] text-[#4682B4] transition-colors hover:text-[#4682B488]"
+                className="block tracking-[0.4px] text-link-blue transition-colors hover:text-link-blue-hover"
               >
                 {stat.tag.name}
               </Link>
-              <span className="block text-xs tracking-[0.4px] text-[#7b8ca2]">
+              <span className="block text-xs tracking-[0.4px] text-text-meta">
                 (記事数:{stat.count})
               </span>
             </p>
@@ -75,7 +75,7 @@ export default async function Page() {
           <p>
             すべての記事の一覧は
             <Link href="/all-articles">
-              <span className="text-[#4682B4] transition-colors hover:text-[#4682B488]">
+              <span className="text-link-blue transition-colors hover:text-link-blue-hover">
                 こちらにあります。
               </span>
             </Link>

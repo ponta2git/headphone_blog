@@ -67,7 +67,7 @@ export default async function Page(props: {
 
   return (
     <Container>
-      <h1 className="font-header-setting mb-4 flex flex-row items-center gap-x-1.5 text-lg text-[#2F4F4F]">
+      <h1 className="font-header-setting mb-4 flex flex-row items-center gap-x-1.5 text-lg text-text-heading">
         <FontAwesomeIcon icon={faTag} className="inline-block h-5 w-5" />
         <span className="inline-block">{tag.name} に関する記事一覧</span>
       </h1>
@@ -79,7 +79,7 @@ export default async function Page(props: {
         <div className="text-justify tracking-[-0.0125rem] break-words">
           別ジャンルの記事をお探しなら、
           <Link href="/tags">
-            <span className="text-[#4682B4] transition-colors hover:text-[#4682B488]">
+            <span className="text-link-blue transition-colors hover:text-link-blue-hover">
               ジャンル一覧をご覧ください。
             </span>
           </Link>

@@ -17,15 +17,15 @@ export function ExcerptCard({ post }: { post: Post }) {
             <TagItem key={tag.slug} tag={tag} />
           ))}
         </div>
-        <h2 className="font-header-setting ml-[0.25rem] text-xl leading-snug font-bold tracking-[0.6px] text-[#2F4F4F]">
+        <h2 className="font-header-setting ml-[0.25rem] text-xl leading-snug font-bold tracking-[0.6px] text-text-heading">
           <Link
             href={link}
-            className="transition-colors hover:text-[#40404088]"
+            className="transition-colors hover:text-text-card-hover"
           >
             {title}
           </Link>
         </h2>
-        <p className="ml-[0.25rem] text-sm leading-5 tracking-[0.2px] text-[#7b8ca2]">
+        <p className="ml-[0.25rem] text-sm leading-5 tracking-[0.2px] text-text-meta">
           {date.toFormat("yyyy-MM-dd")}
         </p>
       </div>

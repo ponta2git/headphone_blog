@@ -10,7 +10,7 @@ import type { Post } from "../../../services/post/PostTypes";
 export function ShareWith(frontmatter: Post["frontmatter"]) {
   return (
     <>
-      <div className="font-header-setting flex flex-row items-baseline justify-start gap-x-2 text-sm text-[#7b8ca2]">
+      <div className="font-header-setting flex flex-row items-baseline justify-start gap-x-2 text-sm text-text-meta">
         <p>Share with:</p>
         <p>
           <a
@@ -29,7 +29,7 @@ export function ShareWith(frontmatter: Post["frontmatter"]) {
           <WithClipboard />
         </p>
       </div>
-      <div className="font-header-setting mt-2 text-sm text-[#7b8ca2]">
+      <div className="font-header-setting mt-2 text-sm text-text-meta">
         <p>
           投げ銭は
           <a
