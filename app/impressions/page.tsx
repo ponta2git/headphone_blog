@@ -56,7 +56,7 @@ export default async function Page() {
       <div className="flex flex-col gap-y-4">
         <div className="text-justify tracking-[-0.0125rem] break-words">
           わたしが実際に聴いた機材のインプレッションの一覧です。このサイトのメインコンテンツの一つです。わたしの中の機材に対する評価指標・考え方に関しては、こちらの
-          <Link href="/tags/metrics">
+          <Link href="/tags/metric">
             <span className="text-link-blue transition-colors hover:text-link-blue-hover">
               これらの記事を読むとわかりやすい
             </span>
