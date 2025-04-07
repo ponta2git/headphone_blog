@@ -15,12 +15,14 @@ const numberOnly = (num: string | number | undefined) =>
 
 const ArticleTags: MDXComponents = {
   h1: (props: HTMLProps<HTMLHeadingElement>) => (
+    // skipcq: JS-0747
     <h2
       {...props}
       className="font-header-setting text-lg leading-snug font-bold tracking-[0.6px] text-text-heading"
     />
   ),
   h2: (props: HTMLProps<HTMLHeadingElement>) => (
+    // skipcq: JS-0747
     <h3
       {...props}
       className="font-header-setting leading-snug font-bold tracking-[0.6px] text-text-heading"
