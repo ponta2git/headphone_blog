@@ -9,14 +9,14 @@
   "author": "ponta",
   "license": "MIT",
   "devDependencies": {
-    "@types/node": "^20.17.27",
+    "@types/node": "^22.14.0",
     "@types/rss": "^0.0.32",
-    "typescript": "^5.8.2",
-    "vite": "^6.2.3"
+    "typescript": "^5.8.3",
+    "vite": "^6.2.5"
   },
   "dependencies": {
     "gray-matter": "^4.0.3",
-    "luxon": "^3.5.0",
+    "luxon": "^3.6.1",
     "rss": "^1.2.2"
   }
 }
