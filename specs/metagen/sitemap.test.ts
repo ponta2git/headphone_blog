@@ -2,9 +2,11 @@ import { DateTime } from "luxon";
 import { writeFileSync } from "fs";
 import { generateSitemap } from "../../metagen/src/sitemap";
 import { PostdateService } from "../../src/services/date/PostdateService";
+import { TagService } from "../../src/services/tag/TagService";
 
-// Mock the PostdateService and writeFileSync
+// Mock the PostdateService, TagService, and writeFileSync
 vi.mock("../../src/services/date/PostdateService");
+vi.mock("../../src/services/tag/TagService");
 vi.mock("fs", () => ({
   writeFileSync: vi.fn(),
 }));
@@ -17,6 +19,12 @@ describe("sitemap", () => {
         DateTime.fromISO("2023-01-02"),
       ] as DateTime<true>[];
       vi.mocked(PostdateService.getAllPostdates).mockResolvedValue(mockDates);
+
+      // Mock TagService.allTags
+      vi.mocked(TagService.allTags).mockReturnValue([
+        { name: "購入", slug: "purchase" },
+        { name: "試聴", slug: "try" },
+      ]);
 
       await generateSitemap();
 
@@ -40,6 +48,19 @@ describe("sitemap", () => {
         "public/sitemap.xml",
         expect.stringContaining(
           "<loc>https://ponta-headphone.net/posts/20230102</loc>",
+        ),
+      );
+
+      expect(writeFileSync).toHaveBeenCalledWith(
+        "public/sitemap.xml",
+        expect.stringContaining(
+          "<loc>https://ponta-headphone.net/tags/purchase</loc>",
+        ),
+      );
+      expect(writeFileSync).toHaveBeenCalledWith(
+        "public/sitemap.xml",
+        expect.stringContaining(
+          "<loc>https://ponta-headphone.net/tags/try</loc>",
         ),
       );
     });
