@@ -2,7 +2,7 @@
 
 import { faClipboard } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState, useCallback } from "react";
+import { useState, useCallback, type KeyboardEventHandler } from "react";
 
 export function WithClipboard() {
   const [copied, setCopied] = useState(false);
@@ -16,10 +16,20 @@ export function WithClipboard() {
     }, 3000);
   }, []);
 
+  const handleKeyDown = useCallback<KeyboardEventHandler<HTMLSpanElement>>(
+    (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        handleClick();
+      }
+    },
+    [handleClick],
+  );
+
   return (
     <>
       <span
         onClick={handleClick}
+        onKeyDown={handleKeyDown}
         className="cursor-pointer"
         tabIndex={0}
         role="button"
