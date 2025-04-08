@@ -4,7 +4,6 @@ import { faSitemap } from "@fortawesome/free-solid-svg-icons/faSitemap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 
-import ChildMenu from "../src/components/layout/ChildMenu";
 import Container from "../src/components/layout/Container";
 import { ExcerptCard } from "../src/components/sections/article/ExcerptCard";
 import { PostdateService } from "../src/services/date/PostdateService";
@@ -20,8 +19,8 @@ export default async function Page() {
 
   return (
     <Container>
-      <div className="mb-4">
-        <ChildMenu>
+      <nav className="mb-4">
+        <ul className="font-header-setting flex flex-row items-center justify-center gap-x-6 text-sm tracking-tight">
           <li className="text-link-blue transition-colors hover:text-link-blue-hover">
             <Link href="#latest-articles">新着記事</Link>
           </li>
@@ -31,11 +30,11 @@ export default async function Page() {
           <li className="text-link-blue transition-colors hover:text-link-blue-hover">
             <Link href="#all-articles">記事一覧</Link>
           </li>
-        </ChildMenu>
-      </div>
+        </ul>
+      </nav>
 
       <div className="flex flex-col gap-y-12">
-        <div>
+        <section>
           <h1
             id="latest-articles"
             className="font-header-setting mb-4 flex flex-row items-center gap-x-1.5 text-lg text-text-heading"
@@ -49,9 +48,9 @@ export default async function Page() {
               <ExcerptCard key={post.frontmatter.date.toISO()} post={post} />
             ))}
           </div>
-        </div>
+        </section>
 
-        <div>
+        <section>
           <h1
             id="system-components"
             className="font-header-setting mb-4 flex flex-row items-center gap-x-1.5 text-lg text-text-heading"
@@ -69,9 +68,9 @@ export default async function Page() {
             </Link>
             筆者がいつもどのようなシステムを使っているか、気になる方はご覧ください。特に、購入物は、こちらのシステムで評価することがほとんどです。
           </div>
-        </div>
+        </section>
 
-        <div>
+        <section>
           <h1
             id="all-articles"
             className="font-header-setting mb-4 flex flex-row items-center gap-x-1.5 text-lg text-text-heading"
@@ -91,7 +90,7 @@ export default async function Page() {
               </span>
             </Link>
           </div>
-        </div>
+        </section>
       </div>
     </Container>
   );

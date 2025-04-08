@@ -4,8 +4,8 @@ const GTAGMGR_ID = process.env.NEXT_PUBLIC_GTAGMGR_ID || "";
 import "./globals.css";
 
 import Footer from "../src/components/layout/Footer";
+import GlobalMenu from "../src/components/layout/GlobalMenu";
 import Header from "../src/components/layout/Header";
-import NavMenu from "../src/components/layout/NavMenu";
 import { MetaInfo } from "../src/MetaInfo";
 
 import type { Metadata } from "next";
@@ -24,7 +24,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
               <Header />
             </div>
             <div className="mx-4 mb-6 md:mx-auto md:w-3/5">
-              <NavMenu />
+              <GlobalMenu />
             </div>
             {children}
           </div>
