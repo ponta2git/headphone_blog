@@ -6,6 +6,7 @@ import "./globals.css";
 import Footer from "../src/components/layout/Footer";
 import GlobalMenu from "../src/components/layout/GlobalMenu";
 import Header from "../src/components/layout/Header";
+import ScrollToTop from "../src/components/layout/ScrollToTop";
 import { MetaInfo } from "../src/MetaInfo";
 
 import type { Metadata } from "next";
@@ -29,6 +30,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             {children}
           </div>
           <Footer />
+          <ScrollToTop />
         </div>
       </body>
       {process.env.NODE_ENV === "production" ? (
