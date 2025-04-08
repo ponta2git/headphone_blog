@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="4" preserveAspectRatio="none">
+  <defs>
+    <!-- 幅20pxごとのパターン。中央に幅10pxの角丸矩形のラインを配置 -->
+    <pattern id="dashPattern" patternUnits="userSpaceOnUse" width="20" height="4">
+      <rect x="0" y="1.5" rx="1" ry="1" width="10" height="1" fill="#CCCCCC" />
+    </pattern>
+  </defs>
+  <rect width="100%" height="4" fill="url(#dashPattern)" />
+</svg>

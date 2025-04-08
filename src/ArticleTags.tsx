@@ -92,6 +92,13 @@ const ArticleTags: MDXComponents = {
   del: (props: HTMLProps<HTMLModElement>) => (
     <del {...props} className="text-text-meta" />
   ),
+  hr: () => (
+    <img
+      src="/images/line.svg"
+      alt="Description of the image"
+      className="block h-2 min-w-full"
+    />
+  ),
   Info: (props: PropsWithChildren) => (
     <div className="flex flex-row items-center gap-x-4 rounded-lg bg-bg-alt p-4 text-justify text-sm leading-6 tracking-[-0.0125rem] break-words">
       <p className="h-[20px] w-[20px] shrink-0 text-[#0d98ba]">
