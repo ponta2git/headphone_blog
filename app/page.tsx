@@ -61,7 +61,7 @@ export default async function Page() {
 
           <div className="text-justify tracking-[-0.0125rem] break-words">
             現在のシステム構成は、
-            <Link href="posts/20231211">
+            <Link href="posts/20250320">
               <span className="text-link-blue transition-colors hover:text-link-blue-hover">
                 こちらです。
               </span>
