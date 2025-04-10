@@ -4,7 +4,6 @@ import { faHeadphonesSimple } from "@fortawesome/free-solid-svg-icons/faHeadphon
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons/faMagnifyingGlass";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
-
 import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 
 interface MenuItemProps {
@@ -16,8 +15,9 @@ interface MenuItemProps {
 const MenuItem = ({ href, icon, label }: MenuItemProps) => (
   <li className="text-center">
     <Link href={href}>
-      <span className="rounded-md px-2 py-2 align-middle text-sm font-medium text-text-nav hover:bg-bg-hover">
-        <FontAwesomeIcon icon={icon} className="inline-block h-4 w-4" /> {label}
+      <span className="focus:ring-accent block transform rounded-md px-2 py-2 align-middle text-sm font-medium text-text-nav transition-colors duration-200 hover:scale-105 hover:bg-bg-hover focus:ring-2 focus:ring-offset-2 focus:outline-none">
+        <FontAwesomeIcon icon={icon} className="mr-1 inline-block h-4 w-4" />{" "}
+        {label}
       </span>
     </Link>
   </li>
@@ -32,7 +32,10 @@ export default function GlobalMenu() {
   ];
 
   return (
-    <nav className="font-header-setting rounded-lg bg-bg-menu p-3 shadow-md">
+    <nav
+      className="font-header-setting rounded-lg bg-bg-menu p-3 shadow-md"
+      aria-label="グローバルナビゲーション"
+    >
       <ul className="flex items-center justify-evenly space-x-2">
         {menuItems.map((item) => (
           <MenuItem
