@@ -2,32 +2,33 @@
 
 @theme {
   /* Base colors */
-  --color-primary: #1e6fba;
-  --color-primary-light: #4682b4;
-  --color-primary-hover: #1e6fba88;
+  --color-primary: #1e6fba; /* 主要ブランドカラーは維持 */
+  --color-primary-light: #426f9a; /* 少し暗めに調整 */
+  --color-primary-hover: #1e6fba; /* 不透明にして強調 */
 
   /* Background palette */
-  --color-bg-base: #f0ffff;
+  --color-bg-base: #f0ffff; /* 背景色は明るいまま */
   --color-bg-menu: #e1ffee;
   --color-bg-hover: #c8e6c9;
   --color-bg-footer: #cce0ff;
   --color-bg-alt: #f0f8ff;
 
   /* Text colors */
-  --color-text: #484848;
-  --color-text-heading: #2f4f4f;
-  --color-text-secondary: #555555;
-  --color-text-meta: #7b8ca2;
-  --color-text-nav: #121a2488;
-  --color-text-card-hover: #40404088;
+  --color-text: #333333; /* より濃いグレーに変更、可読性向上 */
+  --color-text-heading: #2a3a40; /* 見出しもやや濃く */
+  --color-text-secondary: #444444; /* サブテキストも強調 */
+  --color-text-meta: #5a6a7a; /* 補助テキストを暗めにしてコントラスト確保 */
+  --color-text-nav: #121a24; /* ナビゲーションは透過の除去 */
+  --color-text-card-hover: #404040; /* ホバー時も不透明な色に */
 
   /* Link colors */
-  --color-link-blue: #4682b4;
-  --color-link-blue-hover: #4682b488;
-  --color-link-azure: #1e6fba;
-  --color-link-azure-hover: #1e6fba88;
+  --color-link-blue: #356184; /* 一般的なリンク色 */
+  --color-link-blue-hover: #4a7aa6; /* ホバー時は色を薄くする */
+  --color-link-azure: #1a5d93; /* Azure系カラー */
+  --color-link-azure-hover: #2b78a6; /* ホバー時は色を薄くする */
 
-  --color-universal-shadow: #cce0ff77;
+  /* Shadow */
+  --color-universal-shadow: #cce0ff; /* 装飾用影は、必要に応じて不透明度を調整 */
 }
 
 html {

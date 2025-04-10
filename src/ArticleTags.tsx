@@ -35,7 +35,7 @@ const ArticleTags: MDXComponents = {
           {...props}
           href={href}
           rel="noopener noreferrer"
-          className="mr-1 inline-flex flex-row items-center gap-x-1 text-primary transition-colors hover:text-primary-hover"
+          className="mr-1 inline-flex flex-row items-center gap-x-1 text-link-blue transition-colors hover:text-link-blue-hover"
         >
           {children}
           <FontAwesomeIcon

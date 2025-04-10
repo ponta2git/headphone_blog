@@ -46,7 +46,7 @@ export default async function RelatedPosts({
           <p key={matter.date.toISO()}>
             <Link
               href={`/posts/${matter.date.toFormat("yyyyMMdd")}`}
-              className="text-justify tracking-[-0.0125rem] break-words text-primary transition-colors hover:text-primary-hover"
+              className="text-justify tracking-[-0.0125rem] break-words text-link-blue transition-colors hover:text-link-blue-hover"
             >
               {matter.title}
             </Link>

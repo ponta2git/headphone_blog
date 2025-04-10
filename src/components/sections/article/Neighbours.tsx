@@ -47,7 +47,7 @@ export async function Neighbours({ selfDate }: { selfDate: Postdate }) {
         {nextMatter && (
           <Link
             href={`/posts/${nextMatter.date.toFormat("yyyyMMdd")}`}
-            className="font-header-setting text-sm tracking-[0.6px] text-primary transition-colors hover:text-primary-hover"
+            className="font-header-setting text-sm tracking-[0.6px] text-link-blue transition-colors hover:text-link-blue-hover"
           >
             {nextMatter.title}
           </Link>
