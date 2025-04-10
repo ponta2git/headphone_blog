@@ -4,6 +4,7 @@ import { faHeadphonesSimple } from "@fortawesome/free-solid-svg-icons/faHeadphon
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons/faMagnifyingGlass";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
+
 import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 
 interface MenuItemProps {
