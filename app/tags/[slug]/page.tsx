@@ -25,26 +25,24 @@ export async function generateMetadata(props: {
   params: Promise<TagPageRouteParams>;
 }): Promise<Metadata> {
   const params = await props.params;
-
   const { slug } = params;
   const tag = TagService.fromSlug(slug);
 
+  // タグページ向けのメタデータを生成
+  const metadata = MetaInfo.generateMetadata.tag(tag.name, tag.slug);
+
+  // タグページ向けの構造化データを生成
+  const jsonLd = MetaInfo.schemaOrg.collectionPage(
+    `${tag.name}に関する記事`,
+    `${tag.name}に関連する記事の一覧ページです。`,
+    `${MetaInfo.siteInfo.url}tags/${slug}`,
+    [],
+  );
+
   return {
-    ...MetaInfo.metadataBase,
-    title: `${tag.name}: ${MetaInfo.siteInfo.name}`,
-    description: `タグ ${tag.name} の一覧`,
-    alternates: {
-      ...MetaInfo.metadataBase.alternates,
-      canonical: `${MetaInfo.siteInfo.url}tags/${tag.slug}`,
-    },
-    openGraph: {
-      ...MetaInfo.metadataBase.openGraph,
-      url: `${MetaInfo.siteInfo.url}tags/${tag.slug}`,
-      type: "article",
-    },
-    twitter: {
-      ...MetaInfo.metadataBase.twitter,
-      description: `タグ ${tag.name} の一覧`,
+    ...metadata,
+    other: {
+      "json-ld": JSON.stringify(jsonLd),
     },
   };
 }

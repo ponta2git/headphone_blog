@@ -32,6 +32,7 @@ describe("PostService", () => {
       },
       excerpt: "Test excerpt",
       body: {} as any,
+      rawContent: "# Test Post\n\nTest content", // Add rawContent property
     };
 
     // Default mock implementations

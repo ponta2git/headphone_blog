@@ -12,7 +12,15 @@ import { MetaInfo } from "../src/MetaInfo";
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 
-export const metadata: Metadata = MetaInfo.metadataBase;
+// JSON-LDの構造化データを追加したメタデータを生成
+export const generateMetadata = async (): Promise<Metadata> => {
+  return {
+    ...MetaInfo.baseMetadata,
+    other: {
+      "json-ld": JSON.stringify(MetaInfo.schemaOrg.website()),
+    },
+  };
+};
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (

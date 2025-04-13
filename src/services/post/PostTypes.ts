@@ -10,4 +10,5 @@ export type Post = {
   };
   excerpt: string;
   body: MDXContent;
+  rawContent: string; // 画像検出のための生のMDXコンテンツ
 };

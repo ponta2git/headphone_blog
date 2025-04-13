@@ -19,6 +19,7 @@ const mockPost: Post = {
   },
   excerpt: "This is test excerpt",
   body: mockMDXContent,
+  rawContent: "# Test Post\n\nThis is a test post content.", // Add rawContent property
 };
 
 describe("PostCache", () => {

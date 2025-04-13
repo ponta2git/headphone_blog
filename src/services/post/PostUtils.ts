@@ -40,11 +40,13 @@ export function evaluateMdxContent(file: Buffer): Post {
 
   const frontmatter = convertFrontmatter(mdxModule.frontmatter);
   const excerpt = createExcerpt(file);
+  const rawContent = file.toString();
 
   return {
     frontmatter,
     excerpt,
     body: mdxModule.default,
+    rawContent, // 生のMDXコンテンツを追加
   };
 }
 

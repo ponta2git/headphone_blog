@@ -8,7 +8,7 @@ import { MetaInfo } from "../../../src/MetaInfo";
 import { PostdateService } from "../../../src/services/date/PostdateService";
 import { PostService } from "../../../src/services/post/PostService";
 
-import type { Metadata } from "next";
+import type { Metadata, ResolvingMetadata } from "next";
 
 export const dynamicParams = false;
 
@@ -21,27 +21,39 @@ export async function generateStaticParams(): Promise<PostPageRouteParams[]> {
   return postdates.map((date) => ({ postdate: date.toFormat("yyyyMMdd") }));
 }
 
-export async function generateMetadata(props: {
-  params: Promise<PostPageRouteParams>;
-}): Promise<Metadata> {
+export async function generateMetadata(
+  props: { params: Promise<PostPageRouteParams> },
+  parent: ResolvingMetadata,
+): Promise<Metadata> {
   const params = await props.params;
   const { postdate } = params;
 
   const date = PostdateService.from_yyyyMMdd(postdate);
   const post = await PostService.getByPostdate(date);
+  const { frontmatter, excerpt, rawContent } = post;
+
+  // JSON-LDの構造化データを生成
+  const jsonLd = MetaInfo.schemaOrg.blogPosting(
+    frontmatter.title,
+    excerpt,
+    `${MetaInfo.siteInfo.url}posts/${postdate}`,
+    postdate,
+  );
+
+  // 新しいメタデータ生成関数を使用
+  const metadata = await MetaInfo.generateMetadata.post(
+    frontmatter.title,
+    excerpt,
+    postdate,
+    undefined, // 自動検出するのでimageUrlは指定しない
+    rawContent, // 代わりにrawContentを渡して自動検出させる
+    parent,
+  );
 
   return {
-    ...MetaInfo.metadataBase,
-    title: `${post.frontmatter.title}: ${MetaInfo.siteInfo.name}`,
-    alternates: {
-      ...MetaInfo.metadataBase.alternates,
-      canonical: `${MetaInfo.siteInfo.url}posts/${postdate}`,
-    },
-    openGraph: {
-      ...MetaInfo.metadataBase.openGraph,
-      url: `${MetaInfo.siteInfo.url}posts/${postdate}`,
-      title: `${post.frontmatter.title}: ${MetaInfo.siteInfo.name}`,
-      type: "article",
+    ...metadata,
+    other: {
+      "json-ld": JSON.stringify(jsonLd),
     },
   };
 }

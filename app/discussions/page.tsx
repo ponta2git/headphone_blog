@@ -11,23 +11,13 @@ import { TagService } from "../../src/services/tag/TagService";
 
 import type { Metadata } from "next";
 
-export const metadata: Metadata = {
-  ...MetaInfo.metadataBase,
-  title: `考察: ${MetaInfo.siteInfo.name}`,
-  description: "考察を集めたページ",
-  alternates: {
-    ...MetaInfo.metadataBase.alternates,
-    canonical: `${MetaInfo.siteInfo.url}kousatsu`,
-  },
-  openGraph: {
-    ...MetaInfo.metadataBase.openGraph,
-    url: `${MetaInfo.siteInfo.url}kousatsu`,
-  },
-  twitter: {
-    ...MetaInfo.metadataBase.twitter,
-    description: "考察を集めたページ",
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const title = "考察";
+  const description = "考察を集めたページ";
+  const pagePath = "discussions";
+
+  return MetaInfo.generateMetadata.archive(title, pagePath, description);
+}
 
 export default async function Page() {
   const discussionTag = TagService.fromName("雑談");

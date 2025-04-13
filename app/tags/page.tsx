@@ -10,18 +10,14 @@ import { TagService } from "../../src/services/tag/TagService";
 
 import type { Metadata } from "next";
 
-export const metadata: Metadata = {
-  ...MetaInfo.metadataBase,
-  title: `タグ一覧 - ${MetaInfo.siteInfo.name}`,
-  alternates: {
-    ...MetaInfo.metadataBase.alternates,
-    canonical: `${MetaInfo.siteInfo.url}tags`,
-  },
-  openGraph: {
-    ...MetaInfo.metadataBase.openGraph,
-    url: `${MetaInfo.siteInfo.url}tags`,
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const title = "タグ一覧";
+  const description =
+    "ブログ記事のタグ一覧ページです。興味のあるジャンルから記事を探すことができます。";
+  const pagePath = "tags";
+
+  return MetaInfo.generateMetadata.archive(title, pagePath, description);
+}
 
 export default async function Page() {
   const allTags = TagService.allTags();
@@ -83,8 +79,9 @@ export default async function Page() {
         </div>
 
         <p className="text-justify text-sm tracking-[-0.0125rem] break-words">
-          こんな記事が読みたい！というご要望がございましたら、よほど気が向かないと記事になりませんが、coshun
-          [at] gmail.com または、Twitter @ponta2twit
+          こんな記事が読みたい！というご要望がございましたら、よほど気が向かないと記事になりませんが、
+          {MetaInfo.siteInfo.email.replace("@", " [at] ")} または、Twitter{" "}
+          {MetaInfo.siteInfo.twitter}
           まで言うだけ言ってみてください。
         </p>
       </div>

@@ -3,18 +3,13 @@ import { MetaInfo } from "../../src/MetaInfo";
 
 import type { Metadata } from "next";
 
-export const metadata: Metadata = {
-  ...MetaInfo.metadataBase,
-  title: `プライバシーポリシー: ${MetaInfo.siteInfo.name}`,
-  alternates: {
-    ...MetaInfo.metadataBase.alternates,
-    canonical: `${MetaInfo.siteInfo.url}privacy`,
-  },
-  openGraph: {
-    ...MetaInfo.metadataBase.openGraph,
-    url: `${MetaInfo.siteInfo.url}privacy`,
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const title = "プライバシーポリシー";
+  const description = "当サイトのプライバシーポリシーです";
+  const pagePath = "privacy";
+
+  return MetaInfo.generateMetadata.static(title, pagePath, description);
+}
 
 export default function Page() {
   return (
@@ -66,13 +61,13 @@ export default function Page() {
         </p>
         <p className="text-justify tracking-[-0.0125rem] break-words">以上</p>
         <address className="text-justify tracking-[-0.0125rem] break-words">
-          <p>連絡先：ponta</p>
+          <p>連絡先：{MetaInfo.siteInfo.author}</p>
           <p>
             <a
-              href="mailto:coshun@gmail.com"
+              href={`mailto:${MetaInfo.siteInfo.email}`}
               className="mr-1 text-primary transition-colors hover:text-primary-hover"
             >
-              coshun [at] gmail.com
+              {MetaInfo.siteInfo.email.replace("@", " [at] ")}
             </a>
           </p>
         </address>
