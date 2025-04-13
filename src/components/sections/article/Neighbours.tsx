@@ -15,12 +15,18 @@ export async function Neighbours({ selfDate }: { selfDate: Postdate }) {
   const postdates = await PostdateService.getAllPostdates();
   const pos = postdates.findIndex((date) => date.equals(selfDate));
 
-  const [prev, next] = [
+  const [prevPromise, nextPromise] = [
     pos > 0 ? PostService.getByPostdate(postdates[pos - 1]) : undefined,
     pos < postdates.length - 1
       ? PostService.getByPostdate(postdates[pos + 1])
       : undefined,
   ];
+
+  // Await the promises
+  const [prev, next] = await Promise.all([
+    prevPromise ? prevPromise : Promise.resolve(undefined),
+    nextPromise ? nextPromise : Promise.resolve(undefined),
+  ]);
 
   const [prevMatter, nextMatter] = [
     prev ? prev.frontmatter : undefined,

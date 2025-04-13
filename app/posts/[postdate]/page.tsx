@@ -28,7 +28,7 @@ export async function generateMetadata(props: {
   const { postdate } = params;
 
   const date = PostdateService.from_yyyyMMdd(postdate);
-  const post = PostService.getByPostdate(date);
+  const post = await PostService.getByPostdate(date);
 
   return {
     ...MetaInfo.metadataBase,
@@ -53,7 +53,7 @@ export default async function Page(props: {
   const { postdate } = params;
 
   const date = PostdateService.from_yyyyMMdd(postdate);
-  const { frontmatter, body } = PostService.getByPostdate(date);
+  const { frontmatter, body } = await PostService.getByPostdate(date);
 
   return (
     <>

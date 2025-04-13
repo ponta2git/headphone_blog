@@ -1,4 +1,4 @@
-import { readFileSync } from "node:fs";
+import { readFile } from "node:fs/promises";
 import path from "node:path";
 
 import { evaluateMdxContent } from "./PostUtils";
@@ -11,7 +11,7 @@ import type { Postdate } from "../date/PostdateService";
 /**
  * 指定の日付フォルダから .mdx ファイルを読み込み、Postオブジェクトとして返す
  */
-export function loadPost(date: Postdate): Post {
+export async function loadPost(date: Postdate): Promise<Post> {
   const postsPath = path.resolve(MetaInfo.siteInfo.postsPath);
 
   const filePath = path.join(
@@ -22,7 +22,7 @@ export function loadPost(date: Postdate): Post {
 
   let fileBuffer: Buffer;
   try {
-    fileBuffer = readFileSync(filePath);
+    fileBuffer = await readFile(filePath);
   } catch (error) {
     throw createFileLoadError(filePath, error);
   }

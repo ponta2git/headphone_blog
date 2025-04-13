@@ -32,9 +32,11 @@ describe("rss", () => {
 
       vi.mocked(PostdateService.getAllPostdates).mockResolvedValue(mockDates);
       vi.mocked(PostService.getByPostdate).mockImplementation((date) => {
-        return mockPosts.find(
-          (post) => post.frontmatter.date.toISO() === date.toISO(),
-        )!;
+        return Promise.resolve(
+          mockPosts.find(
+            (post) => post.frontmatter.date.toISO() === date.toISO(),
+          )!,
+        );
       });
 
       await generateRSS();
