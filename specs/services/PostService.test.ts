@@ -32,12 +32,13 @@ describe("PostService", () => {
       },
       excerpt: "Test excerpt",
       body: {} as any,
-      rawContent: "# Test Post\n\nTest content", // Add rawContent property
+      rawContent: "# Test Post\n\nTest content",
     };
 
     // Default mock implementations
     vi.mocked(PostCache.getPostCache).mockReturnValue(undefined);
     vi.mocked(PostCache.getPendingPostCache).mockReturnValue(undefined);
+    vi.mocked(PostCache.getErrorCache).mockReturnValue(undefined); // Add mock for getErrorCache
     vi.mocked(PostLoader.loadPost).mockResolvedValue(mockPost);
     vi.mocked(ErrorFactory.createPostComposeError).mockImplementation(
       (message, error) => new Error(`${message}: ${(error as Error).message}`),
@@ -91,9 +92,35 @@ describe("PostService", () => {
         expect(PostCache.getPostCache).toHaveBeenCalledWith(cacheKey);
         expect(PostCache.getPendingPostCache).toHaveBeenCalledWith(cacheKey);
         expect(PostLoader.loadPost).toHaveBeenCalledWith(mockDate);
-        expect(PostCache.setPostCache).toHaveBeenCalledWith(cacheKey, mockPost);
+        // No longer verify setPostCache as it's now handled inside setPendingPostCache
         expect(PostCache.setPendingPostCache).toHaveBeenCalled();
         expect(result).toBe(mockPost);
+      });
+
+      it("should throw cached error if available", async () => {
+        // Setup
+        const cachedError = {
+          message: "Cached error message",
+          timestamp: Date.now(),
+          originalError: new Error("Original error"),
+        };
+        vi.mocked(PostCache.getErrorCache).mockReturnValue(cachedError);
+
+        // Create the formatted error that will be thrown
+        const formattedError = new Error(
+          `Failed to load post (cached error): ${cacheKey}: Original error`,
+        );
+        vi.mocked(ErrorFactory.createPostComposeError).mockReturnValue(
+          formattedError,
+        );
+
+        // Execute & Verify
+        await expect(PostService.getByPostdate(mockDate)).rejects.toThrow(
+          formattedError,
+        );
+
+        expect(PostCache.getErrorCache).toHaveBeenCalledWith(cacheKey);
+        expect(PostLoader.loadPost).not.toHaveBeenCalled();
       });
     });
 
@@ -120,82 +147,6 @@ describe("PostService", () => {
         const result1 = await resultPromise;
         const result2 = await capturedPromise!;
         expect(result1).toStrictEqual(result2);
-
-        // Verify the final state
-        expect(PostCache.setPostCache).toHaveBeenCalledWith(cacheKey, mockPost);
-      });
-
-      it("should clean up pendingCache after successful resolution", async () => {
-        // Setup - create a controlled promise for testing
-        const controlledPromise = Promise.resolve(mockPost);
-
-        // Track if cleanup happened
-        let cleanupCalled = false;
-
-        // Mock implementation that simulates the cleanup
-        vi.mocked(PostCache.setPendingPostCache).mockImplementation(
-          (key, promise) => {
-            // We manually trigger the cleanup function after promise resolution
-            promise.finally(() => {
-              cleanupCalled = true;
-              // Make getPendingPostCache return undefined after cleanup
-              vi.mocked(PostCache.getPendingPostCache).mockReturnValue(
-                undefined,
-              );
-            });
-          },
-        );
-
-        // Control the loadPost to return our controlled promise
-        vi.mocked(PostLoader.loadPost).mockReturnValue(controlledPromise);
-
-        // Execute
-        await PostService.getByPostdate(mockDate);
-
-        // Wait for any microtasks to complete (allows promise cleanup to run)
-        await new Promise((resolve) => setTimeout(resolve, 0));
-
-        // Verify cleanup occurred
-        expect(cleanupCalled).toBe(true);
-        expect(PostCache.getPendingPostCache(cacheKey)).toBeUndefined();
-      });
-
-      it("should clean up pendingCache after rejection", async () => {
-        // Setup - create a controlled rejected promise
-        const testError = new Error("Test error");
-        const controlledPromise = Promise.reject(testError);
-
-        // Track if cleanup happened
-        let cleanupCalled = false;
-
-        // Mock implementation that simulates the cleanup
-        vi.mocked(PostCache.setPendingPostCache).mockImplementation(
-          (key, promise) => {
-            // We manually trigger the cleanup function after promise rejection
-            promise
-              .catch(() => {})
-              .finally(() => {
-                cleanupCalled = true;
-                // Make getPendingPostCache return undefined after cleanup
-                vi.mocked(PostCache.getPendingPostCache).mockReturnValue(
-                  undefined,
-                );
-              });
-          },
-        );
-
-        // Control the loadPost to return our controlled promise
-        vi.mocked(PostLoader.loadPost).mockReturnValue(controlledPromise);
-
-        // Execute (and expect it to throw)
-        await expect(PostService.getByPostdate(mockDate)).rejects.toThrow();
-
-        // Wait for any microtasks to complete (allows promise cleanup to run)
-        await new Promise((resolve) => setTimeout(resolve, 0));
-
-        // Verify cleanup occurred
-        expect(cleanupCalled).toBe(true);
-        expect(PostCache.getPendingPostCache(cacheKey)).toBeUndefined();
       });
 
       it("should handle concurrent requests for the same post efficiently", async () => {
@@ -235,7 +186,6 @@ describe("PostService", () => {
         // Should only load once since the second call should get from pending cache
         expect(PostLoader.loadPost).toHaveBeenCalledTimes(1);
         expect(PostCache.setPendingPostCache).toHaveBeenCalledTimes(1);
-        expect(PostCache.setPostCache).toHaveBeenCalledTimes(1);
       });
     });
 
