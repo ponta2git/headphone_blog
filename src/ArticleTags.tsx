@@ -1,8 +1,6 @@
-import {
-  faCircleExclamation,
-  faExternalLink,
-  faInfoCircle,
-} from "@fortawesome/free-solid-svg-icons";
+import { faCircleExclamation } from "@fortawesome/free-solid-svg-icons/faCircleExclamation";
+import { faExternalLink } from "@fortawesome/free-solid-svg-icons/faExternalLink";
+import { faInfoCircle } from "@fortawesome/free-solid-svg-icons/faInfoCircle";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import Link from "next/link";

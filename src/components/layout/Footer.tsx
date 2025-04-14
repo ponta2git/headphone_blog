@@ -1,5 +1,6 @@
-import { faTwitter } from "@fortawesome/free-brands-svg-icons";
-import { faEnvelope, faRss } from "@fortawesome/free-solid-svg-icons";
+import { faTwitter } from "@fortawesome/free-brands-svg-icons/faTwitter";
+import { faEnvelope } from "@fortawesome/free-solid-svg-icons/faEnvelope";
+import { faRss } from "@fortawesome/free-solid-svg-icons/faRss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { DateTime } from "luxon";
 import Link from "next/link";

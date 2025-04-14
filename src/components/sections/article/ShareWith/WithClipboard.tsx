@@ -1,6 +1,6 @@
 "use client";
 
-import { faClipboard } from "@fortawesome/free-solid-svg-icons";
+import { faClipboard } from "@fortawesome/free-solid-svg-icons/faClipboard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState, useCallback, type KeyboardEventHandler } from "react";
 
