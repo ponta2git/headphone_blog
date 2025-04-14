@@ -31,6 +31,7 @@ describe("PostService", () => {
         tags: [],
       },
       excerpt: "Test excerpt",
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       body: {} as any,
       rawContent: "# Test Post\n\nTest content",
     };
@@ -163,13 +164,11 @@ describe("PostService", () => {
           return undefined;
         });
 
-        vi.mocked(PostCache.setPendingPostCache).mockImplementation(
-          (key, promise) => {
-            if (key === cacheKey) {
-              promiseWasStored = true;
-            }
-          },
-        );
+        vi.mocked(PostCache.setPendingPostCache).mockImplementation((key) => {
+          if (key === cacheKey) {
+            promiseWasStored = true;
+          }
+        });
 
         // Mock loadPost to always return our controlled promise
         vi.mocked(PostLoader.loadPost).mockReturnValue(sharedPromise);

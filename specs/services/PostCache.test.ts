@@ -16,6 +16,7 @@ const mockMDXContent = {} as MDXContent;
 // Mock post data
 const mockPost: Post = {
   frontmatter: {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     date: new Date() as any, // Using any to bypass the Postdate type requirement for testing
     title: "Test Post",
     tags: [],
