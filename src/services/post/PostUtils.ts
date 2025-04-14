@@ -98,5 +98,5 @@ function createExcerpt(file: Buffer): string {
     textContent += node.value;
   });
 
-  return `${textContent.trim().slice(0, 200)} ...`;
+  return `${textContent.trim().slice(0, 120)} ...`;
 }
