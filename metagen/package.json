@@ -9,10 +9,10 @@
   "author": "ponta",
   "license": "MIT",
   "devDependencies": {
-    "@types/node": "^22.14.0",
+    "@types/node": "^22.15.2",
     "@types/rss": "^0.0.32",
     "typescript": "^5.8.3",
-    "vite": "^6.2.6"
+    "vite": "^6.3.3"
   },
   "dependencies": {
     "gray-matter": "^4.0.3",
