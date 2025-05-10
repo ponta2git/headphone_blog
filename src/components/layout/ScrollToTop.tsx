@@ -2,7 +2,7 @@
 
 import { faArrowUp } from "@fortawesome/free-solid-svg-icons/faArrowUp";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 export default function ScrollToTop() {
   const [isVisible, setIsVisible] = useState(false);
@@ -20,12 +20,12 @@ export default function ScrollToTop() {
   };
 
   // Set the scroll position to top of the page
-  const scrollToTop = () => {
+  const scrollToTop = useCallback(() => {
     window.scrollTo({
       top: 0,
       behavior: "smooth",
     });
-  };
+  }, []);
 
   useEffect(() => {
     // Calculate threshold on initial load and window resize
