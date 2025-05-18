@@ -91,7 +91,7 @@ const ArticleTags: MDXComponents = {
     <del {...props} className="text-text-meta" />
   ),
   hr: () => (
-    <Image
+    <img
       src="/images/line.svg"
       alt="Description of the line"
       className="block h-2 min-w-full"
