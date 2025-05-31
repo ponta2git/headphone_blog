@@ -12,4 +12,6 @@ const nextConfig: NextConfig = {
   images: { unoptimized: true },
 };
 
-export default withBundleAnalyzer(nextConfig);
+export default process.env.ANALYZE
+  ? withBundleAnalyzer(nextConfig)
+  : nextConfig;
