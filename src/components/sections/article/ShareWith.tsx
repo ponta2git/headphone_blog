@@ -29,7 +29,7 @@ export function ShareWith(frontmatter: Post["frontmatter"]) {
           <WithClipboard />
         </p>
       </div>
-      <div className="font-header-setting mt-2 text-sm text-text-meta">
+      {/* <div className="font-header-setting mt-2 text-sm text-text-meta">
         <p>
           投げ銭は
           <a
@@ -47,7 +47,7 @@ export function ShareWith(frontmatter: Post["frontmatter"]) {
             (Buy me a coffee)
           </a>
         </p>
-      </div>
+      </div> */}
     </>
   );
 }
