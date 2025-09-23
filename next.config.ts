@@ -9,6 +9,7 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
   output: "export",
+  typedRoutes: true,
   images: { unoptimized: true },
 };
 
