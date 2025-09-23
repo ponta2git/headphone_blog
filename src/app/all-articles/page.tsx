@@ -1,11 +1,11 @@
 import { faNewspaper } from "@fortawesome/free-solid-svg-icons/faNewspaper";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import Container from "../../src/components/layout/Container";
-import { MetaCard } from "../../src/components/sections/article/MetaCard";
-import { MetaInfo } from "../../src/MetaInfo";
-import { PostdateService } from "../../src/services/date/PostdateService";
-import { PostService } from "../../src/services/post/PostService";
+import Container from "../../components/layout/Container";
+import { MetaCard } from "../../components/sections/article/MetaCard";
+import { MetaInfo } from "../../MetaInfo";
+import { PostdateService } from "../../services/date/PostdateService";
+import { PostService } from "../../services/post/PostService";
 
 import type { Metadata } from "next";
 

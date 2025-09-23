@@ -2,11 +2,11 @@ import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons/faMagnifyin
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 
-import Container from "../../src/components/layout/Container";
-import { MetaInfo } from "../../src/MetaInfo";
-import { PostdateService } from "../../src/services/date/PostdateService";
-import { PostService } from "../../src/services/post/PostService";
-import { TagService } from "../../src/services/tag/TagService";
+import Container from "../../components/layout/Container";
+import { MetaInfo } from "../../MetaInfo";
+import { PostdateService } from "../../services/date/PostdateService";
+import { PostService } from "../../services/post/PostService";
+import { TagService } from "../../services/tag/TagService";
 
 import type { Metadata } from "next";
 

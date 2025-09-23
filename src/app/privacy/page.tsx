@@ -1,5 +1,5 @@
-import Container from "../../src/components/layout/Container";
-import { MetaInfo } from "../../src/MetaInfo";
+import Container from "../../components/layout/Container";
+import { MetaInfo } from "../../MetaInfo";
 
 import type { Metadata } from "next";
 

@@ -1,12 +1,12 @@
-import ArticleTags from "../../../src/ArticleTags";
-import { TagItem } from "../../../src/components/elements/TagItem";
-import Container from "../../../src/components/layout/Container";
-import { Neighbours } from "../../../src/components/sections/article/Neighbours";
-import { ShareWith } from "../../../src/components/sections/article/ShareWith";
-import RelatedPosts from "../../../src/components/sections/RelatedPosts";
-import { MetaInfo } from "../../../src/MetaInfo";
-import { PostdateService } from "../../../src/services/date/PostdateService";
-import { PostService } from "../../../src/services/post/PostService";
+import ArticleTags from "../../../ArticleTags";
+import { TagItem } from "../../../components/elements/TagItem";
+import Container from "../../../components/layout/Container";
+import { Neighbours } from "../../../components/sections/article/Neighbours";
+import { ShareWith } from "../../../components/sections/article/ShareWith";
+import RelatedPosts from "../../../components/sections/RelatedPosts";
+import { MetaInfo } from "../../../MetaInfo";
+import { PostdateService } from "../../../services/date/PostdateService";
+import { PostService } from "../../../services/post/PostService";
 
 import type { Metadata, ResolvingMetadata } from "next";
 

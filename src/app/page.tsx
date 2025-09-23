@@ -4,10 +4,10 @@ import { faSitemap } from "@fortawesome/free-solid-svg-icons/faSitemap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 
-import Container from "../src/components/layout/Container";
-import { ExcerptCard } from "../src/components/sections/article/ExcerptCard";
-import { PostdateService } from "../src/services/date/PostdateService";
-import { PostService } from "../src/services/post/PostService";
+import Container from "../components/layout/Container";
+import { ExcerptCard } from "../components/sections/article/ExcerptCard";
+import { PostdateService } from "../services/date/PostdateService";
+import { PostService } from "../services/post/PostService";
 
 export default async function Page() {
   const all = (await PostdateService.getAllPostdates()).toReversed();

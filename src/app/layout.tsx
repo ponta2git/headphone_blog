@@ -3,11 +3,11 @@ const GTAGMGR_ID = process.env.NEXT_PUBLIC_GTAGMGR_ID || "";
 
 import "./globals.css";
 
-import Footer from "../src/components/layout/Footer";
-import GlobalMenu from "../src/components/layout/GlobalMenu";
-import Header from "../src/components/layout/Header";
-import ScrollToTop from "../src/components/layout/ScrollToTop";
-import { MetaInfo } from "../src/MetaInfo";
+import Footer from "../components/layout/Footer";
+import GlobalMenu from "../components/layout/GlobalMenu";
+import Header from "../components/layout/Header";
+import ScrollToTop from "../components/layout/ScrollToTop";
+import { MetaInfo } from "../MetaInfo";
 
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
