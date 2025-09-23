@@ -3,7 +3,7 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint --fix",
+    "lint": "eslint --fix",
     "format": "prettier --write ./{app,src}/",
     "analyze": "ANALYZE=true next build",
     "test": "vitest run"
