@@ -1,14 +1,16 @@
+import js from "@eslint/js";
 import typescript from "typescript-eslint";
+import { defineConfig } from "eslint/config";
 import { FlatCompat } from "@eslint/eslintrc";
 import prettierConfig from "eslint-config-prettier";
-import js from "@eslint/js";
 
 const compat = new FlatCompat({
   baseDirectory: import.meta.dirname,
 });
 
-export default typescript.config(
+export default defineConfig(
   js.configs.recommended,
+  typescript.configs.recommendedTypeChecked,
   compat.config({
     extends: ["next/core-web-vitals", "next/typescript"],
   }),
