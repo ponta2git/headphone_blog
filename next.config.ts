@@ -11,6 +11,9 @@ const nextConfig: NextConfig = {
   output: "export",
   typedRoutes: true,
   images: { unoptimized: true },
+  experimental: {
+    typedEnv: true,
+  },
 };
 
 export default process.env.ANALYZE
