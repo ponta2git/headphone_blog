@@ -2,19 +2,16 @@ import { writeFileSync } from "fs";
 
 import RSS from "rss";
 
-import { MetaInfo } from "../../src/MetaInfo";
-import { PostdateService } from "../../src/services/date/PostdateService";
-import { PostService } from "../../src/services/post/PostService";
+import { MetaInfo } from "../../src/posts/meta";
+import { getAllPostDates, getPostByDate } from "../../src/posts/api";
 
-import type { Post } from "../../src/services/post/PostTypes";
+import type { Post } from "../../src/posts/types";
 
 async function getLatest5PostMatters() {
-  const all = (await PostdateService.getAllPostdates(true)).toReversed();
+  const all = (await getAllPostDates()).toReversed();
   const sliced = all.slice(0, Math.min(5, all.length));
 
-  const posts = await Promise.all(
-    sliced.map((date) => PostService.getByPostdate(date)),
-  );
+  const posts = await Promise.all(sliced.map((date) => getPostByDate(date)));
   return posts.map((file) => file.frontmatter);
 }
 
@@ -24,15 +21,15 @@ function addRSSItem(matters: Post["frontmatter"][], feed: RSS) {
       title: matt.title,
       description: matt.title,
       url: `https://ponta-headphone.net/posts/${matt.date.toISODate({ format: "basic" })}`,
-      date: matt.date.toISODate({ format: "extended" })!,
+      date: matt.date.toISODate({ format: "extended" }),
     });
   });
 }
 
 function generateNewRSS() {
   return new RSS({
-    title: MetaInfo.siteInfo.name,
-    description: MetaInfo.siteInfo.description,
+    title: MetaInfo.siteConfig.name,
+    description: MetaInfo.siteConfig.description,
     site_url: "https://ponta-headphone.net/",
     feed_url: "https://ponta-headphone.net/rss.xml",
     language: "ja",

@@ -1,9 +1,5 @@
 {
   "editor.formatOnSave": true,
-  "tailwindCSS.includeLanguages": {
-    "typescript": "javascript",
-    "typescriptreact": "javascript"
-  },
   "editor.tabSize": 2,
   "editor.tabCompletion": "on",
   "editor.defaultFormatter": "esbenp.prettier-vscode",

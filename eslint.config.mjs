@@ -1,33 +1,73 @@
+// @ts-check
 import js from "@eslint/js";
+import { defineConfig, globalIgnores } from "eslint/config";
 import typescript from "typescript-eslint";
-import { defineConfig } from "eslint/config";
-import { FlatCompat } from "@eslint/eslintrc";
 import prettierConfig from "eslint-config-prettier";
+// @ts-expect-error - eslint-config-next types are not fully compatible with flat config
+import nextVitals from "eslint-config-next/core-web-vitals";
+// @ts-expect-error - eslint-config-next types are not fully compatible with flat config
+import nextTs from "eslint-config-next/typescript";
 
-const compat = new FlatCompat({
-  baseDirectory: import.meta.dirname,
-});
-
-export default defineConfig(
-  js.configs.recommended,
-  typescript.configs.recommendedTypeChecked,
-  compat.config({
-    extends: ["next/core-web-vitals", "next/typescript"],
-  }),
-  prettierConfig,
+export default defineConfig([
+  // Recommended base configurations
   {
-    ignores: [
-      ".next/**",
-      "node_modules/**",
-      "out/**",
-      "public/**",
-      "metagen/dist/**",
-      "metagen/node_modules/**",
-    ],
+    name: "eslint/recommended",
+    files: ["**/*.{js,mjs,cjs}"],
+    ...js.configs.recommended,
   },
   {
+    name: "typescript-eslint/recommended-type-checked",
+    files: ["**/*.{ts,tsx,mts,cts}"],
+    extends: [...typescript.configs.recommendedTypeChecked],
+  },
+
+  // Next.js configurations
+  {
+    name: "next/core-web-vitals",
+    files: ["**/*.{js,jsx,ts,tsx}"],
+    extends: [...nextVitals],
+  },
+  {
+    name: "next/typescript",
+    files: ["**/*.{ts,tsx,mts,cts}"],
+    extends: [...nextTs],
+  },
+
+  // Prettier configuration (must be last to override formatting rules)
+  {
+    name: "prettier",
+    ...prettierConfig,
+  }, // Global ignores
+  globalIgnores([
+    // Next.js default ignores
+    ".next/**",
+    "out/**",
+    "build/**",
+    "next-env.d.ts",
+    // Additional project-specific ignores
+    "node_modules/**",
+    "public/**",
+    "metagen/dist/**",
+    "metagen/node_modules/**",
+  ]),
+
+  // TypeScript parser configuration
+  {
+    name: "project/typescript-parser",
+    files: ["**/*.{ts,tsx,mts,cts}"],
+    languageOptions: {
+      parserOptions: {
+        projectService: true,
+        tsconfigRootDir: import.meta.dirname,
+      },
+    },
+  },
+
+  // Project-specific TypeScript rules
+  {
+    name: "project/typescript-rules",
     files: [
-      "app/**/*.tsx",
+      "app/**/*.{ts,tsx}",
       "src/**/*.{ts,tsx}",
       "metagen/vite.config.mts",
       "metagen/src/**/*.ts",
@@ -35,31 +75,12 @@ export default defineConfig(
     rules: {
       "@typescript-eslint/consistent-type-imports": "error",
       "@typescript-eslint/no-import-type-side-effects": "error",
-      "import/order": [
-        "error",
-        {
-          groups: [
-            "builtin",
-            "external",
-            "internal",
-            ["parent", "sibling"],
-            "object",
-            "type",
-            "index",
-          ],
-
-          "newlines-between": "always",
-          pathGroupsExcludedImportTypes: ["builtin"],
-
-          alphabetize: {
-            order: "asc",
-            caseInsensitive: true,
-          },
-        },
-      ],
     },
   },
+
+  // Test files with relaxed rules
   {
+    name: "project/test-files",
     files: ["specs/**/*.ts"],
     rules: {
       "@typescript-eslint/no-unsafe-assignment": "off",
@@ -70,4 +91,13 @@ export default defineConfig(
       "@typescript-eslint/unbound-method": "off",
     },
   },
-);
+
+  // Config file itself
+  {
+    name: "project/config-files",
+    files: ["eslint.config.mjs"],
+    rules: {
+      "@typescript-eslint/no-unsafe-argument": "off",
+    },
+  },
+]);

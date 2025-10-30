@@ -2,11 +2,12 @@ import { writeFileSync } from "fs";
 
 import { DateTime } from "luxon";
 
-import { PostdateService } from "../../src/services/date/PostdateService";
-import { TagService } from "../../src/services/tag/TagService";
+import { getAllPostDates } from "../../src/posts/api";
+import * as TagService from "../../src/lib/tag";
+import { TIMEZONE } from "../../src/site";
 
-async function getAllPostDates(): Promise<DateTime[]> {
-  return (await PostdateService.getAllPostdates(true)).toReversed();
+async function getPostDates(): Promise<DateTime[]> {
+  return (await getAllPostDates()).toReversed();
 }
 
 function formatDate(date: DateTime): string {
@@ -14,7 +15,7 @@ function formatDate(date: DateTime): string {
 }
 
 function addIndex(): string {
-  const date = DateTime.now();
+  const date = DateTime.now().setZone(TIMEZONE);
   return `
     <url>
       <loc>https://ponta-headphone.net/</loc>
@@ -33,7 +34,7 @@ function addPost(date: DateTime): string {
 }
 
 function addTag(slug: string): string {
-  const date = DateTime.now();
+  const date = DateTime.now().setZone(TIMEZONE);
   return `
     <url>
       <loc>https://ponta-headphone.net/tags/${slug}</loc>
@@ -43,11 +44,11 @@ function addTag(slug: string): string {
 }
 
 async function generateSitemapContent(): Promise<string> {
-  const posts = await getAllPostDates();
+  const posts = await getPostDates();
   const postUrls = posts.map(addPost).join("\n");
 
   // Get all tag slugs and generate URLs for them
-  const tags = TagService.allTags();
+  const tags = TagService.getAllTags();
   const tagUrls = tags.map((tag) => addTag(tag.slug)).join("\n");
 
   return `
