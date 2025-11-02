@@ -9,14 +9,19 @@ Last Updated: 2025-11-02 (JST)
 - Architecture: `knowledges/architecture.md`
 - Information Architecture: `knowledges/information-architecture.md`
 - Design System: `knowledges/design-system.md`
+- Design Tokens: `knowledges/design-tokens.md`
 - Rendering & Pipeline: `knowledges/rendering-pipeline.md`
 - Data Model: `knowledges/data-model.md`
 - SEO & Metadata: `knowledges/seo-metadata.md`
 - Performance & Caching: `knowledges/performance-caching.md`
+- Performance & Images (LCP): `knowledges/performance-images.md`
 - Error Handling: `knowledges/error-handling.md`
 - Testing & Quality: `knowledges/testing-quality.md`
 - Operations: `knowledges/operations.md`
 - AI Playbook: `knowledges/ai-playbook.md`
+- Renewal Plan: `knowledges/renewal-plan.md`
+- Accessibility: `knowledges/accessibility.md`
+- Content Style: `knowledges/content-style.md`
 
 ## 1) Executive Summary
 
@@ -33,6 +38,7 @@ Non‑negotiables (invariants):
 - Params in App Router may be promises; always `await params` inside `Page` and `generateMetadata`.
 - Typed routes only; no string concatenation to unknown paths.
 - CSS Modules with design tokens; avoid global style leakage.
+- Dark mode is not required; only light theme is in scope.
 
 ## 2) System Architecture
 
