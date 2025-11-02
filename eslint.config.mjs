@@ -49,6 +49,8 @@ export default defineConfig([
     "public/**",
     "metagen/dist/**",
     "metagen/node_modules/**",
+    // Legacy code excluded from linting
+    "src/old/**",
   ]),
 
   // TypeScript parser configuration
