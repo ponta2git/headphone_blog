@@ -20,7 +20,12 @@ import {
   InvalidTagError,
 } from "../../errors/post-errors";
 import { createLogger } from "../../utils/logger";
-import { extractExcerpt, extractFirstImage } from "./extract";
+import {
+  extractExcerpt,
+  extractFirstImage,
+  extractHeadings,
+  estimateReadTime,
+} from "./extract";
 import type { Post, PostFrontmatter, Tag, Postdate } from "../types";
 import type { TagName } from "../../site/tags";
 
@@ -66,6 +71,8 @@ export function compileMdx(content: string, date: Postdate): Post {
     // OG画像を抽出（AST-based）
     const ogImage = extractFirstImage(content);
 
+    const headings = extractHeadings(content);
+    const readTime = estimateReadTime(content);
     const duration = Date.now() - startTime;
     logger.debug(`Compiled MDX: ${dateStr}`, {
       duration,
@@ -78,6 +85,8 @@ export function compileMdx(content: string, date: Postdate): Post {
       body: mdxModule.default,
       rawContent: content,
       ogImage: ogImage ?? undefined,
+      readTime,
+      headings,
     };
   } catch (error) {
     logger.error(`Failed to compile MDX: ${dateStr}`, error as Error);
@@ -183,10 +192,28 @@ function validateAndParseFrontmatter(
     );
   }
 
+  // tldr（任意）
+  let tldr: string[] | undefined = undefined;
+  if (fm.tldr !== undefined) {
+    if (
+      !Array.isArray(fm.tldr) ||
+      !fm.tldr.every((x) => typeof x === "string")
+    ) {
+      throw new InvalidFrontmatterError(
+        dateStr,
+        "tldr",
+        fm.tldr,
+        "Must be an array of strings",
+      );
+    }
+    tldr = fm.tldr;
+  }
+
   return {
     title: fm.title,
     date: parsePostdate(fm.date, dateStr),
     tags: fm.tags.map((tag) => parseTag(tag, dateStr)),
+    tldr,
   };
 }
 

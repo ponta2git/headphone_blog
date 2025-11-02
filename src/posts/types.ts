@@ -41,6 +41,9 @@ export interface PostFrontmatter {
 
   /** タグ配列 */
   tags: Tag[];
+
+  /** TL;DR（要点） 任意 */
+  tldr?: string[];
 }
 
 /**
@@ -61,6 +64,16 @@ export interface Post {
 
   /** OG画像URL（記事内の最初の画像） */
   ogImage?: string;
+
+  /** 読了時間（分） */
+  readTime?: number;
+
+  /** 見出し一覧（目次用） */
+  headings?: Array<{
+    id: string;
+    text: string;
+    level: 2 | 3 | 4 | 5 | 6;
+  }>;
 }
 
 /**
