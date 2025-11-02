@@ -1,0 +1,18 @@
+:root {
+  --time-transition: 200ms;
+
+  --color-bg-base: #f0ffff;
+  --color-bg-content: #ffffff;
+  --color-bg-sub: #e1ffee;
+  --color-bg-sub-hover: #d0f4df;
+  --color-bg-footer: #cce0ff;
+
+  --color-border-base: #cbd5e1;
+  --color-border-light: #e5e7eb;
+  --color-border-hover: #9ca3af;
+
+  --color-text-header: #134e4a;
+  --color-text-footer: #334155;
+  --color-text-body: #1e293b;
+  --color-text-heading: #0f172a;
+}

@@ -1,0 +1,271 @@
+@import "./variables.css";
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family:
+    "Helvetica Neue", "Hiragino Kaku Gothic ProN", "Hiragino Sans", Arial,
+    "Noto Sans JP", "Yu Gothic Medium", sans-serif;
+  text-rendering: optimizeLegibility;
+  font-kerning: normal;
+  text-align: justify;
+  text-justify: inter-character;
+  letter-spacing: 4.5%;
+}
+
+header {
+  width: 100%;
+  height: 17.5dvh;
+}
+
+footer {
+  display: flex;
+  flex-direction: column;
+  padding: 0.725rem 5dvh;
+  max-width: fit-content;
+  height: fit-content;
+  color: var(--color-text-footer);
+  a {
+    color: unset;
+  }
+}
+
+#root-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+}
+
+#header-container {
+  position: relative;
+  height: inherit;
+
+  img {
+    width: fit-content !important;
+
+    &:hover {
+      transition-property: opacity;
+      transition-duration: var(--time-transition);
+      opacity: 80%;
+    }
+  }
+}
+
+#content-container {
+  flex: 1 0 content;
+}
+
+#main-container {
+  width: fit-content;
+  max-width: 100%;
+  height: fit-content;
+  position: relative;
+
+  &:before,
+  &:after {
+    display: block;
+    content: "";
+    background-image: url("/images/line.svg");
+    background-repeat: repeat-x;
+    background-position: center;
+    background-size: contain;
+    height: 3px;
+    width: 100%;
+    position: absolute;
+    top: auto;
+    left: auto;
+  }
+
+  #inner-main-container {
+    max-width: 80ch;
+    padding: 2.5rem;
+  }
+}
+
+#informations {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  column-gap: 2rem;
+  margin-block-end: 0.75rem;
+
+  & > a > svg {
+    width: 1rem;
+    height: 1rem;
+  }
+}
+
+#global-menu {
+  ul {
+    list-style: none;
+    display: flex;
+    height: fit-content;
+    width: fit-content;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 0.25rem 0.5rem;
+    column-gap: 0.5rem;
+
+    .global-menu-item {
+      display: inline-flex;
+      flex-direction: column;
+      row-gap: 0.25rem;
+      align-items: center;
+      padding: 0.5rem 1rem;
+      color: var(--color-text-header);
+
+      &:hover {
+        transition: scale var(--time-transition);
+        scale: 110%;
+      }
+      &:active {
+        scale: 110%;
+      }
+
+      & > svg {
+        height: 1.5rem;
+        width: 1.5rem;
+      }
+    }
+  }
+}
+
+#page-menu {
+  ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: fit-content;
+    padding: 0.5rem 0.75rem;
+    flex-direction: row;
+    column-gap: 1rem;
+
+    .page-menu-item {
+      display: inline-block;
+      color: var(--color-text-header);
+    }
+
+    .page-menu-item:not(:last-child):after {
+      display: inline-flex;
+      margin-left: 1rem;
+      content: "/";
+    }
+  }
+}
+
+.object-contain {
+  object-fit: contain;
+}
+
+.bg-base {
+  background-color: var(--color-bg-base);
+}
+
+.bg-content {
+  background-color: var(--color-bg-content);
+}
+
+.bg-sub {
+  background-color: var(--color-bg-sub);
+}
+
+.bg-footer {
+  background-color: var(--color-bg-footer);
+}
+
+.bg-sub-hover {
+  &:hover {
+    background-color: var(--color-bg-sub-hover);
+    transition: background-color var(--time-transition);
+  }
+  &:active {
+    background-color: var(--color-bg-sub-hover);
+  }
+}
+
+.font-header {
+  font-feature-settings: "palt" 1;
+  font-variant: proportional-width;
+  font-kerning: normal;
+  text-justify: none;
+  letter-spacing: 3.25%;
+}
+
+.text-biggest {
+  font-size: 1.725rem;
+}
+
+.text-bigger {
+  font-size: 1.5rem;
+}
+
+.text-big {
+  font-size: 1.25rem;
+}
+
+.text-small {
+  font-size: 0.75rem;
+}
+
+.text-bold {
+  font-weight: 700;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-body {
+  color: var(--color-text-body);
+}
+
+.text-heading {
+  color: var(--color-text-heading);
+}
+
+.text-decoration-none {
+  text-decoration: none;
+}
+
+.margin-start-section {
+  margin-block-start: 3dvh !important;
+}
+
+.margin-end-section {
+  margin-block-end: 3dvh !important;
+}
+
+.border-solid {
+  border-style: solid;
+  border-width: 2px;
+  border-color: var(--color-border-base);
+}
+
+.border-solid-light {
+  border-style: solid;
+  border-width: 2px;
+  border-color: var(--color-border-light);
+}
+
+.border-rounded {
+  border-radius: 15px;
+}
+
+.border-rounded-small {
+  border-radius: 10px;
+}
+
+.border-rounded-xsmall {
+  border-radius: 5px;
+}
+
+.center {
+  margin: 0 auto;
+}
+
+.fit-content {
+  width: fit-content;
+  height: fit-content;
+}
