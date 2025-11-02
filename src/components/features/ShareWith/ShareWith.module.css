@@ -1,0 +1,27 @@
+.share {
+  display: flex;
+  align-items: baseline;
+  gap: var(--spacing-2);
+  font-size: var(--font-size-sm);
+  color: var(--text-muted);
+}
+
+.icons {
+  display: inline-flex;
+  gap: var(--spacing-3);
+}
+
+.button {
+  cursor: pointer;
+  color: var(--text-secondary);
+  transition: color var(--transition-fast);
+}
+
+.button:hover {
+  color: var(--text-primary);
+}
+
+.copied {
+  font-size: var(--font-size-xs);
+  color: var(--text-secondary);
+}

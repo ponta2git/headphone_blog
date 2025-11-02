@@ -1,0 +1,37 @@
+.nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-top: var(--spacing-8);
+  align-items: baseline;
+}
+
+.prev {
+  justify-self: start;
+  position: relative;
+  padding: var(--spacing-1) var(--spacing-2);
+  border-radius: var(--border-radius-sm);
+}
+.next {
+  justify-self: end;
+  position: relative;
+  padding: var(--spacing-1) var(--spacing-2);
+  border-radius: var(--border-radius-sm);
+}
+
+.prev::before {
+  content: "←";
+  color: var(--text-secondary);
+  margin-right: var(--spacing-2);
+}
+
+.next::after {
+  content: "→";
+  color: var(--text-secondary);
+  margin-left: var(--spacing-2);
+}
+
+.prev:hover,
+.next:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}

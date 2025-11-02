@@ -1,0 +1,46 @@
+:root {
+  /* Font Families */
+  --font-sans:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans",
+    "Hiragino Kaku Gothic ProN", "Noto Sans JP", Meiryo, sans-serif;
+  --font-mono:
+    "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, "Courier New",
+    monospace;
+
+  /* Font Sizes - Major Second Scale (1.125) with practical adjustments */
+  --font-size-xs: 0.8125rem; /* 13px - キャプション、補足 */
+  --font-size-sm: 0.875rem; /* 14px - メタ情報、フッター */
+  --font-size-base: 1.0625rem; /* 17px - 本文（日本語最適） */
+  --font-size-md: 1.125rem; /* 18px - リード文、強調 */
+  --font-size-lg: 1.3125rem; /* 21px - h3 */
+  --font-size-xl: 1.5rem; /* 24px - h2 */
+  --font-size-2xl: 1.875rem; /* 30px - h1, ページタイトル */
+  --font-size-3xl: 2.25rem; /* 36px - 特大見出し */
+
+  /* Line Heights - Japanese-optimized */
+  --line-height-tight: 1.4; /* 見出し専用 */
+  --line-height-snug: 1.6; /* リード、短文 */
+  --line-height-normal: 1.8; /* 本文（日本語最適） */
+  --line-height-relaxed: 1.9; /* 長文、読書モード */
+
+  /* Font Weights */
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* Letter Spacing - Japanese-optimized */
+  --letter-spacing-tight: -0.01em; /* 大見出し */
+  --letter-spacing-normal: 0; /* 標準 */
+  --letter-spacing-wide: 0.02em; /* 小文字、キャプション */
+
+  /* Paragraph Spacing */
+  --paragraph-spacing: 1.5em; /* 段落間 */
+  --heading-margin-top: 2.5em; /* 見出し前 */
+  --heading-margin-bottom: 0.75em; /* 見出し後 */
+
+  /* Japanese Typography Features */
+  --font-feature-palt: "palt" 1; /* プロポーショナルメトリクス */
+  --font-feature-pkna: "pkna" 1; /* プロポーショナルかな */
+  --font-feature-jp: "palt" 1, "pkna" 1; /* 日本語最適化セット */
+}

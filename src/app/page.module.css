@@ -1,0 +1,40 @@
+.lead {
+  font-size: var(--font-size-md);
+  color: var(--text-secondary);
+  margin: 0 0 var(--spacing-6) 0;
+}
+
+.sectionTitle {
+  font-size: var(--text-xl);
+  margin-bottom: var(--spacing-4);
+}
+
+.postsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--spacing-4);
+}
+
+.moreLink {
+  margin-top: var(--spacing-4);
+}
+
+.tagsWrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-2);
+}
+
+.badgeCount {
+  font-size: var(--font-size-xs);
+  opacity: 0.8;
+  margin-left: var(--spacing-1);
+}
+
+.linkList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: var(--spacing-2);
+}

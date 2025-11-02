@@ -1,0 +1,66 @@
+.card {
+  padding: var(--spacing-4) 0;
+  transition:
+    transform var(--transition-fast),
+    opacity var(--transition-fast);
+}
+
+.card:hover {
+  transform: translateX(2px);
+}
+
+/* Subtle hover variant for dense grids (e.g., Related section) */
+.cardSubtle:hover {
+  transform: translateX(1px);
+}
+
+.title {
+  margin: 0 0 var(--spacing-1) 0;
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.4;
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+/* Smaller title for h3 context (e.g., related posts) */
+.titleH3 {
+  font-size: var(--font-size-lg);
+}
+
+.titleLink {
+  color: var(--text-primary);
+  transition: color var(--transition-fast);
+  text-decoration: none;
+  background-image: linear-gradient(
+    to right,
+    var(--color-primary) 0%,
+    var(--color-primary) 100%
+  );
+  background-size: 0 2px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size var(--transition-fast);
+}
+
+.titleLink:hover {
+  color: var(--color-primary);
+  text-decoration: none;
+  background-size: 100% 2px;
+}
+
+.date {
+  display: inline-block;
+  font-size: var(--font-size-xs);
+  color: var(--text-muted);
+  margin-bottom: var(--spacing-1);
+  font-variant-numeric: tabular-nums;
+  font-weight: var(--font-weight-medium);
+  letter-spacing: 0.02em;
+}
+
+.excerpt {
+  margin: var(--spacing-2) 0 0 0;
+  color: var(--text-secondary);
+  line-height: 1.65;
+  font-size: var(--font-size-base);
+}

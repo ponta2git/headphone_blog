@@ -1,0 +1,25 @@
+.layout {
+  width: 100%;
+  margin: 0 auto;
+  padding: var(--spacing-4);
+  background-color: var(--bg-page);
+}
+
+.narrow {
+  max-width: var(--container-narrow);
+}
+
+.normal {
+  max-width: var(--container-max);
+}
+
+.wide {
+  max-width: 90ch;
+}
+
+/* モバイル対応 */
+@media (max-width: 640px) {
+  .layout {
+    padding: var(--spacing-4);
+  }
+}

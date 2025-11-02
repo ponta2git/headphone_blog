@@ -1,39 +1,30 @@
 import { faNewspaper } from "@fortawesome/free-solid-svg-icons/faNewspaper";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { PageLayout } from "../../components/layouts/PageLayout";
+import { PageHeader } from "../../components/features/PageHeader";
+import { ArticleCard } from "../../components/features/ArticleCard";
+import { Stack } from "../../components/ui/Stack";
+import { getAllPosts } from "../../posts/api";
+import { generateArchiveMetadata } from "../../posts/meta";
 
-import Container from "../../components/layout/Container";
-import { MetaCard } from "../../components/sections/article/MetaCard";
-import { MetaInfo } from "../../MetaInfo";
-import { PostdateService } from "../../services/date/PostdateService";
-import { PostService } from "../../services/post/PostService";
-
-import type { Metadata } from "next";
-
-export async function generateMetadata(): Promise<Metadata> {
-  const title = "全記事一覧";
-  const description = "すべての記事を集めたページ";
-  const pagePath = "all-articles";
-
-  return MetaInfo.generateMetadata.archive(title, pagePath, description);
+export function generateMetadata() {
+  return generateArchiveMetadata(
+    "すべての記事",
+    "all-articles",
+    "全記事の一覧",
+  );
 }
 
 export default async function Page() {
-  const postdates = (await PostdateService.getAllPostdates()).toReversed();
-  const allPosts = await Promise.all(
-    postdates.map((date) => PostService.getByPostdate(date)),
-  );
+  const allPosts = await getAllPosts();
 
   return (
-    <Container>
-      <h1 className="font-header-setting mb-4 flex flex-row items-center gap-x-1.5 text-lg text-text-heading">
-        <FontAwesomeIcon icon={faNewspaper} className="inline-block h-5 w-5" />
-        <span className="inline-block">全記事一覧</span>
-      </h1>
-      <div className="flex flex-col gap-y-4">
+    <PageLayout>
+      <PageHeader title="全記事一覧" icon={faNewspaper} />
+      <Stack gap={5}>
         {allPosts.map((post) => (
-          <MetaCard key={post.frontmatter.date.toISO()} post={post} />
+          <ArticleCard key={post.frontmatter.date.toISO()} post={post} />
         ))}
-      </div>
-    </Container>
+      </Stack>
+    </PageLayout>
   );
 }

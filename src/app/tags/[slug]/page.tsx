@@ -1,88 +1,39 @@
 import { faTag } from "@fortawesome/free-solid-svg-icons/faTag";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Link from "next/link";
+import { PageLayout } from "../../../components/layouts/PageLayout";
+import { PageHeader } from "../../../components/features/PageHeader";
+import { ArticleCard } from "../../../components/features/ArticleCard";
+import { getPostsByTag } from "../../../posts/api";
+import { generateTagMetadata } from "../../../posts/meta";
+import { fromSlug, getAllTags } from "../../../lib/tag";
 
-import Container from "../../../components/layout/Container";
-import { MetaCard } from "../../../components/sections/article/MetaCard";
-import { MetaInfo } from "../../../MetaInfo";
-import { PostdateService } from "../../../services/date/PostdateService";
-import { PostService } from "../../../services/post/PostService";
-import { TagService } from "../../../services/tag/TagService";
+type Params = { slug: string };
 
-import type { Metadata } from "next";
-
-export const dynamicParams = false;
-
-type TagPageRouteParams = {
-  slug: string;
-};
-
-export function generateStaticParams(): TagPageRouteParams[] {
-  return TagService.allTags().map(({ slug }) => ({ slug }));
+export function generateStaticParams(): Params[] {
+  const tags = getAllTags();
+  return tags.map((t) => ({ slug: t.slug }));
 }
 
-export async function generateMetadata(props: {
-  params: Promise<TagPageRouteParams>;
-}): Promise<Metadata> {
-  const params = await props.params;
-  const { slug } = params;
-  const tag = TagService.fromSlug(slug);
-
-  // タグページ向けのメタデータを生成
-  const metadata = MetaInfo.generateMetadata.tag(tag.name, tag.slug);
-
-  // タグページ向けの構造化データを生成
-  const jsonLd = MetaInfo.schemaOrg.collectionPage(
-    `${tag.name}に関する記事`,
-    `${tag.name}に関連する記事の一覧ページです。`,
-    `${MetaInfo.siteInfo.url}tags/${slug}`,
-    [],
-  );
-
-  return {
-    ...metadata,
-    other: {
-      "json-ld": JSON.stringify(jsonLd),
-    },
-  };
-}
-
-export default async function Page(props: {
-  params: Promise<TagPageRouteParams>;
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<Params>;
 }) {
-  const params = await props.params;
+  const { slug } = await params;
+  const tag = fromSlug(slug);
+  return generateTagMetadata(tag.name, tag.slug);
+}
 
-  const { slug } = params;
-  const tag = TagService.fromSlug(slug);
-
-  const postdates = (await PostdateService.getAllPostdates()).toReversed();
-  const allPosts = await Promise.all(
-    postdates.map((date) => PostService.getByPostdate(date)),
-  );
-  const filtered = allPosts.filter((post) =>
-    TagService.tagInPost(tag, post.frontmatter),
-  );
+export default async function Page({ params }: { params: Promise<Params> }) {
+  const { slug } = await params;
+  const tag = fromSlug(slug);
+  const posts = await getPostsByTag(tag);
 
   return (
-    <Container>
-      <h1 className="font-header-setting mb-4 flex flex-row items-center gap-x-1.5 text-lg text-text-heading">
-        <FontAwesomeIcon icon={faTag} className="inline-block h-5 w-5" />
-        <span className="inline-block">{tag.name} に関する記事一覧</span>
-      </h1>
-
-      <div className="flex flex-col gap-y-4">
-        {filtered.map((post) => (
-          <MetaCard key={post.frontmatter.date.toISO()} post={post} />
-        ))}
-        <div className="text-justify tracking-[-0.0125rem] break-words">
-          別ジャンルの記事をお探しなら、
-          <Link href="/tags">
-            <span className="text-link-blue transition-colors hover:text-link-blue-hover">
-              ジャンル一覧をご覧ください。
-            </span>
-          </Link>
-        </div>
-      </div>
-    </Container>
+    <PageLayout>
+      <PageHeader title={`#${tag.name}`} icon={faTag} />
+      {posts.map((post) => (
+        <ArticleCard key={post.frontmatter.date.toISO()} post={post} />
+      ))}
+    </PageLayout>
   );
 }

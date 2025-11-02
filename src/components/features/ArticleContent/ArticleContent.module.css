@@ -1,0 +1,332 @@
+.content {
+  font-size: var(--font-size-base);
+  line-height: 1.75;
+  color: var(--text-primary);
+  font-feature-settings: var(--font-feature-jp);
+}
+
+/* 見出し - 構造的な余白と視覚的階層 */
+.h2 {
+  margin-top: 2em;
+  margin-bottom: 0.75em;
+  padding-bottom: var(--spacing-2);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.4;
+  color: var(--text-primary);
+  border-bottom: 2px solid var(--border-accent);
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+.h3 {
+  margin-top: 1.75em;
+  margin-bottom: 0.625em;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.4;
+  color: var(--text-primary);
+}
+
+.h4 {
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
+.h5 {
+  margin-top: 1.25em;
+  margin-bottom: 0.5em;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
+.h6 {
+  margin-top: 1.125em;
+  margin-bottom: 0.5em;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
+/* 段落 - 読みやすさを最優先 */
+.p {
+  margin-bottom: 1.25em;
+  text-align: justify;
+  text-justify: inter-character;
+  line-height: 1.75;
+  orphans: 3;
+  widows: 3;
+}
+
+.p:last-child {
+  margin-bottom: 0;
+}
+
+/* リスト - 適切な余白とインデント */
+.ul,
+.ol {
+  margin-bottom: 1.25em;
+  padding-left: var(--spacing-6);
+}
+
+.ul {
+  list-style-type: disc;
+}
+
+.ol {
+  list-style-type: decimal;
+}
+
+.ul li,
+.ol li {
+  margin-bottom: var(--spacing-1);
+  line-height: 1.7;
+}
+
+.ul li:last-child,
+.ol li:last-child {
+  margin-bottom: 0;
+}
+
+/* ネストしたリスト */
+.ul .ul,
+.ul .ol,
+.ol .ul,
+.ol .ol {
+  margin-top: var(--spacing-1);
+  margin-bottom: var(--spacing-1);
+}
+
+/* 画像 - 余白と装飾 */
+.img {
+  display: block;
+  margin: var(--spacing-6) auto;
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-md);
+}
+
+/* 水平線 - 控えめなセクション区切り */
+.hr {
+  margin: var(--spacing-8) 0;
+  border: none;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--border-default) 20%,
+    var(--border-default) 80%,
+    transparent
+  );
+}
+
+/* 引用 - 明確な視覚的差別化 */
+.blockquote {
+  margin: var(--spacing-5) 0;
+  padding: var(--spacing-3) var(--spacing-5);
+  border-left: 4px solid var(--color-primary);
+  background-color: var(--bg-surface);
+  font-style: italic;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+.blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+/* コード */
+.code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  background-color: var(--bg-muted);
+  padding: 0.125em 0.375em;
+  border-radius: var(--border-radius-sm);
+  border: 1px solid var(--border-subtle);
+}
+
+.pre {
+  margin: var(--spacing-5) 0;
+  padding: var(--spacing-4);
+  background-color: var(--bg-muted);
+  border-radius: var(--border-radius-md);
+  overflow-x: auto;
+}
+
+.pre .code {
+  background-color: transparent;
+  padding: 0;
+  border: none;
+}
+
+/* テーブル - 読みやすい構造 */
+.tableWrapper {
+  margin: var(--spacing-6) 0;
+  overflow-x: auto;
+  border-radius: var(--border-radius-md);
+  border: 1px solid var(--border-subtle);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-snug);
+}
+
+.thead {
+  background-color: var(--bg-surface);
+}
+
+.th {
+  padding: var(--spacing-3) var(--spacing-4);
+  text-align: left;
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
+  border-bottom: 2px solid var(--border-default);
+}
+
+.tr {
+  transition: background-color var(--transition-fast);
+}
+
+.tbody .tr:hover {
+  background-color: var(--bg-surface);
+}
+
+.td {
+  padding: var(--spacing-3) var(--spacing-4);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.tbody .tr:last-child .td {
+  border-bottom: none;
+}
+
+/* Strong & Em */
+.strong {
+  font-weight: var(--font-weight-bold);
+  color: var(--text-primary);
+}
+
+.em {
+  font-style: italic;
+}
+
+/* Links in content */
+.a {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-decoration-color: var(--border-subtle);
+  text-underline-offset: 0.2em;
+  transition: all var(--transition-fast);
+}
+
+.a:hover {
+  color: var(--color-accent-hover);
+  text-decoration-color: currentColor;
+}
+
+/* カスタムブロック: Info */
+.info {
+  display: flex;
+  gap: var(--spacing-3);
+  margin: var(--spacing-5) 0;
+  padding: var(--spacing-3) var(--spacing-4);
+  background-color: var(--info-bg);
+  border: 1px solid var(--info-border);
+  border-radius: var(--border-radius-lg);
+  font-size: var(--font-size-sm);
+  line-height: 1.6;
+}
+
+.infoIcon {
+  flex-shrink: 0;
+  width: 1.125rem;
+  height: 1.125rem;
+  color: var(--info-text);
+  margin-top: 0.125rem;
+}
+
+.infoContent {
+  flex: 1;
+}
+
+.infoContent p:last-child {
+  margin-bottom: 0;
+}
+
+/* カスタムブロック: Warning */
+.warning {
+  display: flex;
+  gap: var(--spacing-3);
+  margin: var(--spacing-5) 0;
+  padding: var(--spacing-3) var(--spacing-4);
+  background-color: var(--warning-bg);
+  border: 1px solid var(--warning-border);
+  border-radius: var(--border-radius-lg);
+  font-size: var(--font-size-sm);
+  line-height: 1.6;
+}
+
+.warningIcon {
+  flex-shrink: 0;
+  width: 1.125rem;
+  height: 1.125rem;
+  color: var(--warning-text);
+  margin-top: 0.125rem;
+}
+
+.warningContent {
+  flex: 1;
+}
+
+.warningContent p:last-child {
+  margin-bottom: 0;
+}
+
+/* モバイル対応 */
+@media (max-width: 640px) {
+  .content {
+    font-size: var(--font-size-base);
+  }
+
+  .h2 {
+    font-size: var(--font-size-lg);
+    margin-top: 1.5em;
+  }
+
+  .h3 {
+    font-size: var(--font-size-md);
+    margin-top: 1.25em;
+  }
+
+  .h4 {
+    font-size: var(--font-size-base);
+  }
+
+  .img {
+    margin: var(--spacing-5) auto;
+  }
+
+  .tableWrapper {
+    margin: var(--spacing-4) calc(var(--spacing-4) * -1);
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+  }
+
+  .info,
+  .warning {
+    margin: var(--spacing-4) 0;
+    padding: var(--spacing-3);
+    font-size: 0.875rem;
+  }
+}

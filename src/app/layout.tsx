@@ -1,49 +1,42 @@
 import { GoogleTagManager } from "@next/third-parties/google";
-const GTAGMGR_ID = process.env.NEXT_PUBLIC_GTAGMGR_ID || "";
-
-import "./globals.css";
-
-import Footer from "../components/layout/Footer";
-import GlobalMenu from "../components/layout/GlobalMenu";
-import Header from "../components/layout/Header";
-import ScrollToTop from "../components/layout/ScrollToTop";
-import { MetaInfo } from "../MetaInfo";
-
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
+import { SiteHeader } from "../components/features/SiteHeader";
+import { SiteFooter } from "../components/features/SiteFooter";
+import { generateStaticMetadata } from "../posts/meta";
 
-// JSON-LDの構造化データを追加したメタデータを生成
-export const generateMetadata = async (): Promise<Metadata> => {
-  return {
-    ...MetaInfo.baseMetadata,
-    other: {
-      "json-ld": JSON.stringify(MetaInfo.schemaOrg.website()),
-    },
-  };
-};
+import "../styles/globals/reset.css";
+import "../styles/globals/base.css";
+import "../styles/globals/utilities.css";
+
+import styles from "./layout.module.css";
+
+const GTAGMGR_ID = process.env.NEXT_PUBLIC_GTAGMGR_ID || "";
+
+export function generateMetadata(): Metadata {
+  return generateStaticMetadata(
+    "",
+    "",
+    "ヘッドホンオーディオを楽しんでいます。ヘッドホンや機材のインプレッションやヘッドホンオーディオの楽しみ方などについて気楽に書き連ねています。",
+  );
+}
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="ja">
       <head />
-      <body className="bg-bg-base text-text">
-        <div className="flex min-h-screen flex-col">
-          <div className="grow">
-            <div className="pt-10 pb-6">
-              <Header />
-            </div>
-            <div className="mx-4 mb-6 md:mx-auto md:w-3/5">
-              <GlobalMenu />
-            </div>
+      <body>
+        <div className={styles.container}>
+          <div className={styles.content}>
+            <SiteHeader />
             {children}
           </div>
-          <Footer />
-          <ScrollToTop />
+          <SiteFooter />
         </div>
+        {process.env.ENABLE_GTM === "true" ? (
+          <GoogleTagManager gtmId={`GTM-${GTAGMGR_ID}`} />
+        ) : null}
       </body>
-      {process.env.NODE_ENV === "production" ? (
-        <GoogleTagManager gtmId={`GTM-${GTAGMGR_ID}`} />
-      ) : null}
     </html>
   );
 }

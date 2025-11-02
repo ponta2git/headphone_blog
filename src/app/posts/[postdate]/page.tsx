@@ -1,14 +1,22 @@
-import ArticleTags from "../../../ArticleTags";
-import { TagItem } from "../../../components/elements/TagItem";
-import Container from "../../../components/layout/Container";
-import { Neighbours } from "../../../components/sections/article/Neighbours";
-import { ShareWith } from "../../../components/sections/article/ShareWith";
-import RelatedPosts from "../../../components/sections/RelatedPosts";
-import { MetaInfo } from "../../../MetaInfo";
-import { PostdateService } from "../../../services/date/PostdateService";
-import { PostService } from "../../../services/post/PostService";
-
-import type { Metadata, ResolvingMetadata } from "next";
+import { DateTime } from "luxon";
+import type { Metadata } from "next";
+import { Stack } from "../../../components/ui/Stack";
+import { Badge } from "../../../components/ui/Badge";
+import { ArticleContent } from "../../../components/features/ArticleContent";
+import { generatePostMetadata } from "../../../posts/meta";
+import {
+  getPostByDate,
+  getAllPostDates,
+  getRelatedPosts,
+  getNeighbourPosts,
+} from "../../../posts/api";
+import { TIMEZONE, LOCALE } from "../../../site";
+import styles from "./page.module.css";
+import { ShareWith } from "../../../components/features/ShareWith/ShareWith";
+import {
+  RelatedPostsSection,
+  NeighboursNav,
+} from "../../../components/sections/ArticleRelations";
 
 export const dynamicParams = false;
 
@@ -17,96 +25,137 @@ type PostPageRouteParams = {
 };
 
 export async function generateStaticParams(): Promise<PostPageRouteParams[]> {
-  const postdates = await PostdateService.getAllPostdates();
-  return postdates.map((date) => ({ postdate: date.toFormat("yyyyMMdd") }));
+  const dates = await getAllPostDates();
+  return dates.map((date) => ({ postdate: date.toFormat("yyyyMMdd") }));
 }
 
-export async function generateMetadata(
-  props: { params: Promise<PostPageRouteParams> },
-  parent: ResolvingMetadata,
-): Promise<Metadata> {
-  const params = await props.params;
-  const { postdate } = params;
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<PostPageRouteParams>;
+}): Promise<Metadata> {
+  const { postdate } = await params;
 
-  const date = PostdateService.from_yyyyMMdd(postdate);
-  const post = await PostService.getByPostdate(date);
-  const { frontmatter, excerpt, rawContent } = post;
+  const date = DateTime.fromFormat(postdate, "yyyyMMdd", {
+    zone: TIMEZONE,
+    locale: LOCALE,
+  });
 
-  // JSON-LDの構造化データを生成
-  const jsonLd = MetaInfo.schemaOrg.blogPosting(
-    frontmatter.title,
-    excerpt,
-    `${MetaInfo.siteInfo.url}posts/${postdate}`,
-    postdate,
-  );
+  if (!date.isValid) {
+    throw new Error(`Invalid postdate: ${postdate}`);
+  }
 
-  // 新しいメタデータ生成関数を使用
-  const metadata = await MetaInfo.generateMetadata.post(
-    frontmatter.title,
-    excerpt,
-    postdate,
-    undefined, // 自動検出するのでimageUrlは指定しない
-    rawContent, // 代わりにrawContentを渡して自動検出させる
-    parent,
-  );
+  const post = await getPostByDate(date);
+  const canonical = `https://ponta-headphone.net/posts/${postdate}`;
 
-  return {
-    ...metadata,
-    other: {
-      "json-ld": JSON.stringify(jsonLd),
-    },
-  };
+  return generatePostMetadata(post, canonical);
 }
 
-export default async function Page(props: {
+export default async function Page({
+  params,
+}: {
   params: Promise<PostPageRouteParams>;
 }) {
-  const params = await props.params;
-  const { postdate } = params;
+  const { postdate } = await params;
 
-  const date = PostdateService.from_yyyyMMdd(postdate);
-  const { frontmatter, body } = await PostService.getByPostdate(date);
+  const date = DateTime.fromFormat(postdate, "yyyyMMdd", {
+    zone: TIMEZONE,
+    locale: LOCALE,
+  });
+
+  if (!date.isValid) {
+    throw new Error(`Invalid postdate: ${postdate}`);
+  }
+
+  const post = await getPostByDate(date);
+  const { frontmatter } = post;
+  const related = await getRelatedPosts(post, 4);
+  const neighbours = await getNeighbourPosts(frontmatter.date);
 
   return (
-    <>
-      <Container>
-        <article>
-          <div className="flex flex-col gap-y-1">
-            <div className="flex flex-row items-baseline gap-x-1">
-              {frontmatter.tags.map((tag) => (
-                <TagItem key={tag.slug} tag={tag} />
-              ))}
+    <div className={styles.container}>
+      <article className={styles.article}>
+        <header className={styles.header}>
+          <Stack gap={4}>
+            <h1 className={styles.title}>{frontmatter.title}</h1>
+
+            <div className={styles.meta}>
+              <time
+                className={styles.date}
+                dateTime={frontmatter.date.toISODate() || ""}
+              >
+                {frontmatter.date.toFormat("yyyy-MM-dd")}
+              </time>
+              {post.readTime ? (
+                <span className={styles.readtime}>
+                  ・{post.readTime}分で読めます
+                </span>
+              ) : null}
+
+              <Stack direction="horizontal" gap={2}>
+                {frontmatter.tags.map((tag) => (
+                  <Badge key={tag.slug} href={`/tags/${tag.slug}`}>
+                    {tag.name}
+                  </Badge>
+                ))}
+              </Stack>
             </div>
+          </Stack>
+        </header>
 
-            <h1 className="font-header-setting text-2xl leading-snug font-bold tracking-[0.6px] text-text-heading">
-              {frontmatter.title}
-            </h1>
-          </div>
+        <div className={styles.content}>
+          {frontmatter.tldr && frontmatter.tldr.length > 0 ? (
+            <section className={styles.tldr}>
+              <h2 className={styles.tldrTitle}>要点</h2>
+              <ul>
+                {frontmatter.tldr.map((item, i) => (
+                  <li key={i}>{item}</li>
+                ))}
+              </ul>
+            </section>
+          ) : null}
 
-          <p className="text-sm leading-5 tracking-[0.2px] text-text-meta">
-            {frontmatter.date.toFormat("yyyy-MM-dd")}
-          </p>
+          {post.headings && post.headings.length >= 3 ? (
+            <details className={styles.toc}>
+              <summary>このページの目次</summary>
+              <ul>
+                {post.headings.map((h) => (
+                  <li
+                    key={h.id}
+                    className={styles[`tocLevel${h.level}`] ?? undefined}
+                  >
+                    <a href={`#${h.id}`}>
+                      {h.level > 2 ? (
+                        <span aria-hidden="true">
+                          {"— ".repeat(h.level - 2)}
+                        </span>
+                      ) : null}
+                      {h.text}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </details>
+          ) : null}
 
-          <div className="my-10 mt-4 flex flex-col gap-[1.725rem] px-3 lg:px-6">
-            {body({ components: ArticleTags })}
-          </div>
+          <ArticleContent post={post} />
+        </div>
 
-          <div className="px-6">
+        <footer className={styles.footer}>
+          <div className={styles.shareArea}>
             <ShareWith
-              date={frontmatter.date}
               title={frontmatter.title}
-              tags={frontmatter.tags}
+              url={`https://ponta-headphone.net/posts/${frontmatter.date.toFormat("yyyyMMdd")}`}
             />
           </div>
+          {related.length > 0 ? <RelatedPostsSection posts={related} /> : null}
 
-          <div className="mt-10">
-            <Neighbours selfDate={frontmatter.date} />
-          </div>
-        </article>
-      </Container>
-      <div className="mx-auto mb-16 w-[85vw] md:w-3/5 lg:w-1/3">
-        <RelatedPosts selfTags={frontmatter.tags} selfDate={date} />
-      </div>
-    </>
+          <NeighboursNav
+            prev={neighbours.prev ?? undefined}
+            next={neighbours.next ?? undefined}
+          />
+        </footer>
+      </article>
+    </div>
   );
 }
