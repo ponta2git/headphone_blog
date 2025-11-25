@@ -41,8 +41,6 @@ h1 {
 
 h2 {
   font-size: var(--font-size-xl);
-  padding-bottom: var(--spacing-2);
-  border-bottom: 2px solid var(--border-accent);
 }
 
 h3 {
@@ -161,6 +159,6 @@ small {
 /* HR */
 hr {
   border: none;
-  border-top: 1px solid var(--border-default);
-  margin: var(--spacing-8) 0;
+  border-top: 1px solid var(--border-subtle);
+  margin: var(--spacing-5) 0;
 }

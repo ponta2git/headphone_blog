@@ -10,6 +10,12 @@ export const CONTENT_CONSTANTS = {
 
   /** 関連記事の表示数 */
   RELATED_POSTS_COUNT: 5,
+
+  /** 人気タグ（一覧ページ）の最大表示数 */
+  POPULAR_TAGS_COUNT: 9,
+
+  /** 関連タグ（タグ詳細ページ）の最大表示数 */
+  RELATED_TAGS_COUNT: 6,
 } as const;
 
 /**

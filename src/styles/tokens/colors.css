@@ -24,6 +24,7 @@
   --accent-500: hsl(199, 89%, 48%);
   --accent-600: hsl(200, 98%, 39%);
   --accent-700: hsl(201, 96%, 32%);
+  --accent-800: hsl(202, 96%, 26%);
 
   /* Feedback Colors */
   --info-bg: hsl(205, 79%, 97%);
@@ -37,8 +38,8 @@
   --color-primary: var(--primary-600);
   --color-primary-hover: var(--primary-700);
   --color-primary-light: var(--primary-100);
-  --color-accent: var(--accent-500);
-  --color-accent-hover: var(--accent-600);
+  --color-accent: var(--accent-700);
+  --color-accent-hover: var(--accent-800);
 
   /* Background Colors */
   --bg-page: hsl(0, 0%, 100%); /* 純白 */
@@ -56,5 +57,5 @@
   --border-subtle: var(--neutral-200);
   --border-default: var(--neutral-300);
   --border-strong: var(--neutral-400);
-  --border-accent: var(--primary-200);
+  --border-accent: var(--primary-100);
 }
