@@ -1,11 +1,11 @@
 .footer {
   width: 100%;
-  margin: var(--spacing-10) 0 0;
-  padding: var(--spacing-6) var(--spacing-4) var(--spacing-5);
+  margin: var(--spacing-8) 0 0;
+  padding: var(--spacing-5) var(--spacing-4) var(--spacing-4);
   background-color: var(--bg-surface);
   border-top: 1px solid var(--border-subtle);
   text-align: center;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   color: var(--text-muted);
 }
 
@@ -13,19 +13,24 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: var(--spacing-3);
-  margin-bottom: var(--spacing-3);
+  gap: var(--spacing-2);
+  margin-bottom: var(--spacing-2);
   flex-wrap: wrap;
 }
 
 .iconLink {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 1.75rem;
-  height: 1.75rem;
+  width: 20px;
+  height: 20px;
   color: var(--text-muted);
   transition: color var(--transition-fast);
+}
+
+.iconLink svg {
+  width: 18px;
+  height: 18px;
 }
 
 .iconLink:hover {
@@ -50,8 +55,22 @@
 
 .copyright,
 .license {
-  margin: var(--spacing-2) 0;
+  margin: var(--spacing-1) 0;
   line-height: 1.5;
   color: var(--text-muted);
   font-size: 0.75rem;
+}
+
+@media (min-width: 768px) {
+  .footer {
+    font-size: 0.875rem;
+  }
+  .copyright,
+  .license {
+    display: inline;
+  }
+  .license::before {
+    content: " · ";
+    color: var(--border-subtle);
+  }
 }

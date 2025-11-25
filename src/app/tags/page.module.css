@@ -1,0 +1,49 @@
+.section {
+  margin: var(--spacing-8) 0;
+  /* Offscreen rendering skip to stabilize initial render cost */
+  content-visibility: auto;
+  contain-intrinsic-size: 600px;
+}
+
+.lead {
+  margin: var(--spacing-3) 0 var(--spacing-5);
+  color: var(--text-secondary);
+}
+
+.sectionTitle {
+  margin-bottom: var(--spacing-3);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
+}
+
+.badgesWrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-2);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--spacing-2);
+  /* Grids can be long; allow skipping offscreen work */
+  content-visibility: auto;
+  contain-intrinsic-size: 800px;
+}
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.count {
+  margin-left: 0.25rem;
+  color: var(--text-muted);
+  font-size: 0.9em;
+}
+
+.moreLinks {
+  margin-top: var(--spacing-8);
+}

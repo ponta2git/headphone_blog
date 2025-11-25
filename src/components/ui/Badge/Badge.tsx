@@ -8,14 +8,30 @@ interface BadgeProps {
   children: ReactNode;
   href?: string;
   variant?: BadgeVariant;
+  ariaLabel?: string;
+  rel?: string;
+  title?: string;
 }
 
-export function Badge({ children, href, variant = "default" }: BadgeProps) {
+export function Badge({
+  children,
+  href,
+  variant = "default",
+  ariaLabel,
+  rel,
+  title,
+}: BadgeProps) {
   const className = `${styles.badge} ${styles[variant]}`;
 
   if (href) {
     return (
-      <NextLink href={href as never} className={className}>
+      <NextLink
+        href={href as never}
+        className={className}
+        aria-label={ariaLabel}
+        rel={rel}
+        title={title}
+      >
         {children}
       </NextLink>
     );

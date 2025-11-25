@@ -25,6 +25,7 @@ export function RelatedPostsSection({
             post={p}
             headingLevel="h3"
             hoverVariant="subtle"
+            titleClamp="one"
           />
         ))}
       </div>

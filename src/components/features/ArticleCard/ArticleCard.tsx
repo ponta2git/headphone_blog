@@ -12,6 +12,11 @@ interface ArticleCardProps {
   variant?: Variant;
   headingLevel?: "h2" | "h3";
   hoverVariant?: "normal" | "subtle";
+  /**
+   * Clamp title lines. Use "one" for ultra-dense contexts (e.g., related posts),
+   * default "two" for standard lists.
+   */
+  titleClamp?: "one" | "two";
 }
 
 export function ArticleCard({
@@ -19,6 +24,7 @@ export function ArticleCard({
   variant = "compact",
   headingLevel = "h2",
   hoverVariant = "normal",
+  titleClamp = "two",
 }: ArticleCardProps) {
   const { frontmatter, excerpt } = post;
   const { date, title, tags } = frontmatter;
@@ -33,6 +39,10 @@ export function ArticleCard({
     hoverVariant === "subtle" ? styles.cardSubtle : ""
   }`;
 
+  const titleLinkClass = `${styles.titleLink} ${
+    titleClamp === "one" ? styles.titleLinkClamp1 : ""
+  }`;
+
   return (
     <article className={cardClass}>
       <Stack gap={3}>
@@ -44,15 +54,15 @@ export function ArticleCard({
           ))}
         </Stack>
 
-        <Heading className={titleClass}>
-          <NextLink href={link} className={styles.titleLink}>
-            {title}
-          </NextLink>
-        </Heading>
-
         <time className={styles.date} dateTime={date.toISODate() || ""}>
           {date.toFormat("yyyy-MM-dd")}
         </time>
+
+        <Heading className={titleClass}>
+          <NextLink href={link} className={titleLinkClass}>
+            {title}
+          </NextLink>
+        </Heading>
 
         {variant === "full" && excerpt && (
           <p className={styles.excerpt}>{excerpt}</p>

@@ -1,0 +1,43 @@
+.meta {
+  color: var(--text-muted);
+}
+
+.breadcrumb {
+  margin-bottom: var(--spacing-3);
+  color: var(--text-muted);
+  font-size: var(--font-size-sm);
+}
+
+.section {
+  margin: var(--spacing-8) 0;
+  content-visibility: auto;
+  contain-intrinsic-size: 700px;
+}
+
+.sectionTitle {
+  margin-bottom: var(--spacing-3);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
+}
+
+.badgesWrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-2);
+}
+
+.count {
+  margin-left: 0.25rem;
+  color: var(--text-muted);
+  font-size: 0.9em;
+}
+
+.moreLinks {
+  margin-top: var(--spacing-8);
+}
+
+.sep {
+  margin: 0 var(--spacing-2);
+  color: var(--text-muted);
+}

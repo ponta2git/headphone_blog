@@ -4,7 +4,8 @@
   gap: var(--spacing-2);
   transition: all var(--transition-fast);
   text-decoration: underline;
-  text-decoration-color: transparent;
+  /* 常時下線を表示（通常は控えめな色、hoverで強調） */
+  text-decoration-color: var(--border-subtle);
   text-underline-offset: 0.2em;
 }
 

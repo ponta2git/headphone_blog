@@ -20,7 +20,7 @@ export default async function Page() {
   return (
     <PageLayout>
       <PageHeader title="全記事一覧" icon={faNewspaper} />
-      <Stack gap={5}>
+      <Stack gap={2}>
         {allPosts.map((post) => (
           <ArticleCard key={post.frontmatter.date.toISO()} post={post} />
         ))}

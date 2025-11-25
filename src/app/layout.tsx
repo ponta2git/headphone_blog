@@ -4,6 +4,9 @@ import type { ReactNode } from "react";
 import { SiteHeader } from "../components/features/SiteHeader";
 import { SiteFooter } from "../components/features/SiteFooter";
 import { generateStaticMetadata } from "../posts/meta";
+import { JsonLd } from "../components/seo/JsonLd";
+import { generateWebsiteSchema } from "../posts/meta";
+import { WebVitalsReporter } from "../components/analytics/WebVitalsReporter";
 
 import "../styles/globals/reset.css";
 import "../styles/globals/base.css";
@@ -24,8 +27,16 @@ export function generateMetadata(): Metadata {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="ja">
-      <head />
+      <head>
+        {/* Preload site logo to improve LCP when logo becomes the largest element */}
+        <link rel="preload" as="image" href="/images/logo.webp" />
+        {/* Global WebSite structured data */}
+        <JsonLd data={generateWebsiteSchema()} />
+      </head>
       <body>
+        <a href="#main" className={styles.skipLink}>
+          本文へスキップ
+        </a>
         <div className={styles.container}>
           <div className={styles.content}>
             <SiteHeader />
@@ -33,6 +44,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           </div>
           <SiteFooter />
         </div>
+        {/* Emit Core Web Vitals metrics to dataLayer or console for field measurement */}
+        <WebVitalsReporter />
         {process.env.ENABLE_GTM === "true" ? (
           <GoogleTagManager gtmId={`GTM-${GTAGMGR_ID}`} />
         ) : null}

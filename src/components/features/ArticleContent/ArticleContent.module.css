@@ -115,16 +115,22 @@
 
 /* 水平線 - 控えめなセクション区切り */
 .hr {
-  margin: var(--spacing-8) 0;
+  margin: var(--spacing-5) 0;
   border: none;
   height: 1px;
   background: linear-gradient(
     to right,
     transparent,
-    var(--border-default) 20%,
-    var(--border-default) 80%,
+    var(--border-subtle) 20%,
+    var(--border-subtle) 80%,
     transparent
   );
+}
+
+@media (min-width: 768px) {
+  .hr {
+    margin: var(--spacing-6) 0;
+  }
 }
 
 /* 引用 - 明確な視覚的差別化 */
@@ -290,6 +296,13 @@
 
 .warningContent p:last-child {
   margin-bottom: 0;
+}
+
+/* カスタムブロック: Postscript (追記・補足) */
+.postscript {
+  color: var(--text-muted);
+  font-size: var(--font-size-sm);
+  line-height: 1.6;
 }
 
 /* モバイル対応 */

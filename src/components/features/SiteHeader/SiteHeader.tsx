@@ -13,6 +13,7 @@ export function SiteHeader() {
             fill
             className={styles.logo}
             priority
+            sizes="(max-width: 640px) 100vw, 900px"
           />
         </NextLink>
       </div>

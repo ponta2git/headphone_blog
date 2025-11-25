@@ -134,5 +134,8 @@ export function createMdxComponents(): MDXComponents {
         <div className={styles.warningContent}>{props.children}</div>
       </div>
     ),
+    Postscript: (props: PropsWithChildren) => (
+      <div className={styles.postscript}>{props.children}</div>
+    ),
   };
 }

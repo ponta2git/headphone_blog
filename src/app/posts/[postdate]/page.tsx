@@ -17,6 +17,8 @@ import {
   RelatedPostsSection,
   NeighboursNav,
 } from "../../../components/sections/ArticleRelations";
+import { JsonLd } from "../../../components/seo/JsonLd";
+import { generateBlogPostingSchema } from "../../../posts/meta";
 
 export const dynamicParams = false;
 
@@ -74,6 +76,7 @@ export default async function Page({
 
   return (
     <div className={styles.container}>
+      <JsonLd data={generateBlogPostingSchema(post)} />
       <article className={styles.article}>
         <header className={styles.header}>
           <Stack gap={4}>
@@ -94,7 +97,7 @@ export default async function Page({
 
               <Stack direction="horizontal" gap={2}>
                 {frontmatter.tags.map((tag) => (
-                  <Badge key={tag.slug} href={`/tags/${tag.slug}`}>
+                  <Badge key={tag.slug} href={`/tags/${tag.slug}`} rel="tag">
                     {tag.name}
                   </Badge>
                 ))}

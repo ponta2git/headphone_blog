@@ -1,22 +1,23 @@
 .lead {
-  font-size: var(--font-size-md);
+  font-size: var(--font-size-lg);
   color: var(--text-secondary);
-  margin: 0 0 var(--spacing-6) 0;
+  max-width: 70ch;
+  margin: 0 auto var(--spacing-5);
 }
 
 .sectionTitle {
   font-size: var(--text-xl);
-  margin-bottom: var(--spacing-4);
+  margin-bottom: var(--spacing-3);
 }
 
 .postsGrid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: var(--spacing-4);
+  gap: var(--spacing-2);
 }
 
 .moreLink {
-  margin-top: var(--spacing-4);
+  margin-top: var(--spacing-3);
 }
 
 .tagsWrap {

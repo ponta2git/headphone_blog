@@ -10,6 +10,8 @@ interface PageLayoutProps {
 
 export function PageLayout({ children, maxWidth = "normal" }: PageLayoutProps) {
   return (
-    <main className={`${styles.layout} ${styles[maxWidth]}`}>{children}</main>
+    <main id="main" className={`${styles.layout} ${styles[maxWidth]}`}>
+      {children}
+    </main>
   );
 }

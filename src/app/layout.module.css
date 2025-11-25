@@ -10,3 +10,29 @@
 .content {
   flex: 1;
 }
+
+.skipLink {
+  position: absolute;
+  left: -999px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+}
+
+.skipLink:focus {
+  position: fixed;
+  left: var(--spacing-4);
+  top: var(--spacing-4);
+  width: auto;
+  height: auto;
+  clip: auto;
+  z-index: 1000;
+  background: var(--bg-elevated);
+  color: var(--text-primary);
+  padding: var(--spacing-2) var(--spacing-3);
+  border: 2px solid var(--color-accent);
+  border-radius: var(--border-radius-sm);
+  text-decoration: none;
+}
