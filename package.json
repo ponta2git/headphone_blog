@@ -4,12 +4,19 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint --fix",
+    "lint:ci": "eslint",
     "format": "prettier --write ./src/",
     "analyze": "ANALYZE=true next build",
     "test": "vitest run",
     "type-check": "tsc --noEmit",
     "clean": "rm -rf .next out node_modules/.cache",
     "validate": "vitest run validation/posts.test.ts",
+    "validate:ssg": "node scripts/validate-ssg.mjs",
+    "validate:contrast": "node scripts/check-contrast.mjs",
+    "validate:landmarks": "node scripts/check-landmarks.mjs",
+    "validate:a11y": "pnpm -s run validate:contrast && pnpm -s run validate:landmarks",
+    "validate:images": "node scripts/validate-images.mjs",
+    "validate:seo": "node scripts/validate-seo.mjs",
     "rebuild": "pnpm clean && pnpm install && pnpm build"
   },
   "dependencies": {
@@ -30,7 +37,8 @@
     "remark-mdx-frontmatter": "^5.2.0",
     "remark-parse": "^11.0.0",
     "unified": "^11.0.5",
-    "unist-util-visit": "^5.0.0"
+    "unist-util-visit": "^5.0.0",
+    "web-vitals": "^4.2.4"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.1",
