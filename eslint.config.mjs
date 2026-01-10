@@ -3,9 +3,7 @@ import js from "@eslint/js";
 import { defineConfig, globalIgnores } from "eslint/config";
 import typescript from "typescript-eslint";
 import prettierConfig from "eslint-config-prettier";
-// @ts-expect-error - eslint-config-next types are not fully compatible with flat config
 import nextVitals from "eslint-config-next/core-web-vitals";
-// @ts-expect-error - eslint-config-next types are not fully compatible with flat config
 import nextTs from "eslint-config-next/typescript";
 
 export default defineConfig([

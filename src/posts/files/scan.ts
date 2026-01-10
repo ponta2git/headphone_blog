@@ -16,14 +16,13 @@ export async function scanMdxFiles(): Promise<string[]> {
   logger.debug(`Scanning MDX files in: ${siteConfig.paths.posts}`);
 
   try {
-    const dirents = await readdir(siteConfig.paths.posts, {
+    const entries = await readdir(siteConfig.paths.posts, {
       recursive: true,
-      withFileTypes: true,
     });
 
-    const mdxFiles = dirents
-      .filter((d) => d.isFile() && d.name.endsWith(".mdx"))
-      .map((d) => path.join(d.path, d.name));
+    const mdxFiles = entries
+      .filter((name) => name.endsWith(".mdx"))
+      .map((name) => path.join(siteConfig.paths.posts, name));
 
     logger.info(`Found ${mdxFiles.length} MDX files`);
 
