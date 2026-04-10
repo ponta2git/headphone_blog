@@ -1,6 +1,5 @@
 #!/usr/bin/env node
-/* eslint-env node */
-/* eslint no-undef: 0 */
+/* global process, console */
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 
@@ -114,7 +113,6 @@ const pairs = [
     min: 4.5,
     title: "Text muted on page",
   },
-  // For links: fail under 3.0 (identifiability), warn under 4.5 (AA for body text)
   // For links: warn under 4.5 (AA for body text). No hard fail to keep CI green until token/design change.
   {
     fg: "--color-accent",

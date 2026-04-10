@@ -26,6 +26,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="ja">
       <head />
+      {process.env.ENABLE_GTM === "true" ? (
+        <GoogleTagManager gtmId={`GTM-${GTAGMGR_ID}`} />
+      ) : null}
       <body className="bg-base">
         <div id="root-container">
           <div id="content-container">
@@ -46,9 +49,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           {/* <ScrollToTop /> */}
         </div>
       </body>
-      {process.env.ENABLE_GTM === "true" ? (
-        <GoogleTagManager gtmId={`GTM-${GTAGMGR_ID}`} />
-      ) : null}
     </html>
   );
 }

@@ -43,7 +43,11 @@ export abstract class AppError extends Error {
     const details = [`[${this.code}] ${this.name}: ${this.message}`];
 
     if (this.context && Object.keys(this.context).length > 0) {
-      details.push(`Context: ${JSON.stringify(this.context, null, 2)}`);
+      try {
+        details.push(`Context: ${JSON.stringify(this.context, null, 2)}`);
+      } catch {
+        details.push(`Context: [Unable to serialize]`);
+      }
     }
 
     if (this.cause) {

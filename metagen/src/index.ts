@@ -5,5 +5,10 @@ import { generateSitemap } from "./sitemap";
 process.chdir("../");
 
 void (async () => {
-  await Promise.all([generateRSS(), generateSitemap()]);
+  try {
+    await Promise.all([generateRSS(), generateSitemap()]);
+  } catch (error) {
+    console.error("Failed to generate metadata:", error);
+    process.exit(1);
+  }
 })();

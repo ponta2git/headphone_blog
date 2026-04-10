@@ -1,6 +1,5 @@
 #!/usr/bin/env node
-/* eslint-env node */
-/* eslint no-undef: 0 */
+/* global process, console */
 import { readdirSync, readFileSync, statSync, existsSync } from "node:fs";
 import { resolve } from "node:path";
 

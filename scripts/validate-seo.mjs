@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-/* eslint-env node */
 /* global process, console */
 // Simple SEO validator: checks canonical, OG/Twitter tags, and JSON-LD presence
 // Run after a static export build. Exits non-zero on failure.

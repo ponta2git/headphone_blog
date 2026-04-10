@@ -3,7 +3,7 @@ import remarkParse from "remark-parse";
 import remarkFrontmatter from "remark-frontmatter";
 import remarkGfm from "remark-gfm";
 import { visit, EXIT } from "unist-util-visit";
-import type { Root, Content, Heading, Text } from "mdast";
+import type { Root, Heading, Text } from "mdast";
 import { createLogger } from "../../utils/logger";
 
 const logger = createLogger("posts/parse/extract");
@@ -106,9 +106,9 @@ export function extractHeadings(mdxSource: string): Array<{
       const h = node;
       if (h.depth >= 2 && h.depth <= 6) {
         let text = "";
-        const isText = (n: Content): n is Text => n.type === "text";
-        h.children.forEach((c: Content) => {
-          if (isText(c)) text += c.value;
+        // Recursively extract all text from heading and its descendants
+        visit(h, "text", (node: Text) => {
+          text += node.value;
         });
         const baseRaw = slugify(text);
         const base = baseRaw.length > 0 ? baseRaw : "section";

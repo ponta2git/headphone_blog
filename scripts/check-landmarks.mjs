@@ -1,6 +1,5 @@
 #!/usr/bin/env node
-/* eslint-env node */
-/* eslint no-undef: 0 */
+/* global process, console */
 import { readFileSync, readdirSync } from "node:fs";
 import { resolve } from "node:path";
 
@@ -38,13 +37,16 @@ try {
   }
   // Icon-only links should have aria-label
   const footerSrc = read(footerFile);
-  const iconLinks = (footerSrc.match(/className=\{styles\.iconLink\}/g) || [])
-    .length;
-  const ariaLabels = (footerSrc.match(/aria-label="[^"]+"/g) || []).length;
-  if (iconLinks > 0 && ariaLabels < iconLinks) {
-    failures.push(
-      `[A11y] Footer icon links should include aria-label (found ${ariaLabels}/${iconLinks})`,
-    );
+  const iconLinkOpenTags =
+    footerSrc.match(
+      /<[A-Za-z][A-Za-z0-9]*\b[^>]*className=\{styles\.iconLink\}[^>]*>/g,
+    ) || [];
+
+  for (const tag of iconLinkOpenTags) {
+    if (!/\baria-label\s*=/.test(tag)) {
+      const preview = tag.replace(/\s+/g, " ").trim();
+      failures.push(`[A11y] Footer icon link missing aria-label: ${preview}`);
+    }
   }
 } catch (e) {
   failures.push(`[Landmarks] Failed to read SiteFooter: ${e.message}`);

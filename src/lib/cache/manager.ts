@@ -30,10 +30,13 @@ export class CacheManager<K, V> {
       this.evictLRU();
     }
 
+    const effectiveTtl = ttl ?? this.defaultTTL;
+
     this.cache.set(key, {
       value,
       lastAccess: Date.now(),
-      expiresAt: ttl ? Date.now() + ttl : undefined,
+      expiresAt:
+        effectiveTtl !== undefined ? Date.now() + effectiveTtl : undefined,
     });
   }
 
