@@ -1,19 +1,18 @@
 #!/usr/bin/env node
-/* global process, console */
 import { readFileSync, readdirSync } from "node:fs";
 import { resolve } from "node:path";
 
-function read(path) {
+function read(path: string): string {
   const p = resolve(process.cwd(), path);
   return readFileSync(p, "utf-8");
 }
 
-function contains(file, pattern) {
+function contains(file: string, pattern: RegExp): boolean {
   const src = read(file);
   return pattern.test(src);
 }
 
-const failures = [];
+const failures: string[] = [];
 
 // 1) Header landmark in SiteHeader
 try {
@@ -24,7 +23,9 @@ try {
     );
   }
 } catch (e) {
-  failures.push(`[Landmarks] Failed to read SiteHeader: ${e.message}`);
+  failures.push(
+    `[Landmarks] Failed to read SiteHeader: ${(e as Error).message}`,
+  );
 }
 
 // 2) Footer landmark in SiteFooter
@@ -49,7 +50,9 @@ try {
     }
   }
 } catch (e) {
-  failures.push(`[Landmarks] Failed to read SiteFooter: ${e.message}`);
+  failures.push(
+    `[Landmarks] Failed to read SiteFooter: ${(e as Error).message}`,
+  );
 }
 
 // 3) Main landmark in PageLayout
@@ -59,16 +62,18 @@ try {
     failures.push(`[Landmarks] ${mainFile} should include a <main> element`);
   }
 } catch (e) {
-  failures.push(`[Landmarks] Failed to read PageLayout: ${e.message}`);
+  failures.push(
+    `[Landmarks] Failed to read PageLayout: ${(e as Error).message}`,
+  );
 }
 
 // 4) At least one <nav> somewhere in components (e.g., neighbours nav)
 try {
   const targetDir = resolve(process.cwd(), "src/components");
-  const stack = [targetDir];
+  const stack: string[] = [targetDir];
   let navFound = false;
   while (stack.length && !navFound) {
-    const dir = stack.pop();
+    const dir = stack.pop()!;
     const entries = readdirSync(dir, { withFileTypes: true });
     for (const ent of entries) {
       const full = resolve(dir, ent.name);
@@ -87,7 +92,7 @@ try {
   }
 } catch (e) {
   failures.push(
-    `[Landmarks] Failed while scanning components for <nav>: ${e.message}`,
+    `[Landmarks] Failed while scanning components for <nav>: ${(e as Error).message}`,
   );
 }
 

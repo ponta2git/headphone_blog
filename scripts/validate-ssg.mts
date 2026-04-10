@@ -1,16 +1,14 @@
 #!/usr/bin/env node
-/* global process, console */
-import { readFileSync } from "node:fs";
-import { existsSync } from "node:fs";
+import { readFileSync, existsSync } from "node:fs";
 import { resolve } from "node:path";
 
-function assert(condition, message) {
+function assert(condition: boolean, message: string): asserts condition {
   if (!condition) {
     throw new Error(message);
   }
 }
 
-function read(path) {
+function read(path: string): string {
   const p = resolve(process.cwd(), path);
   return readFileSync(p, "utf-8");
 }

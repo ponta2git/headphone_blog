@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-/* global process, console */
 // Simple SEO validator: checks canonical, OG/Twitter tags, and JSON-LD presence
 // Run after a static export build. Exits non-zero on failure.
 
@@ -8,16 +7,16 @@ import { join, resolve } from "node:path";
 
 const outDir = resolve(process.cwd(), "out");
 
-function fail(msg) {
+function fail(msg: string): void {
   console.error(`❌ validate-seo: ${msg}`);
   process.exitCode = 1;
 }
 
-function readHtml(path) {
+function readHtml(path: string): string {
   return readFileSync(path, "utf8");
 }
 
-function assertCanonical(html, expectedPath) {
+function assertCanonical(html: string, expectedPath: string): void {
   const re = /<link[^>]+rel=["']canonical["'][^>]+href=["']([^"']+)["'][^>]*>/i;
   const m = html.match(re);
   if (!m) return fail(`${expectedPath}: canonical link missing`);
@@ -26,7 +25,7 @@ function assertCanonical(html, expectedPath) {
     return fail(`${expectedPath}: canonical is not absolute: ${href}`);
 }
 
-function assertOpenGraph(html, expectedPath) {
+function assertOpenGraph(html: string, expectedPath: string): void {
   const needed = ["og:title", "og:description", "og:url", "og:type"];
   for (const prop of needed) {
     const re = new RegExp(`<meta[^>]+property=["']${prop}["'][^>]*>`, "i");
@@ -34,7 +33,7 @@ function assertOpenGraph(html, expectedPath) {
   }
 }
 
-function assertTwitter(html, expectedPath) {
+function assertTwitter(html: string, expectedPath: string): void {
   const needed = ["twitter:card", "twitter:title", "twitter:description"];
   for (const name of needed) {
     const re = new RegExp(`<meta[^>]+name=["']${name}["'][^>]*>`, "i");
@@ -42,14 +41,14 @@ function assertTwitter(html, expectedPath) {
   }
 }
 
-function assertJsonLd(html, expectedPath) {
+function assertJsonLd(html: string, expectedPath: string): void {
   const re = /<script[^>]+type=["']application\/ld\+json["'][^>]*>/i;
   if (!re.test(html)) fail(`${expectedPath}: missing JSON-LD script`);
 }
 
-function walkPostsDir() {
+function walkPostsDir(): string[] {
   const postsDir = join(outDir, "posts");
-  let files = [];
+  const files: string[] = [];
   try {
     for (const name of readdirSync(postsDir)) {
       const p = join(postsDir, name, "index.html");
@@ -65,7 +64,14 @@ function walkPostsDir() {
   return files;
 }
 
-function validatePage(relPath, { requireJsonLd = false } = {}) {
+interface ValidatePageOptions {
+  requireJsonLd?: boolean;
+}
+
+function validatePage(
+  relPath: string,
+  { requireJsonLd = false }: ValidatePageOptions = {},
+): void {
   const full = join(outDir, relPath);
   const html = readHtml(full);
   assertCanonical(html, relPath);
@@ -109,7 +115,7 @@ try {
 
   if (process.exitCode) {
     console.error("❌ validate-seo: FAILED");
-    process.exit(process.exitCode);
+    process.exit(process.exitCode as number);
   } else {
     console.log("✅ validate-seo: OK");
   }

@@ -11,12 +11,12 @@
     "type-check": "tsc --noEmit",
     "clean": "rm -rf .next out node_modules/.cache",
     "validate": "vitest run validation/posts.test.ts",
-    "validate:ssg": "node scripts/validate-ssg.mjs",
-    "validate:contrast": "node scripts/check-contrast.mjs",
-    "validate:landmarks": "node scripts/check-landmarks.mjs",
+    "validate:ssg": "node scripts/validate-ssg.mts",
+    "validate:contrast": "node scripts/check-contrast.mts",
+    "validate:landmarks": "node scripts/check-landmarks.mts",
     "validate:a11y": "pnpm -s run validate:contrast && pnpm -s run validate:landmarks",
-    "validate:images": "node scripts/validate-images.mjs",
-    "validate:seo": "node scripts/validate-seo.mjs",
+    "validate:images": "node scripts/validate-images.mts",
+    "validate:seo": "node scripts/validate-seo.mts",
     "rebuild": "pnpm clean && pnpm install && pnpm build"
   },
   "dependencies": {

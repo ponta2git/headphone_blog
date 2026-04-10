@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-/* global process, console */
 import { readdirSync, readFileSync, statSync, existsSync } from "node:fs";
 import { resolve } from "node:path";
 
@@ -7,8 +6,8 @@ const ROOT = process.cwd();
 const POSTS_DIR = resolve(ROOT, "posts");
 const PUBLIC_DIR = resolve(ROOT, "public");
 
-const mdxFiles = [];
-function walk(dir) {
+const mdxFiles: string[] = [];
+function walk(dir: string): void {
   const entries = readdirSync(dir, { withFileTypes: true });
   for (const e of entries) {
     const full = resolve(dir, e.name);
@@ -19,16 +18,16 @@ function walk(dir) {
 
 walk(POSTS_DIR);
 
-const warnings = [];
-const failures = [];
+const warnings: string[] = [];
+const failures: string[] = [];
 
 const IMAGE_RE = /!\[(.*?)\]\(([^)]+)\)/g; // markdown image ![alt](src)
 
 for (const file of mdxFiles) {
   const rel = file.replace(ROOT + "/", "");
   const src = readFileSync(file, "utf-8");
-  let m;
-  let firstImageUrl = null;
+  let m: RegExpExecArray | null;
+  let firstImageUrl: string | null = null;
   while ((m = IMAGE_RE.exec(src))) {
     const alt = (m[1] || "").trim();
     const url = m[2].trim();
@@ -78,7 +77,7 @@ for (const file of mdxFiles) {
       }
     } catch (e) {
       warnings.push(
-        `[Stat] Could not stat image: ${url} (${e && e.message ? e.message : "unknown error"})`,
+        `[Stat] Could not stat image: ${url} (${e instanceof Error ? e.message : "unknown error"})`,
       );
     }
   }

@@ -1,21 +1,30 @@
 #!/usr/bin/env node
-/* global process, console */
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 
-function read(path) {
+type RGB = [number, number, number];
+
+interface ContrastPair {
+  fg: string;
+  bg: string;
+  min: number;
+  warnMin?: number;
+  title: string;
+}
+
+function read(path: string): string {
   const p = resolve(process.cwd(), path);
   return readFileSync(p, "utf-8");
 }
 
 // Parse CSS tokens file and build a map of variable -> value (resolved to HSL when possible)
-function parseTokens(css) {
-  const map = new Map();
+function parseTokens(css: string): Map<string, string> {
+  const map = new Map<string, string>();
   // Strip comments
   const cleaned = css.replace(/\/\*[\s\S]*?\*\//g, "");
   // Match declarations like --name: value;
   const declRe = /--([a-z0-9-]+)\s*:\s*([^;]+);/gi;
-  let m;
+  let m: RegExpExecArray | null;
   while ((m = declRe.exec(cleaned))) {
     const name = `--${m[1]}`;
     const value = m[2].trim();
@@ -24,7 +33,7 @@ function parseTokens(css) {
   return map;
 }
 
-function hslToRgb(h, s, l) {
+function hslToRgb(h: number, s: number, l: number): RGB {
   // h: 0-360, s/l: 0-1
   const c = (1 - Math.abs(2 * l - 1)) * s;
   const hp = h / 60;
@@ -45,9 +54,9 @@ function hslToRgb(h, s, l) {
   return [r, g, b];
 }
 
-function relativeLuminance([r, g, b]) {
+function relativeLuminance([r, g, b]: RGB): number {
   // r,g,b in 0-1 sRGB
-  const toLinear = (u) =>
+  const toLinear = (u: number): number =>
     u <= 0.03928 ? u / 12.92 : Math.pow((u + 0.055) / 1.055, 2.4);
   const rl = toLinear(r);
   const gl = toLinear(g);
@@ -55,7 +64,7 @@ function relativeLuminance([r, g, b]) {
   return 0.2126 * rl + 0.7152 * gl + 0.0722 * bl;
 }
 
-function contrast(rgb1, rgb2) {
+function contrast(rgb1: RGB, rgb2: RGB): number {
   const L1 = relativeLuminance(rgb1);
   const L2 = relativeLuminance(rgb2);
   const light = Math.max(L1, L2);
@@ -63,7 +72,7 @@ function contrast(rgb1, rgb2) {
   return (light + 0.05) / (dark + 0.05);
 }
 
-function parseHsl(str) {
+function parseHsl(str: string): RGB | null {
   // supports hsl(H, S%, L%)
   const m = /hsl\(\s*([0-9.]+)\s*,\s*([0-9.]+)%\s*,\s*([0-9.]+)%\s*\)/i.exec(
     str,
@@ -75,7 +84,11 @@ function parseHsl(str) {
   return hslToRgb(h, s, l);
 }
 
-function resolveColor(map, name, trail = new Set()) {
+function resolveColor(
+  map: Map<string, string>,
+  name: string,
+  trail: Set<string> = new Set(),
+): RGB {
   if (trail.has(name))
     throw new Error(`Cycle detected while resolving ${name}`);
   trail.add(name);
@@ -94,7 +107,7 @@ const colorsCss = read("src/styles/tokens/colors.css");
 const tokens = parseTokens(colorsCss);
 
 // Define key pairs and thresholds
-const pairs = [
+const pairs: ContrastPair[] = [
   {
     fg: "--text-primary",
     bg: "--bg-page",
@@ -141,8 +154,8 @@ const pairs = [
   },
 ];
 
-const failures = [];
-const warnings = [];
+const failures: string[] = [];
+const warnings: string[] = [];
 for (const { fg, bg, min, warnMin, title } of pairs) {
   try {
     const rgbFg = resolveColor(tokens, fg);
@@ -158,7 +171,7 @@ for (const { fg, bg, min, warnMin, title } of pairs) {
       );
     }
   } catch (e) {
-    failures.push(`${title}: ${e.message}`);
+    failures.push(`${title}: ${(e as Error).message}`);
   }
 }
 
