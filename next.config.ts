@@ -1,9 +1,4 @@
 import type { NextConfig } from "next";
-import BundleAnalyzerPlugin from "@next/bundle-analyzer";
-
-const withBundleAnalyzer = BundleAnalyzerPlugin({
-  enabled: process.env.ANALYZE === "true",
-});
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
@@ -12,6 +7,4 @@ const nextConfig: NextConfig = {
   images: { unoptimized: true },
 };
 
-export default process.env.ANALYZE
-  ? withBundleAnalyzer(nextConfig)
-  : nextConfig;
+export default nextConfig;
