@@ -2,22 +2,32 @@
 
 import { faArrowUp } from "@fortawesome/free-solid-svg-icons/faArrowUp";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useSyncExternalStore } from "react";
+
+function subscribe(onStoreChange: () => void) {
+  window.addEventListener("scroll", onStoreChange);
+  window.addEventListener("resize", onStoreChange);
+
+  return () => {
+    window.removeEventListener("scroll", onStoreChange);
+    window.removeEventListener("resize", onStoreChange);
+  };
+}
+
+function getSnapshot() {
+  return window.scrollY > window.innerHeight * 0.3;
+}
+
+function getServerSnapshot() {
+  return false;
+}
 
 export default function ScrollToTop() {
-  const [isVisible, setIsVisible] = useState(false);
-
-  // Show button when page is scrolled past a percentage of viewport height
-  const toggleVisibility = () => {
-    // Show button after scrolling 30% of the viewport height
-    const scrollThreshold = window.innerHeight * 0.3;
-
-    if (window.scrollY > scrollThreshold) {
-      setIsVisible(true);
-    } else {
-      setIsVisible(false);
-    }
-  };
+  const isVisible = useSyncExternalStore(
+    subscribe,
+    getSnapshot,
+    getServerSnapshot,
+  );
 
   // Set the scroll position to top of the page
   const scrollToTop = useCallback(() => {
@@ -25,20 +35,6 @@ export default function ScrollToTop() {
       top: 0,
       behavior: "smooth",
     });
-  }, []);
-
-  useEffect(() => {
-    // Calculate threshold on initial load and window resize
-    window.addEventListener("scroll", toggleVisibility);
-    window.addEventListener("resize", toggleVisibility);
-
-    // Initial check in case page loads already scrolled
-    toggleVisibility();
-
-    return () => {
-      window.removeEventListener("scroll", toggleVisibility);
-      window.removeEventListener("resize", toggleVisibility);
-    };
   }, []);
 
   return (
