@@ -16,8 +16,8 @@ describe("PostService", () => {
   const cacheKey = "2023-01-01";
 
   beforeEach(() => {
-    // Clear all mocks
-    vi.clearAllMocks();
+    // Reset mock implementations before applying defaults for each test.
+    vi.resetAllMocks();
 
     // Setup test data
     mockDate = {
