@@ -30,7 +30,7 @@ const results = [];
 const assets = new Set();
 const descriptions = new Map();
 const report = { origin: base.origin, environment, checkedAt: "", results };
-let cookie;
+let cookie = "";
 
 if (useShare) {
   assert.equal(
@@ -40,9 +40,7 @@ if (useShare) {
   );
   console.log("Waiting for the authorized Preview share URL on stdin.");
   const input = createInterface({ input: process.stdin });
-  const [line] = await new Promise((resolve) =>
-    input.once("line", (...args) => resolve(args)),
-  );
+  const line = await new Promise((resolve) => input.once("line", resolve));
   input.close();
   const shared = new URL(line);
   assert.equal(
@@ -124,32 +122,34 @@ await each(baseline.pages, async (page) => {
     const { response, text } = await request(page.url);
     assert.equal(response.status, 200);
     assert.match(response.headers.get("content-type") ?? "", /text\/html/);
-    const $ = load(text);
+    const select = load(text);
     assert.equal(
-      $("link[rel=canonical]").attr("href"),
+      select("link[rel=canonical]").attr("href"),
       new URL(page.url, canonicalOrigin).href,
     );
-    assert.ok($("title").text().trim());
-    assert.ok($("h1").text().trim());
-    const description = $("meta[name=description]").attr("content");
+    assert.ok(select("title").text().trim());
+    assert.ok(select("h1").text().trim());
+    const description = select("meta[name=description]").attr("content");
     assert.ok(description);
     descriptions.set(page.url, description);
-    const robots = $("meta[name=robots]").attr("content") ?? "";
+    const robots = select("meta[name=robots]").attr("content") ?? "";
     const headerRobots = response.headers.get("x-robots-tag") ?? "";
     assert.equal(/noindex/.test(robots), !production);
     if (production) assert.doesNotMatch(headerRobots, /noindex/);
     assert.equal(text.includes("www.googletagmanager.com/gtm.js"), production);
     assert.equal(text.includes("www.googletagmanager.com/ns.html"), production);
-    const schemas = $("script[type='application/ld+json']");
+    const schemas = select("script[type='application/ld+json']");
     assert.ok(schemas.length);
-    schemas.each((_, el) => assert.ok(JSON.parse($(el).text())["@context"]));
-    $("img[src], script[src], link[rel=stylesheet]").each((_, el) => {
-      const value = $(el).attr("src") ?? $(el).attr("href");
+    schemas.each((_, el) =>
+      assert.ok(JSON.parse(select(el).text())["@context"]),
+    );
+    select("img[src], script[src], link[rel=stylesheet]").each((_, el) => {
+      const value = select(el).attr("src") ?? select(el).attr("href");
       const asset = new URL(value, base);
       if (asset.origin === base.origin) assets.add(asset.pathname);
     });
-    $("img[srcset], source[srcset]").each((_, el) => {
-      for (const entry of $(el).attr("srcset").split(",")) {
+    select("img[srcset], source[srcset]").each((_, el) => {
+      for (const entry of select(el).attr("srcset").split(",")) {
         const asset = new URL(entry.trim().split(/\s+/)[0], base);
         if (asset.origin === base.origin) assets.add(asset.pathname);
       }
@@ -167,7 +167,7 @@ await each(baseline.pages, async (page) => {
 await check("unknown URL", async () => {
   const { response, text } = await request("/migration-check-nonexistent-page");
   assert.equal(response.status, 404);
-  assert.match(load(text)("h1").text(), /ページが見つかりません/);
+  assert.match(load(text)("h1").text(), /ページが見つかりません/u);
   return { status: response.status };
 });
 
@@ -202,13 +202,13 @@ await check("RSS latest five and JST dates", async () => {
   const { response, text } = await request("/rss.xml");
   assert.equal(response.status, 200);
   assert.match(response.headers.get("content-type") ?? "", /xml/);
-  const $ = load(text, { xml: true });
+  const select = load(text, { xml: true });
   const latest = [...baseline.posts]
     .sort((a, b) => b.id.localeCompare(a.id))
     .slice(0, 5);
-  assert.equal($("item").length, latest.length);
-  $("item").each((i, el) => {
-    const item = $(el);
+  assert.equal(select("item").length, latest.length);
+  select("item").each((i, el) => {
+    const item = select(el);
     const post = latest[i];
     const url = new URL(post.url, canonicalOrigin).href;
     assert.equal(item.find("title").text(), post.title);
@@ -229,9 +229,9 @@ await check("sitemap redirect", () =>
 await check("sitemap all public URLs", async () => {
   const index = await request("/sitemap-index.xml");
   assert.equal(index.response.status, 200);
-  const $ = load(index.text, { xml: true });
-  const maps = $("sitemap > loc")
-    .map((_, el) => $(el).text())
+  const select = load(index.text, { xml: true });
+  const maps = select("sitemap > loc")
+    .map((_, el) => select(el).text())
     .get();
   assert.ok(maps.length);
   const urls = [];

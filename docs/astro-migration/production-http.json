@@ -1,0 +1,1266 @@
+{
+  "origin": "https://ponta-headphone.net",
+  "environment": "production",
+  "checkedAt": "2026-11-08T13:27:41.789Z",
+  "results": [
+    {
+      "name": "asset /_astro/20220626_headphone_system.BnC1nq2u_5m4r9.webp",
+      "passed": true,
+      "status": 200,
+      "bytes": 13922
+    },
+    {
+      "name": "asset /_astro/20220626_headphone_system.BnC1nq2u_B0nio.webp",
+      "passed": true,
+      "status": 200,
+      "bytes": 8200
+    },
+    {
+      "name": "asset /_astro/20220626_headphone_system.BnC1nq2u_h8uk8.webp",
+      "passed": true,
+      "status": 200,
+      "bytes": 20732
+    },
+    {
+      "name": "asset /_astro/20220626_headphone_system.BnC1nq2u_Z24uudT.webp",
+      "passed": true,
+      "status": 200,
+      "bytes": 23766
+    },
+    {
+      "name": "asset /_astro/20221214_violectric_v550.CNxFySht_JRTyD.webp",
+      "passed": true,
+      "status": 200,
+      "bytes": 25610
+    },
+    {
+      "name": "asset /_astro/20221214_violectric_v550.CNxFySht_Z12EF6u.webp",
+      "passed": true,
+      "status": 200,
+      "bytes": 204606
+    },
+    {
+      "name": "asset /_astro/20221214_violectric_v550.CNxFySht_Z26ceQd.webp",
+      "passed": true,
+      "status": 200,
+      "bytes": 138682
+    },
+    {
+      "name": "asset /_astro/20221214_violectric_v550.CNxFySht_Z2r1IiT.webp",
+      "passed": true,
+      "status": 200,
+      "bytes": 97708
+    },
+    {
+      "name": "asset /_astro/20221214_violectric_v550.CNxFySht_Z2wfaEt.webp",
+      "passed": true,
+      "status": 200,
+      "bytes": 13370
+    },
+    {
+      "name": "asset /_astro/20221214_violectric_v550.CNxFySht_Z8IJJz.webp",
+      "passed": true,
+      "status": 200,
+      "bytes": 54658
+    },
+    {
+      "name": "asset /_astro/20221214_violectric_v550.CNxFySht_ZkKpgW.webp",
+      "passed": true,
+      "status": 200,
+      "bytes": 38970
+    },
+    {
+      "name": "asset /_astro/20231112_hi-x65.BwzWJLXt_ajWoy.webp",
+      "passed": true,
+      "status": 200,
+      "bytes": 36478
+    },
+    {
+      "name": "asset /_astro/20231112_hi-x65.BwzWJLXt_Nfh9w.webp",
+      "passed": true,
+      "status": 200,
+      "bytes": 13172
+    },
+    {
+      "name": "asset /_astro/20231112_hi-x65.BwzWJLXt_Z2p1jux.webp",
+      "passed": true,
+      "status": 200,
+      "bytes": 23546
+    },
+    {
+      "name": "asset /_astro/20240104_dt1770pro.CKyA_3ll_2etTik.webp",
+      "passed": true,
+      "status": 200,
+      "bytes": 12826
+    },
+    {
+      "name": "asset /_astro/20240104_dt1770pro.CKyA_3ll_Z1Y0d3b.webp",
+      "passed": true,
+      "status": 200,
+      "bytes": 21110
+    },
+    {
+      "name": "asset /_astro/20240104_dt1770pro.CKyA_3ll_ZoRrPw.webp",
+      "passed": true,
+      "status": 200,
+      "bytes": 29156
+    },
+    {
+      "name": "asset /_astro/20240421_focal_clear_mg.CVw6o6YW_1anujs.webp",
+      "passed": true,
+      "status": 200,
+      "bytes": 50642
+    },
+    {
+      "name": "asset /_astro/20240421_focal_clear_mg.CVw6o6YW_1Ec1Fp.webp",
+      "passed": true,
+      "status": 200,
+      "bytes": 25094
+    },
+    {
+      "name": "asset /_astro/20240421_focal_clear_mg.CVw6o6YW_1pN9jX.webp",
+      "passed": true,
+      "status": 200,
+      "bytes": 196982
+    },
+    {
+      "name": "asset /_astro/20240421_focal_clear_mg.CVw6o6YW_6mLrN.webp",
+      "passed": true,
+      "status": 200,
+      "bytes": 127448
+    },
+    {
+      "name": "asset /_astro/20240421_focal_clear_mg.CVw6o6YW_uHkvM.webp",
+      "passed": true,
+      "status": 200,
+      "bytes": 14258
+    },
+    {
+      "name": "asset /_astro/20240421_focal_clear_mg.CVw6o6YW_Z1y5GeF.webp",
+      "passed": true,
+      "status": 200,
+      "bytes": 37054
+    },
+    {
+      "name": "asset /_astro/20240421_focal_clear_mg.CVw6o6YW_ZQinhn.webp",
+      "passed": true,
+      "status": 200,
+      "bytes": 89074
+    },
+    {
+      "name": "asset /_astro/20240506_riviera.DvQzJFun_itBm8.webp",
+      "passed": true,
+      "status": 200,
+      "bytes": 16390
+    },
+    {
+      "name": "asset /_astro/20240506_riviera.DvQzJFun_VG8mq.webp",
+      "passed": true,
+      "status": 200,
+      "bytes": 22492
+    },
+    {
+      "name": "asset /_astro/20240506_riviera.DvQzJFun_Z16gzSp.webp",
+      "passed": true,
+      "status": 200,
+      "bytes": 32282
+    },
+    {
+      "name": "asset /_astro/20240506_riviera.DvQzJFun_ZIe8yN.webp",
+      "passed": true,
+      "status": 200,
+      "bytes": 9188
+    },
+    {
+      "name": "asset /_astro/20240514_reference_dac.BwqJeS3B_1MRr9b.webp",
+      "passed": true,
+      "status": 200,
+      "bytes": 22648
+    },
+    {
+      "name": "asset /_astro/20240514_reference_dac.BwqJeS3B_8xKCN.webp",
+      "passed": true,
+      "status": 200,
+      "bytes": 13350
+    },
+    {
+      "name": "asset /_astro/20250320_abyss_diana_dz.BGRMrLge_1QF8GS.webp",
+      "passed": true,
+      "status": 200,
+      "bytes": 18912
+    },
+    {
+      "name": "asset /_astro/20250320_abyss_diana_dz.BGRMrLge_24ga1d.webp",
+      "passed": true,
+      "status": 200,
+      "bytes": 10914
+    },
+    {
+      "name": "asset /_astro/20250320_abyss_diana_dz.BGRMrLge_2muQ7M.webp",
+      "passed": true,
+      "status": 200,
+      "bytes": 30094
+    },
+    {
+      "name": "asset /_astro/20250330_dan_clerk_audio_e3.CFSMpgl__2uOzNp.webp",
+      "passed": true,
+      "status": 200,
+      "bytes": 20110
+    },
+    {
+      "name": "asset /_astro/20250330_dan_clerk_audio_e3.CFSMpgl__Z1WeAHr.webp",
+      "passed": true,
+      "status": 200,
+      "bytes": 38570
+    },
+    {
+      "name": "asset /_astro/20250601_final_dx6000.B5P1nvmU_1Jdxyf.webp",
+      "passed": true,
+      "status": 200,
+      "bytes": 22832
+    },
+    {
+      "name": "asset /_astro/20250601_final_dx6000.B5P1nvmU_xAM0B.webp",
+      "passed": true,
+      "status": 200,
+      "bytes": 8866
+    },
+    {
+      "name": "asset /_astro/20250601_final_dx6000.B5P1nvmU_Z1JSKYE.webp",
+      "passed": true,
+      "status": 200,
+      "bytes": 14274
+    },
+    {
+      "name": "asset /_astro/20250831_abyss_diana_dz.Bli9H6Gv_Z1CtF7a.webp",
+      "passed": true,
+      "status": 200,
+      "bytes": 12458
+    },
+    {
+      "name": "asset /_astro/20250831_abyss_diana_dz.Bli9H6Gv_Z1keY0A.webp",
+      "passed": true,
+      "status": 200,
+      "bytes": 44514
+    },
+    {
+      "name": "asset /_astro/20250831_abyss_diana_dz.Bli9H6Gv_Z1P4Gqu.webp",
+      "passed": true,
+      "status": 200,
+      "bytes": 22158
+    },
+    {
+      "name": "asset /_astro/Page.DAtDj8b0.css",
+      "passed": true,
+      "status": 200,
+      "bytes": 7963
+    },
+    {
+      "name": "html /all-articles.html",
+      "passed": true,
+      "status": 308,
+      "location": "/all-articles"
+    },
+    {
+      "name": "html /discussions.html",
+      "passed": true,
+      "status": 308,
+      "location": "/discussions"
+    },
+    {
+      "name": "html /impressions.html",
+      "passed": true,
+      "status": 308,
+      "location": "/impressions"
+    },
+    {
+      "name": "html /posts/20220625.html",
+      "passed": true,
+      "status": 308,
+      "location": "/posts/20220625"
+    },
+    {
+      "name": "html /posts/20220626.html",
+      "passed": true,
+      "status": 308,
+      "location": "/posts/20220626"
+    },
+    {
+      "name": "html /posts/20220925.html",
+      "passed": true,
+      "status": 308,
+      "location": "/posts/20220925"
+    },
+    {
+      "name": "html /posts/20221009.html",
+      "passed": true,
+      "status": 308,
+      "location": "/posts/20221009"
+    },
+    {
+      "name": "html /posts/20221205.html",
+      "passed": true,
+      "status": 308,
+      "location": "/posts/20221205"
+    },
+    {
+      "name": "html /posts/20221211.html",
+      "passed": true,
+      "status": 308,
+      "location": "/posts/20221211"
+    },
+    {
+      "name": "html /posts/20221214.html",
+      "passed": true,
+      "status": 308,
+      "location": "/posts/20221214"
+    },
+    {
+      "name": "html /posts/20221227.html",
+      "passed": true,
+      "status": 308,
+      "location": "/posts/20221227"
+    },
+    {
+      "name": "html /posts/20230107.html",
+      "passed": true,
+      "status": 308,
+      "location": "/posts/20230107"
+    },
+    {
+      "name": "html /posts/20230210.html",
+      "passed": true,
+      "status": 308,
+      "location": "/posts/20230210"
+    },
+    {
+      "name": "html /posts/20230213.html",
+      "passed": true,
+      "status": 308,
+      "location": "/posts/20230213"
+    },
+    {
+      "name": "html /posts/20230323.html",
+      "passed": true,
+      "status": 308,
+      "location": "/posts/20230323"
+    },
+    {
+      "name": "html /posts/20230327.html",
+      "passed": true,
+      "status": 308,
+      "location": "/posts/20230327"
+    },
+    {
+      "name": "html /posts/20230403.html",
+      "passed": true,
+      "status": 308,
+      "location": "/posts/20230403"
+    },
+    {
+      "name": "html /posts/20230411.html",
+      "passed": true,
+      "status": 308,
+      "location": "/posts/20230411"
+    },
+    {
+      "name": "html /posts/20230505.html",
+      "passed": true,
+      "status": 308,
+      "location": "/posts/20230505"
+    },
+    {
+      "name": "html /posts/20230522.html",
+      "passed": true,
+      "status": 308,
+      "location": "/posts/20230522"
+    },
+    {
+      "name": "html /posts/20230705.html",
+      "passed": true,
+      "status": 308,
+      "location": "/posts/20230705"
+    },
+    {
+      "name": "html /posts/20231112.html",
+      "passed": true,
+      "status": 308,
+      "location": "/posts/20231112"
+    },
+    {
+      "name": "html /posts/20231211.html",
+      "passed": true,
+      "status": 308,
+      "location": "/posts/20231211"
+    },
+    {
+      "name": "html /posts/20231224.html",
+      "passed": true,
+      "status": 308,
+      "location": "/posts/20231224"
+    },
+    {
+      "name": "html /posts/20240104.html",
+      "passed": true,
+      "status": 308,
+      "location": "/posts/20240104"
+    },
+    {
+      "name": "html /posts/20240121.html",
+      "passed": true,
+      "status": 308,
+      "location": "/posts/20240121"
+    },
+    {
+      "name": "html /posts/20240212.html",
+      "passed": true,
+      "status": 308,
+      "location": "/posts/20240212"
+    },
+    {
+      "name": "html /posts/20240421.html",
+      "passed": true,
+      "status": 308,
+      "location": "/posts/20240421"
+    },
+    {
+      "name": "html /posts/20240506.html",
+      "passed": true,
+      "status": 308,
+      "location": "/posts/20240506"
+    },
+    {
+      "name": "html /posts/20240514.html",
+      "passed": true,
+      "status": 308,
+      "location": "/posts/20240514"
+    },
+    {
+      "name": "html /posts/20240620.html",
+      "passed": true,
+      "status": 308,
+      "location": "/posts/20240620"
+    },
+    {
+      "name": "html /posts/20250320.html",
+      "passed": true,
+      "status": 308,
+      "location": "/posts/20250320"
+    },
+    {
+      "name": "html /posts/20250330.html",
+      "passed": true,
+      "status": 308,
+      "location": "/posts/20250330"
+    },
+    {
+      "name": "html /posts/20250518.html",
+      "passed": true,
+      "status": 308,
+      "location": "/posts/20250518"
+    },
+    {
+      "name": "html /posts/20250601.html",
+      "passed": true,
+      "status": 308,
+      "location": "/posts/20250601"
+    },
+    {
+      "name": "html /posts/20250831.html",
+      "passed": true,
+      "status": 308,
+      "location": "/posts/20250831"
+    },
+    {
+      "name": "html /privacy.html",
+      "passed": true,
+      "status": 308,
+      "location": "/privacy"
+    },
+    {
+      "name": "html /tags.html",
+      "passed": true,
+      "status": 308,
+      "location": "/tags"
+    },
+    {
+      "name": "html /tags/chat.html",
+      "passed": true,
+      "status": 308,
+      "location": "/tags/chat"
+    },
+    {
+      "name": "html /tags/dac.html",
+      "passed": true,
+      "status": 308,
+      "location": "/tags/dac"
+    },
+    {
+      "name": "html /tags/event.html",
+      "passed": true,
+      "status": 308,
+      "location": "/tags/event"
+    },
+    {
+      "name": "html /tags/headphones.html",
+      "passed": true,
+      "status": 308,
+      "location": "/tags/headphones"
+    },
+    {
+      "name": "html /tags/hpa.html",
+      "passed": true,
+      "status": 308,
+      "location": "/tags/hpa"
+    },
+    {
+      "name": "html /tags/metric.html",
+      "passed": true,
+      "status": 308,
+      "location": "/tags/metric"
+    },
+    {
+      "name": "html /tags/purchase.html",
+      "passed": true,
+      "status": 308,
+      "location": "/tags/purchase"
+    },
+    {
+      "name": "html /tags/system.html",
+      "passed": true,
+      "status": 308,
+      "location": "/tags/system"
+    },
+    {
+      "name": "html /tags/try.html",
+      "passed": true,
+      "status": 308,
+      "location": "/tags/try"
+    },
+    {
+      "name": "legacy image /images/posts/20220626_headphone_system.webp",
+      "passed": true,
+      "status": 200,
+      "bytes": 23244,
+      "sha256": "30686b376156eeacc7de8463d47dec0e2c15246678d6d43348d20cfc1b915139"
+    },
+    {
+      "name": "legacy image /images/posts/20221214_violectric_v550.webp",
+      "passed": true,
+      "status": 200,
+      "bytes": 200046,
+      "sha256": "156fdc11c8dd31af71fefc911ba3f860b3876646936df109753f0b33a859feac"
+    },
+    {
+      "name": "legacy image /images/posts/20231112_hi-x65.webp",
+      "passed": true,
+      "status": 200,
+      "bytes": 34056,
+      "sha256": "387b29756a5bd512decad651e396e85abf13c82d5f3d8c1152229ce81345a0b4"
+    },
+    {
+      "name": "legacy image /images/posts/20240104_dt1770pro.webp",
+      "passed": true,
+      "status": 200,
+      "bytes": 27434,
+      "sha256": "2c81b0bc9985444bc15f065c92460961941132542a669ae0c7a5299c3bcdd12b"
+    },
+    {
+      "name": "legacy image /images/posts/20240421_focal_clear_mg.webp",
+      "passed": true,
+      "status": 200,
+      "bytes": 197846,
+      "sha256": "d548f8ca7b5eac08134535abfbeab3c15b3a7159e6c892d8d4615d6c902fbea2"
+    },
+    {
+      "name": "legacy image /images/posts/20240506_riviera.webp",
+      "passed": true,
+      "status": 200,
+      "bytes": 31432,
+      "sha256": "bd03abb5295f4eee8c85b3d02d06c0ab77e655c56c8d9561e2153bdc29d841a8"
+    },
+    {
+      "name": "legacy image /images/posts/20240514_reference_dac.webp",
+      "passed": true,
+      "status": 200,
+      "bytes": 21606,
+      "sha256": "14e9d5c1f72ea7340d0a37c92bc90000f00b8ca6902abef9237d0d01f854882d"
+    },
+    {
+      "name": "legacy image /images/posts/20250320_abyss_diana_dz.webp",
+      "passed": true,
+      "status": 200,
+      "bytes": 28454,
+      "sha256": "69ea93865ca4c2e1e2acb57638ac94fb6a91122746de67cb967e0af0788fe9a0"
+    },
+    {
+      "name": "legacy image /images/posts/20250330_dan_clerk_audio_e3.webp",
+      "passed": true,
+      "status": 200,
+      "bytes": 36222,
+      "sha256": "07176472d1f9bc0d8c808e4432f8e62f0da6a45527662b8005485aca3d8b19b1"
+    },
+    {
+      "name": "legacy image /images/posts/20250601_final_dx6000.webp",
+      "passed": true,
+      "status": 200,
+      "bytes": 21726,
+      "sha256": "22eb6d72474de098904f555e2b82f84eb58bf6f9c33f8c6d5b73dd6aa6cbb3d0"
+    },
+    {
+      "name": "legacy image /images/posts/20250831_abyss_diana_dz.webp",
+      "passed": true,
+      "status": 200,
+      "bytes": 54156,
+      "sha256": "926fab39aa1208f56ffbdbb99dbfd0545f04076377752e6a711539bbedc41b19"
+    },
+    {
+      "name": "page /",
+      "passed": true,
+      "status": 200,
+      "robots": "",
+      "headerRobots": ""
+    },
+    {
+      "name": "page /all-articles",
+      "passed": true,
+      "status": 200,
+      "robots": "",
+      "headerRobots": ""
+    },
+    {
+      "name": "page /discussions",
+      "passed": true,
+      "status": 200,
+      "robots": "",
+      "headerRobots": ""
+    },
+    {
+      "name": "page /impressions",
+      "passed": true,
+      "status": 200,
+      "robots": "",
+      "headerRobots": ""
+    },
+    {
+      "name": "page /posts/20220625",
+      "passed": true,
+      "status": 200,
+      "robots": "",
+      "headerRobots": ""
+    },
+    {
+      "name": "page /posts/20220626",
+      "passed": true,
+      "status": 200,
+      "robots": "",
+      "headerRobots": ""
+    },
+    {
+      "name": "page /posts/20220925",
+      "passed": true,
+      "status": 200,
+      "robots": "",
+      "headerRobots": ""
+    },
+    {
+      "name": "page /posts/20221009",
+      "passed": true,
+      "status": 200,
+      "robots": "",
+      "headerRobots": ""
+    },
+    {
+      "name": "page /posts/20221205",
+      "passed": true,
+      "status": 200,
+      "robots": "",
+      "headerRobots": ""
+    },
+    {
+      "name": "page /posts/20221211",
+      "passed": true,
+      "status": 200,
+      "robots": "",
+      "headerRobots": ""
+    },
+    {
+      "name": "page /posts/20221214",
+      "passed": true,
+      "status": 200,
+      "robots": "",
+      "headerRobots": ""
+    },
+    {
+      "name": "page /posts/20221227",
+      "passed": true,
+      "status": 200,
+      "robots": "",
+      "headerRobots": ""
+    },
+    {
+      "name": "page /posts/20230107",
+      "passed": true,
+      "status": 200,
+      "robots": "",
+      "headerRobots": ""
+    },
+    {
+      "name": "page /posts/20230210",
+      "passed": true,
+      "status": 200,
+      "robots": "",
+      "headerRobots": ""
+    },
+    {
+      "name": "page /posts/20230213",
+      "passed": true,
+      "status": 200,
+      "robots": "",
+      "headerRobots": ""
+    },
+    {
+      "name": "page /posts/20230323",
+      "passed": true,
+      "status": 200,
+      "robots": "",
+      "headerRobots": ""
+    },
+    {
+      "name": "page /posts/20230327",
+      "passed": true,
+      "status": 200,
+      "robots": "",
+      "headerRobots": ""
+    },
+    {
+      "name": "page /posts/20230403",
+      "passed": true,
+      "status": 200,
+      "robots": "",
+      "headerRobots": ""
+    },
+    {
+      "name": "page /posts/20230411",
+      "passed": true,
+      "status": 200,
+      "robots": "",
+      "headerRobots": ""
+    },
+    {
+      "name": "page /posts/20230505",
+      "passed": true,
+      "status": 200,
+      "robots": "",
+      "headerRobots": ""
+    },
+    {
+      "name": "page /posts/20230522",
+      "passed": true,
+      "status": 200,
+      "robots": "",
+      "headerRobots": ""
+    },
+    {
+      "name": "page /posts/20230705",
+      "passed": true,
+      "status": 200,
+      "robots": "",
+      "headerRobots": ""
+    },
+    {
+      "name": "page /posts/20231112",
+      "passed": true,
+      "status": 200,
+      "robots": "",
+      "headerRobots": ""
+    },
+    {
+      "name": "page /posts/20231211",
+      "passed": true,
+      "status": 200,
+      "robots": "",
+      "headerRobots": ""
+    },
+    {
+      "name": "page /posts/20231224",
+      "passed": true,
+      "status": 200,
+      "robots": "",
+      "headerRobots": ""
+    },
+    {
+      "name": "page /posts/20240104",
+      "passed": true,
+      "status": 200,
+      "robots": "",
+      "headerRobots": ""
+    },
+    {
+      "name": "page /posts/20240121",
+      "passed": true,
+      "status": 200,
+      "robots": "",
+      "headerRobots": ""
+    },
+    {
+      "name": "page /posts/20240212",
+      "passed": true,
+      "status": 200,
+      "robots": "",
+      "headerRobots": ""
+    },
+    {
+      "name": "page /posts/20240421",
+      "passed": true,
+      "status": 200,
+      "robots": "",
+      "headerRobots": ""
+    },
+    {
+      "name": "page /posts/20240506",
+      "passed": true,
+      "status": 200,
+      "robots": "",
+      "headerRobots": ""
+    },
+    {
+      "name": "page /posts/20240514",
+      "passed": true,
+      "status": 200,
+      "robots": "",
+      "headerRobots": ""
+    },
+    {
+      "name": "page /posts/20240620",
+      "passed": true,
+      "status": 200,
+      "robots": "",
+      "headerRobots": ""
+    },
+    {
+      "name": "page /posts/20250320",
+      "passed": true,
+      "status": 200,
+      "robots": "",
+      "headerRobots": ""
+    },
+    {
+      "name": "page /posts/20250330",
+      "passed": true,
+      "status": 200,
+      "robots": "",
+      "headerRobots": ""
+    },
+    {
+      "name": "page /posts/20250518",
+      "passed": true,
+      "status": 200,
+      "robots": "",
+      "headerRobots": ""
+    },
+    {
+      "name": "page /posts/20250601",
+      "passed": true,
+      "status": 200,
+      "robots": "",
+      "headerRobots": ""
+    },
+    {
+      "name": "page /posts/20250831",
+      "passed": true,
+      "status": 200,
+      "robots": "",
+      "headerRobots": ""
+    },
+    {
+      "name": "page /privacy",
+      "passed": true,
+      "status": 200,
+      "robots": "",
+      "headerRobots": ""
+    },
+    {
+      "name": "page /tags",
+      "passed": true,
+      "status": 200,
+      "robots": "",
+      "headerRobots": ""
+    },
+    {
+      "name": "page /tags/chat",
+      "passed": true,
+      "status": 200,
+      "robots": "",
+      "headerRobots": ""
+    },
+    {
+      "name": "page /tags/dac",
+      "passed": true,
+      "status": 200,
+      "robots": "",
+      "headerRobots": ""
+    },
+    {
+      "name": "page /tags/event",
+      "passed": true,
+      "status": 200,
+      "robots": "",
+      "headerRobots": ""
+    },
+    {
+      "name": "page /tags/headphones",
+      "passed": true,
+      "status": 200,
+      "robots": "",
+      "headerRobots": ""
+    },
+    {
+      "name": "page /tags/hpa",
+      "passed": true,
+      "status": 200,
+      "robots": "",
+      "headerRobots": ""
+    },
+    {
+      "name": "page /tags/metric",
+      "passed": true,
+      "status": 200,
+      "robots": "",
+      "headerRobots": ""
+    },
+    {
+      "name": "page /tags/purchase",
+      "passed": true,
+      "status": 200,
+      "robots": "",
+      "headerRobots": ""
+    },
+    {
+      "name": "page /tags/system",
+      "passed": true,
+      "status": 200,
+      "robots": "",
+      "headerRobots": ""
+    },
+    {
+      "name": "page /tags/try",
+      "passed": true,
+      "status": 200,
+      "robots": "",
+      "headerRobots": ""
+    },
+    {
+      "name": "robots policy",
+      "passed": true,
+      "status": 200,
+      "text": "User-agent: *\nAllow: /\n\nSitemap: https://ponta-headphone.net/sitemap-index.xml\n"
+    },
+    {
+      "name": "RSS latest five and JST dates",
+      "passed": true,
+      "status": 200,
+      "items": 5
+    },
+    {
+      "name": "sitemap all public URLs",
+      "passed": true,
+      "urls": 48
+    },
+    {
+      "name": "sitemap redirect",
+      "passed": true,
+      "status": 308,
+      "location": "/sitemap-index.xml"
+    },
+    {
+      "name": "slash /all-articles/",
+      "passed": true,
+      "status": 308,
+      "location": "/all-articles"
+    },
+    {
+      "name": "slash /discussions/",
+      "passed": true,
+      "status": 308,
+      "location": "/discussions"
+    },
+    {
+      "name": "slash /impressions/",
+      "passed": true,
+      "status": 308,
+      "location": "/impressions"
+    },
+    {
+      "name": "slash /posts/20220625/",
+      "passed": true,
+      "status": 308,
+      "location": "/posts/20220625"
+    },
+    {
+      "name": "slash /posts/20220626/",
+      "passed": true,
+      "status": 308,
+      "location": "/posts/20220626"
+    },
+    {
+      "name": "slash /posts/20220925/",
+      "passed": true,
+      "status": 308,
+      "location": "/posts/20220925"
+    },
+    {
+      "name": "slash /posts/20221009/",
+      "passed": true,
+      "status": 308,
+      "location": "/posts/20221009"
+    },
+    {
+      "name": "slash /posts/20221205/",
+      "passed": true,
+      "status": 308,
+      "location": "/posts/20221205"
+    },
+    {
+      "name": "slash /posts/20221211/",
+      "passed": true,
+      "status": 308,
+      "location": "/posts/20221211"
+    },
+    {
+      "name": "slash /posts/20221214/",
+      "passed": true,
+      "status": 308,
+      "location": "/posts/20221214"
+    },
+    {
+      "name": "slash /posts/20221227/",
+      "passed": true,
+      "status": 308,
+      "location": "/posts/20221227"
+    },
+    {
+      "name": "slash /posts/20230107/",
+      "passed": true,
+      "status": 308,
+      "location": "/posts/20230107"
+    },
+    {
+      "name": "slash /posts/20230210/",
+      "passed": true,
+      "status": 308,
+      "location": "/posts/20230210"
+    },
+    {
+      "name": "slash /posts/20230213/",
+      "passed": true,
+      "status": 308,
+      "location": "/posts/20230213"
+    },
+    {
+      "name": "slash /posts/20230323/",
+      "passed": true,
+      "status": 308,
+      "location": "/posts/20230323"
+    },
+    {
+      "name": "slash /posts/20230327/",
+      "passed": true,
+      "status": 308,
+      "location": "/posts/20230327"
+    },
+    {
+      "name": "slash /posts/20230403/",
+      "passed": true,
+      "status": 308,
+      "location": "/posts/20230403"
+    },
+    {
+      "name": "slash /posts/20230411/",
+      "passed": true,
+      "status": 308,
+      "location": "/posts/20230411"
+    },
+    {
+      "name": "slash /posts/20230505/",
+      "passed": true,
+      "status": 308,
+      "location": "/posts/20230505"
+    },
+    {
+      "name": "slash /posts/20230522/",
+      "passed": true,
+      "status": 308,
+      "location": "/posts/20230522"
+    },
+    {
+      "name": "slash /posts/20230705/",
+      "passed": true,
+      "status": 308,
+      "location": "/posts/20230705"
+    },
+    {
+      "name": "slash /posts/20231112/",
+      "passed": true,
+      "status": 308,
+      "location": "/posts/20231112"
+    },
+    {
+      "name": "slash /posts/20231211/",
+      "passed": true,
+      "status": 308,
+      "location": "/posts/20231211"
+    },
+    {
+      "name": "slash /posts/20231224/",
+      "passed": true,
+      "status": 308,
+      "location": "/posts/20231224"
+    },
+    {
+      "name": "slash /posts/20240104/",
+      "passed": true,
+      "status": 308,
+      "location": "/posts/20240104"
+    },
+    {
+      "name": "slash /posts/20240121/",
+      "passed": true,
+      "status": 308,
+      "location": "/posts/20240121"
+    },
+    {
+      "name": "slash /posts/20240212/",
+      "passed": true,
+      "status": 308,
+      "location": "/posts/20240212"
+    },
+    {
+      "name": "slash /posts/20240421/",
+      "passed": true,
+      "status": 308,
+      "location": "/posts/20240421"
+    },
+    {
+      "name": "slash /posts/20240506/",
+      "passed": true,
+      "status": 308,
+      "location": "/posts/20240506"
+    },
+    {
+      "name": "slash /posts/20240514/",
+      "passed": true,
+      "status": 308,
+      "location": "/posts/20240514"
+    },
+    {
+      "name": "slash /posts/20240620/",
+      "passed": true,
+      "status": 308,
+      "location": "/posts/20240620"
+    },
+    {
+      "name": "slash /posts/20250320/",
+      "passed": true,
+      "status": 308,
+      "location": "/posts/20250320"
+    },
+    {
+      "name": "slash /posts/20250330/",
+      "passed": true,
+      "status": 308,
+      "location": "/posts/20250330"
+    },
+    {
+      "name": "slash /posts/20250518/",
+      "passed": true,
+      "status": 308,
+      "location": "/posts/20250518"
+    },
+    {
+      "name": "slash /posts/20250601/",
+      "passed": true,
+      "status": 308,
+      "location": "/posts/20250601"
+    },
+    {
+      "name": "slash /posts/20250831/",
+      "passed": true,
+      "status": 308,
+      "location": "/posts/20250831"
+    },
+    {
+      "name": "slash /privacy/",
+      "passed": true,
+      "status": 308,
+      "location": "/privacy"
+    },
+    {
+      "name": "slash /tags/",
+      "passed": true,
+      "status": 308,
+      "location": "/tags"
+    },
+    {
+      "name": "slash /tags/chat/",
+      "passed": true,
+      "status": 308,
+      "location": "/tags/chat"
+    },
+    {
+      "name": "slash /tags/dac/",
+      "passed": true,
+      "status": 308,
+      "location": "/tags/dac"
+    },
+    {
+      "name": "slash /tags/event/",
+      "passed": true,
+      "status": 308,
+      "location": "/tags/event"
+    },
+    {
+      "name": "slash /tags/headphones/",
+      "passed": true,
+      "status": 308,
+      "location": "/tags/headphones"
+    },
+    {
+      "name": "slash /tags/hpa/",
+      "passed": true,
+      "status": 308,
+      "location": "/tags/hpa"
+    },
+    {
+      "name": "slash /tags/metric/",
+      "passed": true,
+      "status": 308,
+      "location": "/tags/metric"
+    },
+    {
+      "name": "slash /tags/purchase/",
+      "passed": true,
+      "status": 308,
+      "location": "/tags/purchase"
+    },
+    {
+      "name": "slash /tags/system/",
+      "passed": true,
+      "status": 308,
+      "location": "/tags/system"
+    },
+    {
+      "name": "slash /tags/try/",
+      "passed": true,
+      "status": 308,
+      "location": "/tags/try"
+    },
+    {
+      "name": "unknown URL",
+      "passed": true,
+      "status": 404
+    }
+  ],
+  "passed": 200,
+  "failed": 0
+}

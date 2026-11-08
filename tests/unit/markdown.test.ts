@@ -26,7 +26,7 @@ describe("plain-text excerpts from the Markdown tree", () => {
   it("normalizes whitespace and truncates at 120 Unicode code points only when needed", () => {
     expect(excerpt("  前文。  \n\n  後文。  ")).toBe("前文。 後文。");
     expect(excerpt("あ".repeat(120))).toBe("あ".repeat(120));
-    expect(excerpt("😀".repeat(121))).toBe("😀".repeat(120) + "…");
+    expect(excerpt("😀".repeat(121))).toBe(`${"😀".repeat(120)}…`);
   });
   it("detects empty excerpts", () => {
     expect(() => excerpt("# 見出し\n\n![代替](image.webp)")).toThrow("no text");

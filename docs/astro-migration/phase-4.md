@@ -1,15 +1,15 @@
 # Astro移行：工程4の検証と切り替え記録
 
-2026-11-08に実施。**Vercel Previewの配信・ブラウザー検査が完了。本番切り替え前の記録。**
+2026-11-08に実施。**Vercel Previewの配信・ブラウザー検査と、Astroによる本番公開が完了。公開ドメインで200項目のHTTP検査が成功した。**
 
 ## 確認済み
 
-- `codex/astro-migration-baseline` をGitHubへpushし、VercelのGitHub連携によるPreviewを作成した。`main` は変更していない。
+- `codex/astro-migration-baseline` をGitHubへpushし、VercelのGitHub連携によるPreviewを作成した。Preview検査後に [PR #2](https://github.com/ponta2git/headphone_blog/pull/2) をmainへ統合した。
 - 検査対象コード `a3c77763af9a29e8e161ec490207b5e68d00d1e6` の本体Previewが成功した。Vercel Deploymentは `dpl_3qyT1hgkuBwE7FuC2gtcnedewCEr`、環境はPreview、状態はREADY。
 - [Vercelのデプロイ詳細](https://vercel.com/ponta2gits-projects/ponta-headphone-blog/3qyT1hgkuBwE7FuC2gtcnedewCEr) / [Preview](https://ponta-headphone-blog-l27gb5jfj-ponta2gits-projects.vercel.app)。
 - 初回の未認証HTTPアクセスは302でVercel認証へ転送された。その後Vercelプラグインの接続・チーム承認を行い、ユーザーの明示承認を受けて、このPreview専用の23時間有効な共有リンクを新規作成した。アプリケーションの配信内容はこの認証後に検査した。
 - ビルドログでNode.js 24、pnpm 10.8.0、frozen/strictインストール、`astro build` の成功を確認。`/vercel/path0` から `dist/` へ完全静的生成し、通常48ページ＋404、変換画像41件を出力した。
-- 公開中の `https://ponta-headphone.net/` では旧Next.jsスクリプト、`robots=index, follow`、公開済みGTM ID `GTM-TK3HL5Z` を確認した。スクリプトは実行せずHTMLを読み取った。
+- 切り替え前の `https://ponta-headphone.net/` では旧Next.jsスクリプト、`robots=index, follow`、公開済みGTM ID `GTM-TK3HL5Z` をHTMLから確認した。
 
 ## 配信・ブラウザー検査
 
@@ -58,16 +58,31 @@ node scripts/verify-deployment.mjs https://ponta-headphone.net production /tmp/p
 | GTM                    | Productionの `NEXT_PUBLIC_GTAGMGR_ID` | 既存値を維持。公開中の `GTM-TK3HL5Z` に一致することを照合 |
 | 認証保護               | Previewと本番固有URLでVercel認証      | 変更なし                                                  |
 
-Preview時点ではリポジトリ設定がNext.js・Node.js 22という既定値を上書きしていた。現在は管理画面側も実際の構成に揃えた。インストール・ビルド・出力・URL正規化は引き続き `vercel.json` で管理する。Productionのシステム環境変数の反映は、本番のnoindex解除とGTM出力でも検査する。
+Preview時点ではリポジトリ設定がNext.js・Node.js 22という既定値を上書きしていた。現在は管理画面側も実際の構成に揃えた。インストール・ビルド・出力・URL正規化は引き続き `vercel.json` で管理する。Productionのシステム環境変数の反映は、本番のnoindex解除とGTM出力でも確認した。
 
 旧 `headphone-blog-metagen` も同じGitHubリポジトリからAstroをビルドしていた。mainへの統合で旧フィードが上書きされないよう、このプロジェクトのIgnored Build Stepを **`exit 0`** へ設定した。変更前のコマンドはAPI応答に含まれず未取得。既存の本番配信は維持し、Pauseや削除は行っていない。旧metagen本番は `dpl_EJnS6UCdGFL6CgnktiMjLYqvcgtP`、コミットは `a4dc608`。
 
-本番切り替えの順序:
+実施した本番切り替えの順序:
 
-1. 検査対象とアプリケーションが同一であることを確認し、移行ブランチをmainへ統合してProductionビルドを作成する。PreviewのHTMLをドメイン付け替えだけで公開しない。
-2. 公開ドメインへ200項目のHTTP検査を実行し、www等の別名からの転送も確認する。
-3. ブラウザーでGTMの実ロード・送信を確認する。生成HTMLのIDと実計測の成立は分けて記録する。
-4. 本体からRSS・サイトマップが配信されていることと、旧metagenの本番が保持されていることを確認する。旧metagenのサービス停止・削除は安定確認後の別作業とする。
+1. 検査対象とアプリケーションが同一であることを確認し、移行ブランチをmainへ統合してProductionビルドを作成した。
+2. 公開ドメインへ200項目のHTTP検査を実行し、www等の別名からの転送も確認した。
+3. ブラウザーでGTMの実ロード・送信を確認した。生成HTMLのIDと実際の計測リクエストは分けて記録した。
+4. 本体からRSS・サイトマップが配信されていることと、旧metagenの本番が保持されていることを確認した。旧metagenのサービス停止・削除は安定確認後の別作業とする。
+
+## 本番の検証結果
+
+- PR #2のマージコミットは `5edd6117b036580f0331bdc2febf3445bdd9f169`。移行の17コミットを保持してmainへ統合した。
+- [本番デプロイ](https://vercel.com/ponta2gits-projects/ponta-headphone-blog/Dy3NLzp1aCmuKuZbxWAyHeEmmNPU) は `dpl_Dy3NLzp1aCmuKuZbxWAyHeEmmNPU`、Production・READY。公開先は [ponta-headphone.net](https://ponta-headphone.net/)。
+- 2026-11-08 22:27 JST、公開ドメインに対するHTTP検査は **200項目成功・失敗0**。[production-http.json](./production-http.json) に記録した。全48ページのnoindex解除、robots.txtのAllow、GTM出力、画像・アセット、94件のURL正規化、RSS・サイトマップを確認した。
+- `www.ponta-headphone.net` と `ponta-headphone-blog.vercel.app` は、同じパスを保ち `ponta-headphone.net` へ308転送した。
+- ブラウザーで `gtm.js`（`GTM-TK3HL5Z`）の304応答、GA4タグ（`G-LCHLXN7HXP`）の200応答を確認した。`analytics.google.com/g/collect` への `page_view` POSTは204応答。対象URLは `https://ponta-headphone.net/`。確認中のJavaScript実行例外は0件。GA4管理画面での集計結果までは確認していない。
+- 旧metagenへの新しいデプロイはIgnored Build StepによりCANCELEDとなり、既存本番 `dpl_EJnS6UCdGFL6CgnktiMjLYqvcgtP` はREADYのまま別名を保持していた。
+
+## 静的解析の追加修正
+
+mainの初回解析でDeepSourceが移行コードに23件の追加指摘を検出した。セレクター変数の命名、未初期化変数、引数の隠蔽、Unicode正規表現、非nullアサーション、文字列結合を修正した。記事ID・コピー先URL・テストの生成値は、存在を確認してから使用する。
+
+修正後のローカル検査はlint・型検査・単体テスト29件・ビルド・生成物テスト40件・整形・差分検査が成功した。GitHub上のDeepSource再解析結果は修正PRのチェックを参照する。
 
 ## 切り戻し先と手順
 
@@ -80,6 +95,6 @@ Preview時点ではリポジトリ設定がNext.js・Node.js 22という既定�
 
 Instant Rollbackは既存デプロイへドメインを戻す操作で、再ビルドはしない。Gitのmainやプロジェクトの既定設定は戻らない。コードは通常のrevertで戻し、以後の自動デプロイで不具合版へ戻らないようにする。旧コードを再ビルドする場合は本体のFrameworkをNext.js、Node.jsを22.xへ戻す。システム環境変数の公開と旧metagenのビルド抑制は切り戻し時も維持できる。切り戻し後にも公開ページ・画像・RSS・サイトマップ・GTMを確認する。
 
-APIで旧本番のREADY・Production・mainと、切り戻し対象の `ponta-headphone.net`、`www.ponta-headphone.net`、`ponta-headphone-blog.vercel.app` の3別名を確認した。切り戻しの実行試験は行っていない。
+切り替え前にAPIで旧本番のREADY・Production・mainと、切り戻し対象の `ponta-headphone.net`、`www.ponta-headphone.net`、`ponta-headphone-blog.vercel.app` の3別名を確認した。切り替え後も旧本番デプロイを保持している。プラグインでの切り戻し候補一覧取得は `deploymentRollback` の権限不足で403となったため、必要時はVercel管理画面から操作する。切り戻しの実行試験は行っていない。
 
 参考: [Vercel Preview環境](https://vercel.com/docs/deployments/environments)、[システム環境変数](https://vercel.com/docs/environment-variables/system-environment-variables)、[Ignored Build Step](https://vercel.com/kb/guide/how-do-i-use-the-ignored-build-step-field-on-vercel)、[Instant Rollback](https://vercel.com/docs/instant-rollback)。
