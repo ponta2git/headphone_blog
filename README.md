@@ -71,6 +71,15 @@ SITE_ENV=production pnpm test:build
 
 `/rss.xml` はサイト本体から配信します。サイトマップは全公開48ページを含む `/sitemap-index.xml` と `/sitemap-0.xml` で、旧 `/sitemap.xml` はVercelの恒久転送により維持します。`robots.txt` も同じビルドで生成します。
 
+デプロイ後のHTTP検査は次のコマンドで実行できます。全48ページ、末尾スラッシュ・`.html`の転送、404、旧画像11件のハッシュ、参照アセット、RSS、サイトマップ、環境別のrobots・GTM出力を確認します。JavaScriptの実行やGTMへの送信は行いません。
+
+```sh
+node scripts/verify-deployment.mjs https://<deployment-host> preview /tmp/preview-check.json
+node scripts/verify-deployment.mjs https://ponta-headphone.net production /tmp/production-check.json
+```
+
+Vercel認証で保護されたPreviewは、認証画面への転送を検査成功とは扱いません。このスクリプトは認証情報を取得・保存せず、未認証なら最初のリクエストで停止します。保護されたPreviewはログイン済みブラウザーで検査してください。
+
 ## 構成と移行記録
 
 - `src/lib/blog.ts`、`src/lib/markdown.ts`: Astroから独立した記事規則・Markdown処理。
