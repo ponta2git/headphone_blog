@@ -92,4 +92,4 @@ Vercel認証で保護されたPreviewは、認証画面への転送を検査成�
 
 本文の注意書き・外部リンクは `@tabler/icons` のSVGをCSS maskとして使います。原稿やMarkdown処理へライブラリ固有の記法は入りません。SVGはビルド時にHTML・CSSへ埋め込み、追加のブラウザーJavaScriptや外部CDNを必要としません。Font Awesomeは依存関係から撤去済みです。対応する図柄と検証結果は [Tabler移行記録](docs/astro-migration/tabler-icons.md)、ライセンスは [配布用MITライセンス](public/licenses/tabler-icons.txt) を参照してください。
 
-[工程1の比較仕様](docs/astro-migration/phase-1.md) · [工程2の記録](docs/astro-migration/phase-2.md) · [工程3の記録](docs/astro-migration/phase-3.md)
+[工程1の比較仕様](docs/astro-migration/phase-1.md) · [工程2の記録](docs/astro-migration/phase-2.md) · [工程3の記録](docs/astro-migration/phase-3.md) · [工程4の進捗](docs/astro-migration/phase-4.md)
