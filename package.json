@@ -20,6 +20,8 @@
     "@fortawesome/fontawesome-svg-core": "^6.7.2",
     "@fortawesome/free-brands-svg-icons": "^6.7.2",
     "@fortawesome/free-solid-svg-icons": "^6.7.2",
+    "@tabler/icons": "3.50.0",
+    "@tabler/icons-astro": "3.50.0",
     "astro": "7.4.7",
     "unified": "11.0.5",
     "unist-util-visit": "5.2.0"

@@ -1,5 +1,6 @@
 ---
 import { getImage } from "astro:assets";
+import Icon from "../../components/Icon.astro";
 import Page from "../../layouts/Page.astro";
 import PostTags from "../../components/PostTags.astro";
 import { getPosts } from "../../lib/posts";
@@ -70,6 +71,7 @@ const schema = {
     </div>
     <section class="share" aria-label="記事を共有">
       <a href={shareUrl} rel="noopener noreferrer">
+        <Icon name="brand-x" />
         Xで共有
       </a>
       <button
@@ -78,6 +80,7 @@ const schema = {
         aria-describedby="copy-status"
         hidden
       >
+        <Icon name="clipboard" />
         URLをコピー
       </button>
       <p
@@ -92,7 +95,10 @@ const schema = {
     <div>
       {adjacent.older && (
         <a href={postPath(adjacent.older.date)}>
-          <span>← 前の記事</span>
+          <span>
+            <Icon name="chevron-left" />
+            前の記事
+          </span>
           {adjacent.older.title}
         </a>
       )}
@@ -100,7 +106,10 @@ const schema = {
     <div>
       {adjacent.newer && (
         <a href={postPath(adjacent.newer.date)}>
-          <span>次の記事 →</span>
+          <span>
+            次の記事
+            <Icon name="chevron-right" />
+          </span>
           {adjacent.newer.title}
         </a>
       )}
@@ -108,7 +117,10 @@ const schema = {
   </nav>
   {related.length > 0 && (
     <section class="related">
-      <h2>関連記事</h2>
+      <h2>
+        <Icon name="news" />
+        関連記事
+      </h2>
       <ul>
         {related.map((item) => (
           <li>

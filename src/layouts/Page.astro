@@ -1,4 +1,5 @@
 ---
+import Icon from "../components/Icon.astro";
 import { deployment } from "../lib/deployment";
 import GoogleTagManager from "../components/GoogleTagManager.astro";
 import { site } from "../lib/blog";
@@ -96,14 +97,17 @@ const structuredData = {
           {site.name}
         </a>
         <nav aria-label="メインナビゲーション">
-          {[
-            ["/", "新着記事"],
-            ["/impressions", "感想"],
-            ["/discussions", "考察"],
-            ["/all-articles", "記事一覧"],
-            ["/tags", "タグ"],
-          ].map(([href, label]) => (
+          {(
+            [
+              { href: "/", label: "新着記事", icon: "bolt" },
+              { href: "/impressions", label: "感想", icon: "headphones" },
+              { href: "/discussions", label: "考察", icon: "message-dots" },
+              { href: "/all-articles", label: "記事一覧", icon: "news" },
+              { href: "/tags", label: "タグ", icon: "search" },
+            ] as const
+          ).map(({ href, label, icon }) => (
             <a href={href} aria-current={path === href ? "page" : undefined}>
+              <Icon name={icon} />
               {label}
             </a>
           ))}
@@ -115,11 +119,17 @@ const structuredData = {
     </main>
     <footer class="site-footer container">
       <nav aria-label="サイト情報">
-        <a href={`mailto:${site.email}`}>メール</a>
-        <a href="https://twitter.com/ponta2twit" rel="noopener noreferrer">
-          X
+        <a href={`mailto:${site.email}`}>
+          <Icon name="mail" />
+          メール
         </a>
-        <a href="/rss.xml">RSS</a>
+        <a href="https://twitter.com/ponta2twit" rel="noopener noreferrer">
+          <Icon name="brand-x" />X
+        </a>
+        <a href="/rss.xml">
+          <Icon name="rss" />
+          RSS
+        </a>
         <a href="/privacy">プライバシーポリシー</a>
       </nav>
       <p>
@@ -131,10 +141,14 @@ const structuredData = {
           CC BY-NC-ND 4.0
         </a>
       </p>
-      <a href="#top">ページの先頭へ</a>
+      <a href="#top">
+        <Icon name="arrow-up" />
+        ページの先頭へ
+      </a>
     </footer>
     <a class="back-to-top" href="#top" data-back-to-top hidden>
-      ↑ 上へ戻る
+      <Icon name="arrow-up" />
+      上へ戻る
     </a>
     <script>
       import "../scripts/interactions";

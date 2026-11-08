@@ -1,4 +1,5 @@
 ---
+import Icon from "../../components/Icon.astro";
 import Page from "../../layouts/Page.astro";
 import { getPosts } from "../../lib/posts";
 import { tags, selectPosts } from "../../lib/blog";
@@ -7,7 +8,10 @@ const posts = await getPosts();
 
 <Page path="/tags" title="タグ">
   <div class="page-heading">
-    <h1>タグ</h1>
+    <h1>
+      <Icon name="search" />
+      タグ
+    </h1>
   </div>
   <ul class="tag-index">
     {Object.entries(tags)

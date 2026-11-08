@@ -1,4 +1,5 @@
 ---
+import Icon from "../components/Icon.astro";
 import Page from "../layouts/Page.astro";
 import PostList from "../components/PostList.astro";
 import { getPosts } from "../lib/posts";
@@ -8,7 +9,10 @@ const posts = selectPosts(await getPosts(), ["試聴", "購入"]);
 
 <Page path="/impressions" title="感想" description="機材の感想を集めたページ">
   <div class="page-heading">
-    <h1>感想</h1>
+    <h1>
+      <Icon name="headphones" />
+      感想
+    </h1>
     <p>{posts.length}件</p>
   </div>
   <p class="page-intro">

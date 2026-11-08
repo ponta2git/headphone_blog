@@ -29,6 +29,26 @@ a {
 a:hover {
   text-decoration-thickness: 2px;
 }
+/* Decorative SVGs accompany visible labels; the wrapper hides them from AT. */
+.tabler-icon {
+  display: inline-block;
+  width: 1.125rem;
+  height: 1.125rem;
+  flex-shrink: 0;
+  vertical-align: -0.2em;
+  margin-inline-end: 0.375rem;
+}
+.page-heading .tabler-icon,
+.home-system h2 .tabler-icon,
+.related h2 .tabler-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  vertical-align: -0.1em;
+  margin-inline-end: 0.5rem;
+}
+.tabler-icon-chevron-right {
+  margin-inline: 0.375rem 0;
+}
 button {
   font: inherit;
 }
@@ -248,6 +268,34 @@ time {
   font-weight: 700;
   margin-top: 0;
   color: var(--muted);
+}
+/* CSS masks keep article Markdown and its text content independent of icons. */
+.callout-label::before,
+.prose a[href^="https://"]:not([href^="https://ponta-headphone.net/"])::after,
+.prose a[href^="http://"]:not([href^="http://ponta-headphone.net/"])::after {
+  content: "";
+  display: inline-block;
+  width: 1.125rem;
+  height: 1.125rem;
+  background-color: currentColor;
+  vertical-align: -0.2em;
+  mask-size: contain;
+  mask-repeat: no-repeat;
+}
+.callout-label::before {
+  margin-inline-end: 0.375rem;
+  mask-image: url("@tabler/icons/outline/info-circle.svg");
+}
+.callout-warning .callout-label::before {
+  mask-image: url("@tabler/icons/outline/alert-circle.svg");
+}
+.prose a[href^="https://"]:not([href^="https://ponta-headphone.net/"])::after,
+.prose a[href^="http://"]:not([href^="http://ponta-headphone.net/"])::after {
+  width: 0.875em;
+  height: 0.875em;
+  margin-inline-start: 0.2em;
+  vertical-align: -0.1em;
+  mask-image: url("@tabler/icons/outline/external-link.svg");
 }
 .callout-warning .callout-label {
   color: var(--ink);

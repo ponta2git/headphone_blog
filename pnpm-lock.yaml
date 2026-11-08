@@ -26,6 +26,12 @@ importers:
       '@fortawesome/free-solid-svg-icons':
         specifier: ^6.7.2
         version: 6.7.2
+      '@tabler/icons':
+        specifier: 3.50.0
+        version: 3.50.0
+      '@tabler/icons-astro':
+        specifier: 3.50.0
+        version: 3.50.0(astro@7.4.7(@astrojs/markdown-remark@7.3.6)(@types/node@24.19.2)(yaml@2.9.1))
       astro:
         specifier: 7.4.7
         version: 7.4.7(@astrojs/markdown-remark@7.3.6)(@types/node@24.19.2)(yaml@2.9.1)
@@ -847,6 +853,14 @@ packages:
 
   '@shikijs/vscode-textmate@10.1.0':
     resolution: {integrity: sha512-cVBuhDQjBZaNMTwBquYfPydrUP+E3hE6oYGasx8h6ZrODIM7/r+gxLDXdd66oszbrggZHEntdE6j+5gYIVyMWQ==}
+
+  '@tabler/icons-astro@3.50.0':
+    resolution: {integrity: sha512-x6iqEhbP6x0PEyPJCF120mSRX50o/m7RFjW+5aSrjEI9S3SsQNFk2mDQyENf5BMrs5412MTkGXv76tGU4t30Uw==}
+    peerDependencies:
+      astro: '>=4.0.0'
+
+  '@tabler/icons@3.50.0':
+    resolution: {integrity: sha512-HflLxyrH1cqC7s7jzQGSjpsTAVIoaf7+/yHjbdM59rJQBMjliibp+LYhDPFxOMcwa1M8DNpOk6ENzQiWn9a1Dg==}
 
   '@tybys/wasm-util@0.10.4':
     resolution: {integrity: sha512-W3c4gRigFS0T/Ma4qIYF3GDAc5AQdHb1yL5znJT1Zv1YaD9Kitx656wBjvr19qbiosmZT8lWDM5BEMynUqX65A==}
@@ -3484,6 +3498,13 @@ snapshots:
       '@types/hast': 3.0.5
 
   '@shikijs/vscode-textmate@10.1.0': {}
+
+  '@tabler/icons-astro@3.50.0(astro@7.4.7(@astrojs/markdown-remark@7.3.6)(@types/node@24.19.2)(yaml@2.9.1))':
+    dependencies:
+      '@tabler/icons': 3.50.0
+      astro: 7.4.7(@astrojs/markdown-remark@7.3.6)(@types/node@24.19.2)(yaml@2.9.1)
+
+  '@tabler/icons@3.50.0': {}
 
   '@tybys/wasm-util@0.10.4':
     dependencies:
