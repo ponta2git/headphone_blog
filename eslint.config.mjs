@@ -17,6 +17,7 @@ export default typescript.config(
       "public/**",
       "metagen/dist/**",
       "metagen/node_modules/**",
+      "astro/**",
     ],
   },
   {

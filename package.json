@@ -1,5 +1,8 @@
 {
   "scripts": {
+    "astro:dev": "pnpm --dir astro dev",
+    "astro:build": "pnpm --dir astro build",
+    "astro:check": "pnpm --dir astro check",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
