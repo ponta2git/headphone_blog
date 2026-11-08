@@ -21,9 +21,8 @@ const { name, posts } = Astro.props;
   description={`${name}に関する記事一覧。`}
 >
   <div class="page-heading">
-    <a href="/tags">タグ一覧</a>
     <h1>{name}</h1>
-    <p>{posts.length}件の記事</p>
+    <p>{posts.length}件</p>
   </div>
   <PostList posts={posts} />
 </Page>

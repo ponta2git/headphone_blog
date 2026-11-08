@@ -77,7 +77,6 @@ const structuredData = {
         <a class="brand" href="/">
           {site.name}
         </a>
-        <p>聴くこと、選ぶこと、楽しむこと。</p>
         <nav aria-label="メインナビゲーション">
           <a href="/" aria-current={path === "/" ? "page" : undefined}>
             新着記事
@@ -99,9 +98,7 @@ const structuredData = {
       <slot />
     </main>
     <footer class="site-footer container">
-      <p>
-        {site.name} / {site.author}
-      </p>
+      <p>{site.name}</p>
       <a href="#top">ページの先頭へ</a>
     </footer>
     <a class="back-to-top" href="#top" data-back-to-top hidden>
