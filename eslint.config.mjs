@@ -1,68 +1,50 @@
-import typescript from "typescript-eslint";
-import nextVitals from "eslint-config-next/core-web-vitals";
-import nextTypescript from "eslint-config-next/typescript";
-import prettierConfig from "eslint-config-prettier";
 import js from "@eslint/js";
+import prettier from "eslint-config-prettier";
+import astro from "eslint-plugin-astro";
+import globals from "globals";
+import ts from "typescript-eslint";
 
-export default typescript.config(
-  js.configs.recommended,
-  ...nextVitals,
-  ...nextTypescript,
-  prettierConfig,
+export default [
   {
     ignores: [
-      ".next/**",
+      "dist/**",
+      ".astro/**",
       "node_modules/**",
+      ".next/**",
       "out/**",
-      "public/**",
-      "metagen/dist/**",
-      "metagen/node_modules/**",
-      "astro/**",
+      ".playwright-mcp/**",
+      ".vercel/**",
+      ".pnpm-store/**",
     ],
   },
+  js.configs.recommended,
+  ...ts.configs.recommended,
+  ...astro.configs.recommended,
+  ...astro.configs["jsx-a11y-recommended"],
+  prettier,
   {
-    files: [
-      "app/**/*.tsx",
-      "src/**/*.{ts,tsx}",
-      "metagen/vite.config.mts",
-      "metagen/src/**/*.ts",
-    ],
+    languageOptions: { globals: globals.node },
+    rules: { "@typescript-eslint/consistent-type-imports": "error" },
+  },
+  {
+    files: ["src/scripts/**/*.ts"],
+    languageOptions: { globals: globals.browser },
+  },
+  {
+    files: ["src/lib/blog.ts", "src/lib/markdown.ts", "src/scripts/**/*.ts"],
     rules: {
-      "@typescript-eslint/consistent-type-imports": "error",
-      "@typescript-eslint/no-import-type-side-effects": "error",
-      "import/order": [
+      "no-restricted-imports": [
         "error",
         {
-          groups: [
-            "builtin",
-            "external",
-            "internal",
-            ["parent", "sibling"],
-            "object",
-            "type",
-            "index",
+          patterns: [
+            {
+              group: ["astro", "astro:*", "astro/*", "@astrojs/*"],
+              message:
+                "Keep blog rules and browser behavior independent of Astro.",
+            },
           ],
-
-          "newlines-between": "always",
-          pathGroupsExcludedImportTypes: ["builtin"],
-
-          alphabetize: {
-            order: "asc",
-            caseInsensitive: true,
-          },
         },
       ],
     },
   },
-  {
-    files: ["specs/**/*.ts"],
-    rules: {
-      "@typescript-eslint/no-unsafe-assignment": "off",
-      "@typescript-eslint/no-unsafe-call": "off",
-      "@typescript-eslint/no-unsafe-member-access": "off",
-      "@typescript-eslint/no-unsafe-return": "off",
-      "@typescript-eslint/no-unsafe-argument": "off",
-      "@typescript-eslint/unbound-method": "off",
-    },
-  },
-);
+];
