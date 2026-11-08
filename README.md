@@ -79,6 +79,8 @@ SITE_ENV=production pnpm test:build
 - `src/scripts/`、`src/styles/`: 標準DOMによる操作と標準CSS。
 - `tests/unit/`、`tests/build/`: 規則と静的出力の検査。
 
-Font Awesomeの採用方針は別途検討中です。core・ブランド・solidのパッケージは保留して残し、React専用アダプターは旧React構成とともに撤去しました。現行テンプレートはこれらを読み込まず、ブラウザーへ配信しません。
+アイコンはTabler Outline 3.50.0です。`src/components/Icon.astro` が公式 `@tabler/icons-astro` のSVGを表示し、サイズ・線幅・装飾アイコンの読み上げ抑制を共通化します。文字ラベルを添え、本文・操作部品は18px、見出しは20px、線幅は2です。
+
+本文の注意書き・外部リンクは `@tabler/icons` のSVGをCSS maskとして使います。原稿やMarkdown処理へライブラリ固有の記法は入りません。SVGはビルド時にHTML・CSSへ埋め込み、追加のブラウザーJavaScriptや外部CDNを必要としません。Font Awesomeは依存関係から撤去済みです。対応する図柄と検証結果は [Tabler移行記録](docs/astro-migration/tabler-icons.md)、ライセンスは [配布用MITライセンス](public/licenses/tabler-icons.txt) を参照してください。
 
 [工程1の比較仕様](docs/astro-migration/phase-1.md) · [工程2の記録](docs/astro-migration/phase-2.md) · [工程3の記録](docs/astro-migration/phase-3.md)
