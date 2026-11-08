@@ -1,12 +1,16 @@
 {
-  "rewrites": [
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "astro",
+  "installCommand": "pnpm install --frozen-lockfile --strict-peer-dependencies",
+  "buildCommand": "pnpm build",
+  "outputDirectory": "dist",
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "redirects": [
     {
-      "destination": "https://headphone-blog-metagen-ponta2gits-projects.vercel.app/sitemap.xml",
-      "source": "/sitemap.xml"
-    },
-    {
-      "destination": "https://headphone-blog-metagen-ponta2gits-projects.vercel.app/rss.xml",
-      "source": "/rss.xml"
+      "source": "/sitemap.xml",
+      "destination": "/sitemap-index.xml",
+      "permanent": true
     }
   ]
 }

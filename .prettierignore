@@ -1,0 +1,13 @@
+dist
+.astro
+node_modules
+pnpm-lock.yaml
+.playwright-mcp
+.pnpm-store
+.next
+out
+.vercel
+# Immutable migration evidence and records from earlier phases
+docs/astro-migration/baseline.json
+docs/astro-migration/phase-1.md
+docs/astro-migration/phase-2.md

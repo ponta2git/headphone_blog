@@ -1,0 +1,157 @@
+---
+import Icon from "../components/Icon.astro";
+import { deployment } from "../lib/deployment";
+import GoogleTagManager from "../components/GoogleTagManager.astro";
+import { site } from "../lib/blog";
+import "../styles/global.css";
+
+interface Props {
+  path: string;
+  noindex?: boolean;
+  title?: string;
+  description?: string;
+  published?: string;
+  image?: { src: string; width: number; height: number };
+  schema?: Record<string, unknown>;
+}
+const {
+  path,
+  noindex = false,
+  title,
+  description = site.description,
+  published,
+  image = { src: "/images/logo.webp", width: 512, height: 286 },
+  schema,
+} = Astro.props;
+const pageTitle = title ? `${title} | ${site.name}` : site.name;
+const canonical = new URL(path, site.url).href;
+const imageUrl = new URL(image.src, site.url).href;
+const structuredData = {
+  "@context": "https://schema.org",
+  ...(schema ?? {
+    "@type": title ? "CollectionPage" : "WebSite",
+    name: title ?? site.name,
+    description,
+    url: canonical,
+  }),
+};
+---
+
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <link rel="icon" type="image/webp" href="/images/logo.webp" />
+    <meta name="description" content={description} />
+    {(!deployment.indexable || noindex) && (
+      <meta name="robots" content="noindex, nofollow" />
+    )}
+    <link rel="canonical" href={canonical} />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title={site.name}
+      href="/rss.xml"
+    />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:locale" content="ja_JP" />
+    <meta property="og:type" content={published ? "article" : "website"} />
+    <meta property="og:image" content={imageUrl} />
+    <meta property="og:image:width" content={String(image.width)} />
+    <meta property="og:image:height" content={String(image.height)} />
+    <meta property="og:image:alt" content={title ?? site.name} />
+    {published && (
+      <meta property="article:published_time" content={published} />
+    )}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content={site.twitter} />
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify(structuredData).replaceAll("<", "\\u003c")}
+    />
+    {deployment.gtmId && <GoogleTagManager id={deployment.gtmId} />}
+  </head>
+  <body>
+    {deployment.gtmId && (
+      <noscript>
+        <iframe
+          src={`https://www.googletagmanager.com/ns.html?id=${deployment.gtmId}`}
+          title="Google Tag Manager"
+          height="0"
+          width="0"
+          style="display:none;visibility:hidden"
+        ></iframe>
+      </noscript>
+    )}
+    <a class="skip-link" href="#main">
+      本文へ移動
+    </a>
+    <header class="site-header" id="top" tabindex="-1">
+      <div class="container">
+        <a class="brand" href="/">
+          {site.name}
+        </a>
+        <nav aria-label="メインナビゲーション">
+          {(
+            [
+              { href: "/", label: "新着記事", icon: "bolt" },
+              { href: "/impressions", label: "感想", icon: "headphones" },
+              { href: "/discussions", label: "考察", icon: "message-dots" },
+              { href: "/all-articles", label: "記事一覧", icon: "news" },
+              { href: "/tags", label: "タグ", icon: "search" },
+            ] as const
+          ).map(({ href, label, icon }) => (
+            <a href={href} aria-current={path === href ? "page" : undefined}>
+              <Icon name={icon} />
+              {label}
+            </a>
+          ))}
+        </nav>
+      </div>
+    </header>
+    <main class="container" id="main" tabindex="-1">
+      <slot />
+    </main>
+    <footer class="site-footer container">
+      <nav aria-label="サイト情報">
+        <a href={`mailto:${site.email}`}>
+          <Icon name="mail" />
+          メール
+        </a>
+        <a href="https://twitter.com/ponta2twit" rel="noopener noreferrer">
+          <Icon name="brand-x" />X
+        </a>
+        <a href="/rss.xml">
+          <Icon name="rss" />
+          RSS
+        </a>
+        <a href="/privacy">プライバシーポリシー</a>
+      </nav>
+      <p>
+        © {new Date().getFullYear()} {site.author} ·{" "}
+        <a
+          href="https://creativecommons.org/licenses/by-nc-nd/4.0/"
+          rel="noopener noreferrer"
+        >
+          CC BY-NC-ND 4.0
+        </a>
+      </p>
+      <a href="#top">
+        <Icon name="arrow-up" />
+        ページの先頭へ
+      </a>
+    </footer>
+    <a class="back-to-top" href="#top" data-back-to-top hidden>
+      <Icon name="arrow-up" />
+      上へ戻る
+    </a>
+    <script>
+      import "../scripts/interactions";
+    </script>
+  </body>
+</html>

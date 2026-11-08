@@ -1,0 +1,33 @@
+---
+import Icon from "../components/Icon.astro";
+import Page from "../layouts/Page.astro";
+import PostList from "../components/PostList.astro";
+import { getPosts } from "../lib/posts";
+const posts = (await getPosts()).slice(0, 5);
+---
+
+<Page path="/">
+  <div class="page-heading">
+    <h1 id="latest-articles">
+      <Icon name="bolt" />
+      新着記事
+    </h1>
+  </div>
+  <PostList posts={posts} />
+  <p class="archive-link" id="all-articles">
+    <a href="/all-articles">
+      <Icon name="sitemap" />
+      すべての記事を見る
+    </a>
+  </p>
+  <section class="home-system" aria-labelledby="system-components">
+    <h2 id="system-components">
+      <Icon name="radio" />
+      現在のシステム構成
+    </h2>
+    <p>
+      <a href="/posts/20250320">筆者のシステム構成</a>
+      。購入した機材は、主にこのシステムで評価しています。
+    </p>
+  </section>
+</Page>

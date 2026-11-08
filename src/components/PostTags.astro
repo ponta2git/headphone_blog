@@ -1,0 +1,15 @@
+---
+import { tags } from "../lib/blog";
+interface Props {
+  names: string[];
+}
+const { names } = Astro.props;
+---
+
+<ul class="tags" aria-label="記事のタグ">
+  {names.map((name) => (
+    <li>
+      <a href={`/tags/${tags[name]}`}>{name}</a>
+    </li>
+  ))}
+</ul>

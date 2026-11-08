@@ -1,0 +1,32 @@
+---
+import Icon from "../../components/Icon.astro";
+import Page from "../../layouts/Page.astro";
+import PostList from "../../components/PostList.astro";
+import { getPosts } from "../../lib/posts";
+import { tags, selectPosts } from "../../lib/blog";
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  return Object.entries(tags)
+    .filter(([name]) => selectPosts(posts, [name]).length)
+    .map(([name, slug]) => ({
+      params: { slug },
+      props: { name, posts: selectPosts(posts, [name]) },
+    }));
+}
+const { name, posts } = Astro.props;
+---
+
+<Page
+  path={`/tags/${Astro.params.slug}`}
+  title={`${name}の記事`}
+  description={`${name}に関する記事一覧。`}
+>
+  <div class="page-heading">
+    <h1>
+      <Icon name="tag" />
+      {name}
+    </h1>
+    <p>{posts.length}件</p>
+  </div>
+  <PostList posts={posts} />
+</Page>

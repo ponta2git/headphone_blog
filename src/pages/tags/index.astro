@@ -1,0 +1,26 @@
+---
+import Icon from "../../components/Icon.astro";
+import Page from "../../layouts/Page.astro";
+import { getPosts } from "../../lib/posts";
+import { tags, selectPosts } from "../../lib/blog";
+const posts = await getPosts();
+---
+
+<Page path="/tags" title="タグ">
+  <div class="page-heading">
+    <h1>
+      <Icon name="search" />
+      タグ
+    </h1>
+  </div>
+  <ul class="tag-index">
+    {Object.entries(tags)
+      .filter(([name]) => selectPosts(posts, [name]).length)
+      .map(([name, slug]) => (
+        <li>
+          <a href={`/tags/${slug}`}>{name}</a>
+          <span>{selectPosts(posts, [name]).length}件</span>
+        </li>
+      ))}
+  </ul>
+</Page>

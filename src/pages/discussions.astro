@@ -1,0 +1,20 @@
+---
+import Icon from "../components/Icon.astro";
+import Page from "../layouts/Page.astro";
+import PostList from "../components/PostList.astro";
+import { getPosts } from "../lib/posts";
+import { selectPosts } from "../lib/blog";
+const posts = selectPosts(await getPosts(), ["雑談"]);
+---
+
+<Page path="/discussions" title="考察" description="考察を集めたページ">
+  <div class="page-heading">
+    <h1>
+      <Icon name="message-dots" />
+      考察
+    </h1>
+    <p>{posts.length}件</p>
+  </div>
+
+  <PostList posts={posts} />
+</Page>

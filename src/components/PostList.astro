@@ -1,0 +1,22 @@
+---
+import { postPath } from "../lib/blog";
+import type { Post } from "../lib/blog";
+import PostTags from "./PostTags.astro";
+interface Props {
+  posts: (Post & { excerpt: string })[];
+}
+const { posts } = Astro.props;
+---
+
+<div class="post-list">
+  {posts.map((post) => (
+    <article class="post-summary" data-post-id={post.id}>
+      <time datetime={post.date}>{post.date}</time>
+      <h2>
+        <a href={postPath(post.date)}>{post.title}</a>
+      </h2>
+      <p class="excerpt">{post.excerpt}</p>
+      <PostTags names={post.tags} />
+    </article>
+  ))}
+</div>

@@ -1,0 +1,43 @@
+---
+import {
+  IconArrowUp,
+  IconBolt,
+  IconBrandX,
+  IconChevronLeft,
+  IconChevronRight,
+  IconClipboard,
+  IconHeadphones,
+  IconMail,
+  IconMessageDots,
+  IconNews,
+  IconRadio,
+  IconRss,
+  IconSearch,
+  IconSitemap,
+  IconTag,
+} from "@tabler/icons-astro";
+
+const icons = {
+  "arrow-up": IconArrowUp,
+  bolt: IconBolt,
+  "brand-x": IconBrandX,
+  "chevron-left": IconChevronLeft,
+  "chevron-right": IconChevronRight,
+  clipboard: IconClipboard,
+  headphones: IconHeadphones,
+  mail: IconMail,
+  "message-dots": IconMessageDots,
+  news: IconNews,
+  radio: IconRadio,
+  rss: IconRss,
+  search: IconSearch,
+  sitemap: IconSitemap,
+  tag: IconTag,
+};
+interface Props {
+  name: keyof typeof icons;
+}
+const Component = icons[Astro.props.name];
+---
+
+<Component size={20} stroke={2} aria-hidden="true" focusable="false" />
