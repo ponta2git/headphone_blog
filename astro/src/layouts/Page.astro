@@ -1,9 +1,12 @@
 ---
+import { deployment } from "../lib/deployment";
+import GoogleTagManager from "../components/GoogleTagManager.astro";
 import { site } from "../lib/blog";
 import "../styles/global.css";
 
 interface Props {
   path: string;
+  noindex?: boolean;
   title?: string;
   description?: string;
   published?: string;
@@ -12,6 +15,7 @@ interface Props {
 }
 const {
   path,
+  noindex = false,
   title,
   description = site.description,
   published,
@@ -40,7 +44,9 @@ const structuredData = {
     <title>{pageTitle}</title>
     <link rel="icon" type="image/webp" href="/images/logo.webp" />
     <meta name="description" content={description} />
-    <meta name="robots" content="noindex, nofollow" />
+    {(!deployment.indexable || noindex) && (
+      <meta name="robots" content="noindex, nofollow" />
+    )}
     <link rel="canonical" href={canonical} />
     <link
       rel="alternate"
@@ -67,8 +73,20 @@ const structuredData = {
       type="application/ld+json"
       set:html={JSON.stringify(structuredData).replaceAll("<", "\\u003c")}
     />
+    {deployment.gtmId && <GoogleTagManager id={deployment.gtmId} />}
   </head>
   <body>
+    {deployment.gtmId && (
+      <noscript>
+        <iframe
+          src={`https://www.googletagmanager.com/ns.html?id=${deployment.gtmId}`}
+          title="Google Tag Manager"
+          height="0"
+          width="0"
+          style="display:none;visibility:hidden"
+        ></iframe>
+      </noscript>
+    )}
     <a class="skip-link" href="#main">
       本文へ移動
     </a>
@@ -78,19 +96,17 @@ const structuredData = {
           {site.name}
         </a>
         <nav aria-label="メインナビゲーション">
-          <a href="/" aria-current={path === "/" ? "page" : undefined}>
-            新着記事
-          </a>
-          <a
-            href="/all-articles"
-            aria-current={path === "/all-articles" ? "page" : undefined}
-          >
-            記事一覧
-          </a>
-          <a href="/tags" aria-current={path === "/tags" ? "page" : undefined}>
-            タグ
-          </a>
-          <a href="/rss.xml">RSS</a>
+          {[
+            ["/", "新着記事"],
+            ["/impressions", "感想"],
+            ["/discussions", "考察"],
+            ["/all-articles", "記事一覧"],
+            ["/tags", "タグ"],
+          ].map(([href, label]) => (
+            <a href={href} aria-current={path === href ? "page" : undefined}>
+              {label}
+            </a>
+          ))}
         </nav>
       </div>
     </header>
@@ -98,7 +114,23 @@ const structuredData = {
       <slot />
     </main>
     <footer class="site-footer container">
-      <p>{site.name}</p>
+      <nav aria-label="サイト情報">
+        <a href={`mailto:${site.email}`}>メール</a>
+        <a href="https://twitter.com/ponta2twit" rel="noopener noreferrer">
+          X
+        </a>
+        <a href="/rss.xml">RSS</a>
+        <a href="/privacy">プライバシーポリシー</a>
+      </nav>
+      <p>
+        © {new Date().getFullYear()} {site.author} ·{" "}
+        <a
+          href="https://creativecommons.org/licenses/by-nc-nd/4.0/"
+          rel="noopener noreferrer"
+        >
+          CC BY-NC-ND 4.0
+        </a>
+      </p>
       <a href="#top">ページの先頭へ</a>
     </footer>
     <a class="back-to-top" href="#top" data-back-to-top hidden>

@@ -11,6 +11,9 @@ interface BaselinePost {
   url: string;
   title: string;
   date: string;
+  previousUrl: string | null;
+  nextUrl: string | null;
+  relatedUrlsByCurrentRule: string[];
   tags: { name: string; slug: string }[];
   renderedBodyLinks: { text: string; href: string }[];
   markdownImages: { alt: string; url: string }[];
@@ -19,6 +22,7 @@ interface BaselinePost {
 }
 const baseline: {
   posts: BaselinePost[];
+  pages: { url: string; postLinksInDocumentOrder: string[] }[];
   representativePostIds: string[];
   assets: { url: string; sha256: string; width: number; height: number }[];
 } = JSON.parse(
@@ -35,23 +39,57 @@ const html = (route: string) =>
       "utf8",
     ),
   );
-const representatives = baseline.posts.filter((post) =>
-  baseline.representativePostIds.includes(post.id),
+const representatives = baseline.posts;
+const orderedIds = baseline.posts
+  .map((post) => post.id)
+  .sort()
+  .reverse();
+const latestIds = orderedIds.slice(0, 5);
+const routes = baseline.pages.map((page) => page.url);
+const production =
+  (process.env.VERCEL_ENV ?? process.env.SITE_ENV) === "production";
+const bodyHashes: Record<string, string> = JSON.parse(
+  readFileSync(
+    new URL(
+      "../../../docs/astro-migration/body-text-sha256.json",
+      import.meta.url,
+    ),
+    "utf8",
+  ),
 );
-const orderedIds = ["20250518", "20250330", "20240421", "20231211", "20220626"];
-const routes = [
-  "/",
-  "/all-articles",
-  "/tags",
-  "/tags/system",
-  "/tags/purchase",
-  "/tags/try",
-  "/tags/headphones",
-  ...orderedIds.map((id) => `/posts/${id}`),
-];
 
 describe("static output contract", () => {
-  it("emits every prototype page with canonical URLs and valid JSON-LD", () => {
+  it("includes every public URL once in the sitemap and excludes 404", () => {
+    expect(routes).toHaveLength(48);
+    const index = load(
+      readFileSync(path.join(dist, "sitemap-index.xml"), "utf8"),
+      { xml: true },
+    );
+    const urls = index("loc")
+      .map((_, el) => index(el).text())
+      .get()
+      .flatMap((url) => {
+        const sitemap = load(
+          readFileSync(path.join(dist, new URL(url).pathname), "utf8"),
+          { xml: true },
+        );
+        expect(sitemap("lastmod")).toHaveLength(0);
+        return sitemap("loc")
+          .map((_, el) => sitemap(el).text())
+          .get();
+      });
+    expect(urls.sort()).toEqual(
+      routes.map((route) => `https://ponta-headphone.net${route}`).sort(),
+    );
+    expect(html("/404")("meta[name=robots]").attr("content")).toBe(
+      "noindex, nofollow",
+    );
+    if (production)
+      expect(readFileSync(path.join(dist, "robots.txt"), "utf8")).toContain(
+        "Sitemap: https://ponta-headphone.net/sitemap-index.xml",
+      );
+  });
+  it("emits all 48 public pages with canonical URLs and valid JSON-LD", () => {
     for (const route of routes) {
       const $ = html(route);
       expect($("html").attr("lang")).toBe("ja");
@@ -64,7 +102,15 @@ describe("static output contract", () => {
         `https://ponta-headphone.net${route}`,
       );
       expect($("meta[name=description]").attr("content")).toBeTruthy();
-      expect($("meta[name=robots]").attr("content")).toBe("noindex, nofollow");
+      expect($("meta[name=robots]").attr("content")).toBe(
+        production ? undefined : "noindex, nofollow",
+      );
+      expect($("head").text().includes("googletagmanager.com/gtm.js")).toBe(
+        production,
+      );
+      expect($("body").html()!.includes("googletagmanager.com/ns.html")).toBe(
+        production,
+      );
       expect($("script[type='application/ld+json']")).toHaveLength(1);
       expect(
         JSON.parse($("script[type='application/ld+json']").text())["@context"],
@@ -72,7 +118,7 @@ describe("static output contract", () => {
       expect($("astro-island, meta[name=json-ld]")).toHaveLength(0);
     }
     expect(readFileSync(path.join(dist, "robots.txt"), "utf8")).toContain(
-      "Disallow: /",
+      production ? "Allow: /" : "Disallow: /",
     );
     expect(existsSync(path.join(dist, "server"))).toBe(false);
   });
@@ -106,10 +152,28 @@ describe("static output contract", () => {
           .get(),
       ).toEqual(
         post.renderedBodyLinks.map((link) =>
-          link.href === "posts/20230210" ? "/posts/20230210" : link.href,
+          link.href.startsWith("posts/") ? `/${link.href}` : link.href,
         ),
       );
       expect($(".prose h1, Info, Warning, Postscript")).toHaveLength(0);
+      expect($(".neighbours > div").eq(0).find("a").attr("href") ?? null).toBe(
+        post.previousUrl,
+      );
+      expect($(".neighbours > div").eq(1).find("a").attr("href") ?? null).toBe(
+        post.nextUrl,
+      );
+      expect(
+        $(".related a")
+          .map((_, el) => $(el).attr("href"))
+          .get(),
+      ).toEqual(post.relatedUrlsByCurrentRule);
+      const body = $(".prose").clone();
+      body.find(".callout-label").remove();
+      expect(
+        createHash("sha256")
+          .update(body.text().replace(/\s/g, ""))
+          .digest("hex"),
+      ).toBe(bodyHashes[post.id]);
       const ld = JSON.parse($("script[type='application/ld+json']").text());
       expect(ld["@type"]).toBe("BlogPosting");
       expect(ld.headline).toBe(post.title);
@@ -144,13 +208,13 @@ describe("static output contract", () => {
       home(".post-summary")
         .map((_, el) => home(el).attr("data-post-id"))
         .get(),
-    ).toEqual(orderedIds);
+    ).toEqual(latestIds);
     expect(feed("item")).toHaveLength(5);
     expect(
       feed("item > link")
         .map((_, el) => feed(el).text().split("/").at(-1))
         .get(),
-    ).toEqual(orderedIds);
+    ).toEqual(latestIds);
     for (const post of representatives) {
       const $ = html(post.url);
       const excerpt = $("meta[name=description]").attr("content");
@@ -159,6 +223,19 @@ describe("static output contract", () => {
           feed(el).find("link").text() ===
           `https://ponta-headphone.net${post.url}`,
       );
+      expect(archive(`[data-post-id='${post.id}'] .excerpt`).text()).toBe(
+        excerpt,
+      );
+      expect(
+        JSON.parse($("script[type='application/ld+json']").text()).description,
+      ).toBe(excerpt);
+      expect($("meta[property='og:description']").attr("content")).toBe(
+        excerpt,
+      );
+      if (!latestIds.includes(post.id)) {
+        expect(item).toHaveLength(0);
+        continue;
+      }
       expect(item).toHaveLength(1);
       expect(item.find("guid").text()).toBe(
         `https://ponta-headphone.net${post.url}`,
@@ -180,16 +257,26 @@ describe("static output contract", () => {
         Date.UTC(year, month - 1, day) - 9 * 60 * 60 * 1000,
       );
     }
-    const system = html("/tags/system");
-    expect(
-      system(".post-summary")
-        .map((_, el) => system(el).attr("data-post-id"))
-        .get(),
-    ).toEqual(["20250518", "20231211", "20220626"]);
-    for (const id of ["20250518", "20231211", "20220626"])
-      expect(system(`[data-post-id='${id}'] .excerpt`).text()).toBe(
-        home(`[data-post-id='${id}'] .excerpt`).text(),
-      );
+    for (const page of baseline.pages.filter(
+      (page) =>
+        page.url === "/all-articles" ||
+        page.url === "/impressions" ||
+        page.url === "/discussions" ||
+        page.url.startsWith("/tags/"),
+    )) {
+      const $ = html(page.url);
+      expect(
+        $(".post-summary h2 a")
+          .map((_, el) => $(el).attr("href"))
+          .get(),
+      ).toEqual(page.postLinksInDocumentOrder);
+      for (const id of $(".post-summary")
+        .map((_, el) => $(el).attr("data-post-id")!)
+        .get())
+        expect($(`[data-post-id='${id}'] .excerpt`).text()).toBe(
+          archive(`[data-post-id='${id}'] .excerpt`).text(),
+        );
+    }
   });
 
   it("builds actual responsive images without upscaling and retains legacy image bytes", async () => {
@@ -250,9 +337,9 @@ describe("static output contract", () => {
     }
   });
 
-  it("has no broken local links except the article deliberately outside the prototype", () => {
+  it("has no broken local links", () => {
     const absent = new Set<string>();
-    for (const route of routes) {
+    for (const route of [...routes, "/404"]) {
       const $ = html(route);
       for (const href of $("a[href]")
         .map((_, el) => $(el).attr("href")!)
@@ -266,7 +353,7 @@ describe("static output contract", () => {
           absent.add(pathname);
       }
     }
-    expect([...absent]).toEqual(["/posts/20230210"]);
+    expect([...absent]).toEqual([]);
     expect(readdirSync(dist).some((file) => file.startsWith("_next"))).toBe(
       false,
     );

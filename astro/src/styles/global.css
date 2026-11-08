@@ -340,6 +340,27 @@ time {
   color: var(--muted);
   font-size: 0.875rem;
 }
+.site-footer nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+.site-footer nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+}
+.page-intro {
+  margin-block: 0 2rem;
+}
+.home-system {
+  margin-top: 3rem;
+}
+.home-system h2 {
+  font-size: 1.25rem;
+}
 .site-footer p {
   margin: 0;
 }

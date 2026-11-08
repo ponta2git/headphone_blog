@@ -1,3 +1,4 @@
+import sitemap from "@astrojs/sitemap";
 import { unified } from "@astrojs/markdown-remark";
 import { defineConfig } from "astro/config";
 
@@ -8,6 +9,12 @@ export default defineConfig({
   output: "static",
   trailingSlash: "never",
   build: { format: "file" },
+  integrations: [
+    sitemap({
+      filter: (page) => !/\/404(?:\.html)?$/.test(page),
+      serialize: (item) => ({ ...item, url: item.url.replace(/\.html$/, "") }),
+    }),
+  ],
   publicDir: "./public",
   markdown: {
     processor: unified({ remarkPlugins: [remarkBlog], smartypants: false }),
