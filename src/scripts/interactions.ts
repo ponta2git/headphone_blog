@@ -1,12 +1,13 @@
 const copyButton = document.querySelector<HTMLButtonElement>("[data-copy-url]");
 const copyStatus = document.querySelector<HTMLElement>("#copy-status");
-if (copyButton && copyStatus) {
+const copyUrl = copyButton?.dataset.copyUrl;
+if (copyButton && copyStatus && copyUrl) {
   copyButton.hidden = false;
   copyButton.addEventListener("click", async () => {
     copyButton.disabled = true;
     copyStatus.textContent = "コピーしています…";
     try {
-      await navigator.clipboard.writeText(copyButton.dataset.copyUrl!);
+      await navigator.clipboard.writeText(copyUrl);
       copyStatus.textContent = "URLをコピーしました。";
     } catch {
       copyStatus.textContent =

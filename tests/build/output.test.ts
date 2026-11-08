@@ -1,3 +1,4 @@
+import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
 import { existsSync, readFileSync, readdirSync } from "node:fs";
 import path from "node:path";
@@ -32,6 +33,13 @@ const baseline: {
   ),
 );
 const dist = path.resolve("dist");
+function required<T>(value: T | null | undefined): T {
+  assert.ok(
+    value !== null && value !== undefined,
+    "Expected a generated value",
+  );
+  return value;
+}
 const html = (route: string) =>
   load(
     readFileSync(
@@ -91,31 +99,35 @@ describe("static output contract", () => {
   });
   it("emits all 48 public pages with canonical URLs and valid JSON-LD", () => {
     for (const route of routes) {
-      const $ = html(route);
-      expect($("html").attr("lang")).toBe("ja");
-      expect($("h1")).toHaveLength(1);
-      expect($("title").text()).toContain("pontaのヘッドホンブログ");
-      expect($("link[rel=canonical]").attr("href")).toBe(
+      const select = html(route);
+      expect(select("html").attr("lang")).toBe("ja");
+      expect(select("h1")).toHaveLength(1);
+      expect(select("title").text()).toContain("pontaのヘッドホンブログ");
+      expect(select("link[rel=canonical]").attr("href")).toBe(
         `https://ponta-headphone.net${route}`,
       );
-      expect($("meta[property='og:url']").attr("content")).toBe(
+      expect(select("meta[property='og:url']").attr("content")).toBe(
         `https://ponta-headphone.net${route}`,
       );
-      expect($("meta[name=description]").attr("content")).toBeTruthy();
-      expect($("meta[name=robots]").attr("content")).toBe(
+      expect(select("meta[name=description]").attr("content")).toBeTruthy();
+      expect(select("meta[name=robots]").attr("content")).toBe(
         production ? undefined : "noindex, nofollow",
       );
-      expect($("head").text().includes("googletagmanager.com/gtm.js")).toBe(
-        production,
-      );
-      expect($("body").html()!.includes("googletagmanager.com/ns.html")).toBe(
-        production,
-      );
-      expect($("script[type='application/ld+json']")).toHaveLength(1);
       expect(
-        JSON.parse($("script[type='application/ld+json']").text())["@context"],
+        select("head").text().includes("googletagmanager.com/gtm.js"),
+      ).toBe(production);
+      expect(
+        required(select("body").html()).includes(
+          "googletagmanager.com/ns.html",
+        ),
+      ).toBe(production);
+      expect(select("script[type='application/ld+json']")).toHaveLength(1);
+      expect(
+        JSON.parse(select("script[type='application/ld+json']").text())[
+          "@context"
+        ],
       ).toBe("https://schema.org");
-      expect($("astro-island, meta[name=json-ld]")).toHaveLength(0);
+      expect(select("astro-island, meta[name=json-ld]")).toHaveLength(0);
     }
     expect(readFileSync(path.join(dist, "robots.txt"), "utf8")).toContain(
       production ? "Allow: /" : "Disallow: /",
@@ -126,73 +138,75 @@ describe("static output contract", () => {
   it.each(representatives)(
     "preserves article information and body structures: $id",
     (post) => {
-      const $ = html(post.url);
-      expect($("h1").text()).toBe(post.title);
-      expect($(".article-heading time").attr("datetime")).toBe(post.date);
+      const select = html(post.url);
+      expect(select("h1").text()).toBe(post.title);
+      expect(select(".article-heading time").attr("datetime")).toBe(post.date);
       expect(
-        $(".article-heading .tags a")
-          .map((_, el) => $(el).text())
+        select(".article-heading .tags a")
+          .map((_, el) => select(el).text())
           .get(),
       ).toEqual(post.tags.map((tag) => tag.name));
       expect(
-        $(".article-heading .tags a")
-          .map((_, el) => $(el).attr("href"))
+        select(".article-heading .tags a")
+          .map((_, el) => select(el).attr("href"))
           .get(),
       ).toEqual(post.tags.map((tag) => `/tags/${tag.slug}`));
-      expect($(".prose table")).toHaveLength(post.renderedTableCount);
-      expect($(".prose pre")).toHaveLength(post.renderedCodeBlockCount);
+      expect(select(".prose table")).toHaveLength(post.renderedTableCount);
+      expect(select(".prose pre")).toHaveLength(post.renderedCodeBlockCount);
       expect(
-        $(".prose img")
-          .map((_, el) => $(el).attr("alt"))
+        select(".prose img")
+          .map((_, el) => select(el).attr("alt"))
           .get(),
       ).toEqual(post.markdownImages.map((img) => img.alt));
       expect(
-        $(".prose a")
-          .map((_, el) => $(el).attr("href"))
+        select(".prose a")
+          .map((_, el) => select(el).attr("href"))
           .get(),
       ).toEqual(
         post.renderedBodyLinks.map((link) =>
           link.href.startsWith("posts/") ? `/${link.href}` : link.href,
         ),
       );
-      expect($(".prose h1, Info, Warning, Postscript")).toHaveLength(0);
-      expect($(".neighbours > div").eq(0).find("a").attr("href") ?? null).toBe(
-        post.previousUrl,
-      );
-      expect($(".neighbours > div").eq(1).find("a").attr("href") ?? null).toBe(
-        post.nextUrl,
-      );
+      expect(select(".prose h1, Info, Warning, Postscript")).toHaveLength(0);
       expect(
-        $(".related a")
-          .map((_, el) => $(el).attr("href"))
+        select(".neighbours > div").eq(0).find("a").attr("href") ?? null,
+      ).toBe(post.previousUrl);
+      expect(
+        select(".neighbours > div").eq(1).find("a").attr("href") ?? null,
+      ).toBe(post.nextUrl);
+      expect(
+        select(".related a")
+          .map((_, el) => select(el).attr("href"))
           .get(),
       ).toEqual(post.relatedUrlsByCurrentRule);
-      const body = $(".prose").clone();
+      const body = select(".prose").clone();
       body.find(".callout-label").remove();
       expect(
         createHash("sha256")
           .update(body.text().replace(/\s/g, ""))
           .digest("hex"),
       ).toBe(bodyHashes[post.id]);
-      const ld = JSON.parse($("script[type='application/ld+json']").text());
+      const ld = JSON.parse(
+        select("script[type='application/ld+json']").text(),
+      );
       expect(ld["@type"]).toBe("BlogPosting");
       expect(ld.headline).toBe(post.title);
       expect(ld.datePublished).toBe(`${post.date}T00:00:00+09:00`);
-      expect($("meta[property='article:published_time']").attr("content")).toBe(
-        ld.datePublished,
-      );
+      expect(
+        select("meta[property='article:published_time']").attr("content"),
+      ).toBe(ld.datePublished);
     },
   );
 
   it("keeps headings nested, alert content and the postscript date", () => {
-    const $ = html("/posts/20250518");
+    const select = html("/posts/20250518");
     expect(
-      $(".prose h2,.prose h3,.prose h4")
+      select(".prose h2,.prose h3,.prose h4")
         .map((_, el) => el.tagName)
         .get(),
     ).toEqual(["h2", "h3", "h4", "h4"]);
-    expect($(".callout-warning").text()).toContain("一切保証いたしません");
-    expect($(".callout-note").text()).toContain("Windows 11 Pro 23H2");
+    expect(select(".callout-warning").text()).toContain("一切保証いたしません");
+    expect(select(".callout-note").text()).toContain("Windows 11 Pro 23H2");
     expect(html("/posts/20220626")(".prose").text()).toContain(
       "追記：2024/5/19",
     );
@@ -216,8 +230,8 @@ describe("static output contract", () => {
         .get(),
     ).toEqual(latestIds);
     for (const post of representatives) {
-      const $ = html(post.url);
-      const excerpt = $("meta[name=description]").attr("content");
+      const select = html(post.url);
+      const excerpt = select("meta[name=description]").attr("content");
       const item = feed("item").filter(
         (_, el) =>
           feed(el).find("link").text() ===
@@ -227,9 +241,10 @@ describe("static output contract", () => {
         excerpt,
       );
       expect(
-        JSON.parse($("script[type='application/ld+json']").text()).description,
+        JSON.parse(select("script[type='application/ld+json']").text())
+          .description,
       ).toBe(excerpt);
-      expect($("meta[property='og:description']").attr("content")).toBe(
+      expect(select("meta[property='og:description']").attr("content")).toBe(
         excerpt,
       );
       if (!latestIds.includes(post.id)) {
@@ -247,9 +262,10 @@ describe("static output contract", () => {
         excerpt,
       );
       expect(
-        JSON.parse($("script[type='application/ld+json']").text()).description,
+        JSON.parse(select("script[type='application/ld+json']").text())
+          .description,
       ).toBe(excerpt);
-      expect($("meta[property='og:description']").attr("content")).toBe(
+      expect(select("meta[property='og:description']").attr("content")).toBe(
         excerpt,
       );
       const [year, month, day] = post.date.split("-").map(Number);
@@ -264,16 +280,16 @@ describe("static output contract", () => {
         page.url === "/discussions" ||
         page.url.startsWith("/tags/"),
     )) {
-      const $ = html(page.url);
+      const select = html(page.url);
       expect(
-        $(".post-summary h2 a")
-          .map((_, el) => $(el).attr("href"))
+        select(".post-summary h2 a")
+          .map((_, el) => select(el).attr("href"))
           .get(),
       ).toEqual(page.postLinksInDocumentOrder);
-      for (const id of $(".post-summary")
-        .map((_, el) => $(el).attr("data-post-id")!)
+      for (const id of select(".post-summary")
+        .map((_, el) => required(select(el).attr("data-post-id")))
         .get())
-        expect($(`[data-post-id='${id}'] .excerpt`).text()).toBe(
+        expect(select(`[data-post-id='${id}'] .excerpt`).text()).toBe(
           archive(`[data-post-id='${id}'] .excerpt`).text(),
         );
     }
@@ -281,19 +297,18 @@ describe("static output contract", () => {
 
   it("builds actual responsive images without upscaling and retains legacy image bytes", async () => {
     for (const post of representatives) {
-      const $ = html(post.url);
+      const select = html(post.url);
       for (const [index, original] of post.markdownImages.entries()) {
-        const asset = baseline.assets.find(
-          (item) => item.url === original.url,
-        )!;
-        const img = $(".prose img").eq(index);
+        const asset = required(
+          baseline.assets.find((item) => item.url === original.url),
+        );
+        const img = select(".prose img").eq(index);
         expect(Number(img.attr("width"))).toBe(asset.width);
         expect(Number(img.attr("height"))).toBe(asset.height);
         expect(img.attr("sizes")).toBe(
           "(min-width: 800px) 768px, calc(100vw - 32px)",
         );
-        const variants = img
-          .attr("srcset")!
+        const variants = required(img.attr("srcset"))
           .split(",")
           .map((item) => item.trim().split(/\s+/));
         expect(variants.length).toBeGreaterThan(1);
@@ -319,8 +334,8 @@ describe("static output contract", () => {
 
   it("uses explicit OGP images and the common fallback with real dimensions", async () => {
     for (const id of orderedIds) {
-      const $ = html(`/posts/${id}`);
-      const url = $("meta[property='og:image']").attr("content")!;
+      const select = html(`/posts/${id}`);
+      const url = required(select("meta[property='og:image']").attr("content"));
       const src = new URL(url).pathname;
       expect(
         src.startsWith(
@@ -328,11 +343,11 @@ describe("static output contract", () => {
         ),
       ).toBe(true);
       const metadata = await imageMetadata(readFileSync(path.join(dist, src)));
-      expect(Number($("meta[property='og:image:width']").attr("content"))).toBe(
-        metadata.width,
-      );
       expect(
-        Number($("meta[property='og:image:height']").attr("content")),
+        Number(select("meta[property='og:image:width']").attr("content")),
+      ).toBe(metadata.width);
+      expect(
+        Number(select("meta[property='og:image:height']").attr("content")),
       ).toBe(metadata.height);
     }
   });
@@ -340,9 +355,9 @@ describe("static output contract", () => {
   it("has no broken local links", () => {
     const absent = new Set<string>();
     for (const route of [...routes, "/404"]) {
-      const $ = html(route);
-      for (const href of $("a[href]")
-        .map((_, el) => $(el).attr("href")!)
+      const select = html(route);
+      for (const href of select("a[href]")
+        .map((_, el) => required(select(el).attr("href")))
         .get()) {
         if (!href.startsWith("/")) continue;
         const pathname = new URL(href, "https://ponta-headphone.net").pathname;

@@ -11,9 +11,11 @@ export async function getPosts() {
       const excerpt: unknown = remarkPluginFrontmatter.excerpt;
       if (typeof excerpt !== "string" || !excerpt)
         throw new Error(`Missing generated excerpt: ${entry.id}`);
+      const id = entry.id.split("/").at(-1);
+      if (!id) throw new Error("Missing content identifier");
       return {
         ...entry.data,
-        id: entry.id.split("/").at(-1)!,
+        id,
         excerpt,
         Content,
       };
