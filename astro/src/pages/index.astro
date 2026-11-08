@@ -1,3 +1,10 @@
+---
+import { getPosts } from "../lib/posts";
+import { postPath } from "../lib/blog";
+
+const posts = await getPosts();
+---
+
 <!doctype html>
 <html lang="ja">
   <head>
@@ -9,6 +16,14 @@
   <body>
     <main>
       <h1>pontaのヘッドホンブログ</h1>
+      {posts.map((post) => (
+        <article>
+          <h2>
+            <a href={postPath(post.date)}>{post.title}</a>
+          </h2>
+          <p>{post.excerpt}</p>
+        </article>
+      ))}
     </main>
   </body>
 </html>

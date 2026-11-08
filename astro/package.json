@@ -34,6 +34,7 @@
     "globals": "17.14.0",
     "prettier": "3.9.10",
     "prettier-plugin-astro": "1.1.2",
+    "remark-gfm": "4.0.1",
     "remark-parse": "11.0.0",
     "typescript": "5.9.3",
     "typescript-eslint": "8.72.1",
