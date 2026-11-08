@@ -78,7 +78,7 @@ node scripts/verify-deployment.mjs https://<deployment-host> preview /tmp/previe
 node scripts/verify-deployment.mjs https://ponta-headphone.net production /tmp/production-check.json
 ```
 
-Vercel認証で保護されたPreviewは、認証画面への転送を検査成功とは扱いません。このスクリプトは認証情報を取得・保存せず、未認証なら最初のリクエストで停止します。保護されたPreviewはログイン済みブラウザーで検査してください。
+Vercel認証で保護されたPreviewは、認証画面への転送を検査成功とは扱わず、未認証なら最初のリクエストで停止します。ログイン済みブラウザーで検査するか、承認済みの共有URLがある場合は `--share-url-stdin` を追加し、表示された入力待ちに共有URLを1行で渡してください。同じPreviewの共有URLだけを受け付け、取得したセッションCookieはそのプロセスのメモリ内で使用します。共有URL・Cookieは検査レポートに含めず、Gitへ保存しません。
 
 ## 構成と移行記録
 

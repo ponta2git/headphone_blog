@@ -1,12 +1,17 @@
 import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
 import { readFile, writeFile } from "node:fs/promises";
+import { createInterface } from "node:readline";
 import { load } from "cheerio";
 
-const [origin, environment, reportFile] = process.argv.slice(2);
+const args = process.argv.slice(2);
+const useShare = args.includes("--share-url-stdin");
+const [origin, environment, reportFile] = args.filter(
+  (arg) => arg !== "--share-url-stdin",
+);
 if (!origin || !["preview", "production"].includes(environment)) {
   throw new Error(
-    "Usage: node scripts/verify-deployment.mjs <origin> <preview|production> [report.json]",
+    "Usage: node scripts/verify-deployment.mjs <origin> <preview|production> [report.json] [--share-url-stdin]",
   );
 }
 const base = new URL(origin);
@@ -25,12 +30,50 @@ const results = [];
 const assets = new Set();
 const descriptions = new Map();
 const report = { origin: base.origin, environment, checkedAt: "", results };
+let cookie;
+
+if (useShare) {
+  assert.equal(
+    environment,
+    "preview",
+    "Shared access is only for Preview checks",
+  );
+  console.log("Waiting for the authorized Preview share URL on stdin.");
+  const input = createInterface({ input: process.stdin });
+  const [line] = await new Promise((resolve) =>
+    input.once("line", (...args) => resolve(args)),
+  );
+  input.close();
+  const shared = new URL(line);
+  assert.equal(
+    shared.origin,
+    base.origin,
+    "The share URL must target this deployment",
+  );
+  assert.ok(
+    shared.searchParams.has("_vercel_share"),
+    "A Vercel share URL is required",
+  );
+  const access = await fetch(shared, {
+    redirect: "manual",
+    signal: AbortSignal.timeout(20_000),
+  });
+  cookie = access.headers
+    .getSetCookie()
+    .map((value) => value.split(";", 1)[0])
+    .join("; ");
+  assert.ok(
+    cookie,
+    `Shared access returned no session cookie (HTTP ${access.status})`,
+  );
+}
 
 async function request(route) {
   const url = new URL(route, base);
   assert.equal(url.origin, base.origin, "Only request the deployment origin");
   const response = await fetch(url, {
     redirect: "manual",
+    headers: cookie ? { cookie } : {},
     signal: AbortSignal.timeout(20_000),
   });
   const body = Buffer.from(await response.arrayBuffer());
