@@ -1,0 +1,121 @@
+---
+import { getImage } from "astro:assets";
+import Page from "../../layouts/Page.astro";
+import PostTags from "../../components/PostTags.astro";
+import { getPosts } from "../../lib/posts";
+import {
+  neighbours,
+  postPath,
+  publishedAt,
+  relatedPosts,
+  site,
+} from "../../lib/blog";
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  return posts.map((post) => ({
+    params: { id: post.id },
+    props: {
+      post,
+      adjacent: neighbours(posts, post),
+      related: relatedPosts(posts, post),
+    },
+  }));
+}
+const { post, adjacent, related } = Astro.props;
+const { Content } = post;
+const url = new URL(postPath(post.date), site.url).href;
+const image = post.ogImage
+  ? await getImage({
+      src: post.ogImage,
+      width: Math.min(1200, post.ogImage.width),
+      format: "webp",
+    })
+  : undefined;
+const ogImage = image
+  ? {
+      src: image.src,
+      width: Number(image.attributes.width),
+      height: Number(image.attributes.height),
+    }
+  : undefined;
+const shareUrl = `https://twitter.com/intent/tweet?${new URLSearchParams({ text: `${post.title}: ${site.name}`, url })}`;
+const schema = {
+  "@type": "BlogPosting",
+  headline: post.title,
+  description: post.excerpt,
+  url,
+  mainEntityOfPage: url,
+  datePublished: publishedAt(post.date),
+  author: { "@type": "Person", name: site.author, url: `${site.url}/` },
+  image: new URL(ogImage?.src ?? "/images/logo.webp", site.url).href,
+};
+---
+
+<Page
+  path={postPath(post.date)}
+  title={post.title}
+  description={post.excerpt}
+  published={publishedAt(post.date)}
+  image={ogImage}
+  schema={schema}
+>
+  <article data-post-id={post.id}>
+    <header class="article-heading">
+      <time datetime={post.date}>{post.date}</time>
+      <h1>{post.title}</h1>
+      <PostTags names={post.tags} />
+    </header>
+    <div class="prose">
+      <Content />
+    </div>
+    <section class="share" aria-label="記事を共有">
+      <a href={shareUrl} rel="noopener noreferrer">
+        Xで共有
+      </a>
+      <button
+        type="button"
+        data-copy-url={url}
+        aria-describedby="copy-status"
+        hidden
+      >
+        URLをコピー
+      </button>
+      <p
+        id="copy-status"
+        role="status"
+        aria-live="polite"
+        aria-atomic="true"
+      ></p>
+    </section>
+  </article>
+  <nav class="neighbours" aria-label="前後の記事">
+    <div>
+      {adjacent.older && (
+        <a href={postPath(adjacent.older.date)}>
+          <span>← 前の記事</span>
+          {adjacent.older.title}
+        </a>
+      )}
+    </div>
+    <div>
+      {adjacent.newer && (
+        <a href={postPath(adjacent.newer.date)}>
+          <span>次の記事 →</span>
+          {adjacent.newer.title}
+        </a>
+      )}
+    </div>
+  </nav>
+  {related.length > 0 && (
+    <section class="related">
+      <h2>関連記事</h2>
+      <ul>
+        {related.map((item) => (
+          <li>
+            <a href={postPath(item.date)}>{item.title}</a>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )}
+</Page>

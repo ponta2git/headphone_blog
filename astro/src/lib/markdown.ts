@@ -65,6 +65,12 @@ export const remarkBlog: Plugin<[], Root> = () => (tree, file) => {
     });
   });
 
+  visit(tree, "image", (node) => {
+    node.data = {
+      hProperties: { sizes: "(min-width: 800px) 768px, calc(100vw - 32px)" },
+    };
+  });
+
   visit(tree, "table", (node) => {
     node.data = {
       hProperties: {

@@ -8,7 +8,7 @@ export default defineConfig({
   output: "static",
   trailingSlash: "never",
   build: { format: "file" },
-  publicDir: "../public",
+  publicDir: "./public",
   markdown: {
     processor: unified({ remarkPlugins: [remarkBlog], smartypants: false }),
   },

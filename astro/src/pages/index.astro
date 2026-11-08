@@ -1,29 +1,17 @@
 ---
+import Page from "../layouts/Page.astro";
+import PostList from "../components/PostList.astro";
 import { getPosts } from "../lib/posts";
-import { postPath } from "../lib/blog";
-
-const posts = await getPosts();
+const posts = (await getPosts()).slice(0, 5);
 ---
 
-<!doctype html>
-<html lang="ja">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="robots" content="noindex, nofollow" />
-    <title>pontaのヘッドホンブログ</title>
-  </head>
-  <body>
-    <main>
-      <h1>pontaのヘッドホンブログ</h1>
-      {posts.map((post) => (
-        <article>
-          <h2>
-            <a href={postPath(post.date)}>{post.title}</a>
-          </h2>
-          <p>{post.excerpt}</p>
-        </article>
-      ))}
-    </main>
-  </body>
-</html>
+<Page path="/">
+  <div class="page-heading">
+    <h1>新着記事</h1>
+    <p>ヘッドホンと、その周りのオーディオの話。</p>
+  </div>
+  <PostList posts={posts} />
+  <p class="archive-link">
+    <a href="/all-articles">すべての記事を見る →</a>
+  </p>
+</Page>
