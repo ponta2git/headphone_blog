@@ -1,0 +1,51 @@
+---
+import type { PageMetadataInput } from "../../application/metadata";
+import { deployment } from "../../infrastructure/deployment";
+import Icon from "../components/Icon.astro";
+import PageHead from "../components/site/PageHead.astro";
+import SiteHeader from "../components/site/SiteHeader.astro";
+import SiteFooter from "../components/site/SiteFooter.astro";
+import "../styles/global.css";
+
+type Props = PageMetadataInput;
+const { path } = Astro.props;
+---
+
+<!doctype html>
+<html lang="ja">
+  <head>
+    <PageHead
+      {...Astro.props}
+      indexable={deployment.indexable}
+      gtmId={deployment.gtmId}
+    />
+  </head>
+  <body>
+    {deployment.gtmId && (
+      <noscript>
+        <iframe
+          src={`https://www.googletagmanager.com/ns.html?id=${deployment.gtmId}`}
+          title="Google Tag Manager"
+          height="0"
+          width="0"
+          style="display:none;visibility:hidden"
+        ></iframe>
+      </noscript>
+    )}
+    <a class="skip-link" href="#main">
+      本文へ移動
+    </a>
+    <SiteHeader path={path} />
+    <main class="container" id="main" tabindex="-1">
+      <slot />
+    </main>
+    <SiteFooter />
+    <a class="back-to-top" href="#top" data-back-to-top hidden>
+      <Icon name="arrow-up" />
+      上へ戻る
+    </a>
+    <script>
+      import "../client/interactions";
+    </script>
+  </body>
+</html>

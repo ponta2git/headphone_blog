@@ -1,5 +1,5 @@
-import { deployment } from "../lib/deployment";
-import { site } from "../lib/blog";
+import { deployment } from "../infrastructure/deployment";
+import { site } from "../config/site";
 
 export function GET() {
   return new Response(

@@ -3,6 +3,7 @@ import prettier from "eslint-config-prettier";
 import astro from "eslint-plugin-astro";
 import globals from "globals";
 import ts from "typescript-eslint";
+import architecture from "./scripts/eslint/architecture.mjs";
 
 export default [
   {
@@ -27,23 +28,23 @@ export default [
     rules: { "@typescript-eslint/consistent-type-imports": "error" },
   },
   {
-    files: ["src/scripts/**/*.ts"],
+    files: ["src/presentation/client/**/*.ts"],
     languageOptions: { globals: globals.browser },
   },
   {
-    files: ["src/lib/blog.ts", "src/lib/markdown.ts", "src/scripts/**/*.ts"],
+    files: ["src/**/*.{ts,astro}"],
+    plugins: { project: { rules: { architecture } } },
+    rules: { "project/architecture": "error" },
+  },
+  {
+    files: ["src/{domain,application,config}/**/*.ts"],
     rules: {
-      "no-restricted-imports": [
+      "no-restricted-globals": [
         "error",
-        {
-          patterns: [
-            {
-              group: ["astro", "astro:*", "astro/*", "@astrojs/*"],
-              message:
-                "Keep blog rules and browser behavior independent of Astro.",
-            },
-          ],
-        },
+        "process",
+        "window",
+        "document",
+        "navigator",
       ],
     },
   },

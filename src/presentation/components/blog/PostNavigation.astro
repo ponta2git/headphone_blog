@@ -1,0 +1,51 @@
+---
+import type { PostSummary } from "../../../domain/posts";
+import { postPath } from "../../../domain/posts";
+import Icon from "../Icon.astro";
+
+interface Props {
+  adjacent: { older?: PostSummary; newer?: PostSummary };
+  related: readonly PostSummary[];
+}
+const { adjacent, related } = Astro.props;
+---
+
+<nav class="neighbours" aria-label="前後の記事">
+  <div>
+    {adjacent.older && (
+      <a href={postPath(adjacent.older.date)}>
+        <span>
+          <Icon name="chevron-left" />
+          前の記事
+        </span>
+        {adjacent.older.title}
+      </a>
+    )}
+  </div>
+  <div>
+    {adjacent.newer && (
+      <a href={postPath(adjacent.newer.date)}>
+        <span>
+          次の記事
+          <Icon name="chevron-right" />
+        </span>
+        {adjacent.newer.title}
+      </a>
+    )}
+  </div>
+</nav>
+{related.length > 0 && (
+  <section class="related">
+    <h2>
+      <Icon name="news" />
+      関連記事
+    </h2>
+    <ul>
+      {related.map((item) => (
+        <li>
+          <a href={postPath(item.date)}>{item.title}</a>
+        </li>
+      ))}
+    </ul>
+  </section>
+)}

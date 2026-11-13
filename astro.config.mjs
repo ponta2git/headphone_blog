@@ -2,10 +2,11 @@ import sitemap from "@astrojs/sitemap";
 import { unified } from "@astrojs/markdown-remark";
 import { defineConfig } from "astro/config";
 
-import { remarkBlog } from "./src/lib/markdown.ts";
+import { site } from "./src/config/site.ts";
+import { remarkBlog } from "./src/infrastructure/content/remark.ts";
 
 export default defineConfig({
-  site: "https://ponta-headphone.net",
+  site: site.url,
   output: "static",
   trailingSlash: "never",
   build: { format: "file" },

@@ -1,0 +1,50 @@
+---
+import { buildPageMetadata } from "../../../application/metadata";
+import type { PageMetadataInput } from "../../../application/metadata";
+import { site } from "../../../config/site";
+import GoogleTagManager from "./GoogleTagManager.astro";
+
+interface Props extends PageMetadataInput {
+  indexable: boolean;
+  gtmId?: string;
+}
+const { title, noindex = false, indexable, gtmId } = Astro.props;
+const {
+  pageTitle,
+  description,
+  canonical,
+  image,
+  imageUrl,
+  published,
+  structuredData,
+} = buildPageMetadata(Astro.props);
+---
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>{pageTitle}</title>
+<link rel="icon" type="image/webp" href="/images/logo.webp" />
+<meta name="description" content={description} />
+{(!indexable || noindex) && <meta name="robots" content="noindex, nofollow" />}
+<link rel="canonical" href={canonical} />
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  title={site.name}
+  href="/rss.xml"
+/>
+<meta property="og:title" content={pageTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:site_name" content={site.name} />
+<meta property="og:locale" content="ja_JP" />
+<meta property="og:type" content={published ? "article" : "website"} />
+<meta property="og:image" content={imageUrl} />
+<meta property="og:image:width" content={String(image.width)} />
+<meta property="og:image:height" content={String(image.height)} />
+<meta property="og:image:alt" content={title ?? site.name} />
+{published && <meta property="article:published_time" content={published} />}
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:site" content={site.twitter} />
+<script type="application/ld+json" set:html={structuredData} />
+{gtmId && <GoogleTagManager id={gtmId} />}

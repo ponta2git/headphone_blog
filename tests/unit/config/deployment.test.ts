@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { deploymentSettings } from "../../src/lib/deployment";
+import { deploymentSettings } from "../../../src/config/deployment";
 
 describe("deployment settings", () => {
   it.each(["preview", "development", undefined])(

@@ -1,0 +1,33 @@
+---
+import Icon from "../Icon.astro";
+import { site } from "../../../config/site";
+
+interface Props {
+  path: string;
+}
+const { path } = Astro.props;
+---
+
+<header class="site-header" id="top" tabindex="-1">
+  <div class="container">
+    <a class="brand" href="/">
+      {site.name}
+    </a>
+    <nav aria-label="メインナビゲーション">
+      {(
+        [
+          { href: "/", label: "新着記事", icon: "bolt" },
+          { href: "/impressions", label: "感想", icon: "headphones" },
+          { href: "/discussions", label: "考察", icon: "message-dots" },
+          { href: "/all-articles", label: "記事一覧", icon: "news" },
+          { href: "/tags", label: "タグ", icon: "search" },
+        ] as const
+      ).map(({ href, label, icon }) => (
+        <a href={href} aria-current={path === href ? "page" : undefined}>
+          <Icon name={icon} />
+          {label}
+        </a>
+      ))}
+    </nav>
+  </div>
+</header>

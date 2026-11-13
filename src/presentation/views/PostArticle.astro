@@ -1,0 +1,33 @@
+---
+import { buildArticleMetadata } from "../../application/metadata";
+import type { PageImage } from "../../application/metadata";
+import type { PostSummary } from "../../domain/posts";
+import PostNavigation from "../components/blog/PostNavigation.astro";
+import PostShare from "../components/blog/PostShare.astro";
+import PostTags from "../components/blog/PostTags.astro";
+import Page from "../layouts/Page.astro";
+
+interface Props {
+  post: PostSummary;
+  adjacent: { older?: PostSummary; newer?: PostSummary };
+  related: readonly PostSummary[];
+  image?: PageImage;
+}
+const { post, adjacent, related, image } = Astro.props;
+const { page, url, shareUrl } = buildArticleMetadata(post, image);
+---
+
+<Page {...page}>
+  <article data-post-id={post.id}>
+    <header class="article-heading">
+      <time datetime={post.date}>{post.date}</time>
+      <h1>{post.title}</h1>
+      <PostTags names={post.tags} />
+    </header>
+    <div class="prose">
+      <slot />
+    </div>
+    <PostShare url={url} shareUrl={shareUrl} />
+  </article>
+  <PostNavigation adjacent={adjacent} related={related} />
+</Page>

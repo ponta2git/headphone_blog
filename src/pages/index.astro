@@ -1,9 +1,9 @@
 ---
-import Icon from "../components/Icon.astro";
-import Page from "../layouts/Page.astro";
-import PostList from "../components/PostList.astro";
-import { getPosts } from "../lib/posts";
-const posts = (await getPosts()).slice(0, 5);
+import Icon from "../presentation/components/Icon.astro";
+import Page from "../presentation/layouts/Page.astro";
+import PostList from "../presentation/components/blog/PostList.astro";
+import { getPostCatalog } from "../infrastructure/content/posts";
+const posts = (await getPostCatalog()).latest();
 ---
 
 <Page path="/">

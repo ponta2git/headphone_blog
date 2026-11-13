@@ -1,0 +1,27 @@
+---
+import type { PageMetadataInput } from "../../application/metadata";
+import type { PostSummary } from "../../domain/posts";
+import Icon from "../components/Icon.astro";
+import PostList from "../components/blog/PostList.astro";
+import Page from "../layouts/Page.astro";
+
+interface Props extends PageMetadataInput {
+  title: string;
+  heading?: string;
+  icon: "news" | "headphones" | "message-dots" | "tag";
+  posts: readonly PostSummary[];
+}
+const { heading, icon, posts, ...page } = Astro.props;
+---
+
+<Page {...page}>
+  <div class="page-heading">
+    <h1>
+      <Icon name={icon} />
+      {heading ?? page.title}
+    </h1>
+    <p>{posts.length}件</p>
+  </div>
+  <slot />
+  <PostList posts={posts} />
+</Page>

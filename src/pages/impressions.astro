@@ -1,22 +1,17 @@
 ---
-import Icon from "../components/Icon.astro";
-import Page from "../layouts/Page.astro";
-import PostList from "../components/PostList.astro";
-import { getPosts } from "../lib/posts";
-import { selectPosts } from "../lib/blog";
-const posts = selectPosts(await getPosts(), ["試聴", "購入"]);
+import { getPostCatalog } from "../infrastructure/content/posts";
+import PostIndex from "../presentation/views/PostIndex.astro";
+const posts = (await getPostCatalog()).select(["試聴", "購入"]);
 ---
 
-<Page path="/impressions" title="感想" description="機材の感想を集めたページ">
-  <div class="page-heading">
-    <h1>
-      <Icon name="headphones" />
-      感想
-    </h1>
-    <p>{posts.length}件</p>
-  </div>
+<PostIndex
+  path="/impressions"
+  title="感想"
+  description="機材の感想を集めたページ"
+  icon="headphones"
+  posts={posts}
+>
   <p class="page-intro">
     機材の評価基準は<a href="/tags/metric">評価指標の記事</a>にまとめています。
   </p>
-  <PostList posts={posts} />
-</Page>
+</PostIndex>

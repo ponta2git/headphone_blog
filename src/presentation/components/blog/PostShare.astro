@@ -1,0 +1,26 @@
+---
+import Icon from "../Icon.astro";
+
+interface Props {
+  url: string;
+  shareUrl: string;
+}
+const { url, shareUrl } = Astro.props;
+---
+
+<section class="share" aria-label="記事を共有">
+  <a href={shareUrl} rel="noopener noreferrer">
+    <Icon name="brand-x" />
+    Xで共有
+  </a>
+  <button
+    type="button"
+    data-copy-url={url}
+    aria-describedby="copy-status"
+    hidden
+  >
+    <Icon name="clipboard" />
+    URLをコピー
+  </button>
+  <p id="copy-status" role="status" aria-live="polite" aria-atomic="true"></p>
+</section>

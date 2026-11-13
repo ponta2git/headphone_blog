@@ -1,18 +1,7 @@
 ---
-import Icon from "../components/Icon.astro";
-import Page from "../layouts/Page.astro";
-import PostList from "../components/PostList.astro";
-import { getPosts } from "../lib/posts";
-const posts = await getPosts();
+import { getPostCatalog } from "../infrastructure/content/posts";
+import PostIndex from "../presentation/views/PostIndex.astro";
+const { posts } = await getPostCatalog();
 ---
 
-<Page path="/all-articles" title="記事一覧">
-  <div class="page-heading">
-    <h1>
-      <Icon name="news" />
-      記事一覧
-    </h1>
-    <p>{posts.length}件</p>
-  </div>
-  <PostList posts={posts} />
-</Page>
+<PostIndex path="/all-articles" title="記事一覧" icon="news" posts={posts} />

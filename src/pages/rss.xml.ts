@@ -1,6 +1,7 @@
 import rss from "@astrojs/rss";
-import { getPosts } from "../lib/posts";
-import { postPath, publishedAt, site } from "../lib/blog";
+import { getPostCatalog } from "../infrastructure/content/posts";
+import { postPath, publishedAt } from "../domain/posts";
+import { site } from "../config/site";
 
 export async function GET() {
   return rss({
@@ -9,7 +10,7 @@ export async function GET() {
     site: site.url,
     trailingSlash: false,
     customData: "<language>ja</language>",
-    items: (await getPosts()).slice(0, 5).map((post) => ({
+    items: (await getPostCatalog()).latest().map((post) => ({
       title: post.title,
       link: postPath(post.date),
       description: post.excerpt,

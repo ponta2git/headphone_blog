@@ -1,7 +1,7 @@
 ---
-import { tags } from "../lib/blog";
+import { tags } from "../../../domain/posts";
 interface Props {
-  names: string[];
+  names: readonly string[];
 }
 const { names } = Astro.props;
 ---

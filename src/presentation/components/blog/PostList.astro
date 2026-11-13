@@ -1,9 +1,9 @@
 ---
-import { postPath } from "../lib/blog";
-import type { Post } from "../lib/blog";
+import { postPath } from "../../../domain/posts";
+import type { PostSummary } from "../../../domain/posts";
 import PostTags from "./PostTags.astro";
 interface Props {
-  posts: (Post & { excerpt: string })[];
+  posts: readonly PostSummary[];
 }
 const { posts } = Astro.props;
 ---

@@ -1,4 +1,4 @@
-interface Environment {
+export interface Environment {
   productionBuild: boolean;
   vercelEnv?: string;
   siteEnv?: string;
@@ -15,11 +15,3 @@ export function deploymentSettings(env: Environment) {
     throw new Error("Production requires GTM_ID (or NEXT_PUBLIC_GTAGMGR_ID).");
   return { indexable, gtmId: indexable ? gtmId : undefined };
 }
-
-export const deployment = deploymentSettings({
-  productionBuild: import.meta.env.PROD,
-  vercelEnv: import.meta.env.VERCEL_ENV,
-  siteEnv: import.meta.env.SITE_ENV,
-  gtmId: import.meta.env.GTM_ID,
-  legacyGtmId: import.meta.env.NEXT_PUBLIC_GTAGMGR_ID,
-});

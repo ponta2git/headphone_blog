@@ -2,7 +2,10 @@ import remarkGfm from "remark-gfm";
 import remarkParse from "remark-parse";
 import { unified } from "unified";
 import { describe, expect, it } from "vitest";
-import { excerptFromTree, remarkBlog } from "../../src/lib/markdown";
+import {
+  excerptFromTree,
+  remarkBlog,
+} from "../../../../src/infrastructure/content/remark";
 
 const processor = unified().use(remarkParse).use(remarkGfm);
 const excerpt = (markdown: string) =>

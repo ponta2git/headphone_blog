@@ -2,13 +2,9 @@ import { describe, expect, it } from "vitest";
 import {
   assertPosts,
   isPublicationDate,
-  neighbours,
-  newestFirst,
   postPath,
   publishedAt,
-  relatedPosts,
-  selectPosts,
-} from "../../src/lib/blog";
+} from "../../../src/domain/posts";
 
 const post = (date: string, tags = ["試聴"]) => ({
   id: date.replaceAll("-", ""),
@@ -54,50 +50,15 @@ describe("publication dates and stable URLs", () => {
       "Unknown tag",
     );
   });
-});
-
-describe("article selection", () => {
-  const posts = [
-    post("2025-01-01"),
-    post("2024-01-01", ["購入"]),
-    post("2025-03-01", ["雑談"]),
-    post("2025-02-01", ["購入", "試聴"]),
-  ];
-  it("sorts newest first without changing the input", () => {
-    expect(newestFirst(posts).map((p) => p.id)).toEqual([
-      "20250301",
-      "20250201",
-      "20250101",
-      "20240101",
-    ]);
-    expect(posts[0].id).toBe("20250101");
-  });
-  it("selects impressions by either tag and discussions by chat", () => {
-    expect(selectPosts(posts, ["購入", "試聴"]).map((p) => p.id)).toEqual([
-      "20250201",
-      "20250101",
-      "20240101",
-    ]);
-    expect(selectPosts(posts, ["雑談"])).toEqual([posts[2]]);
-  });
-  it("chooses chronological neighbours and handles the ends", () => {
-    expect(neighbours(posts, posts[0])).toEqual({
-      newer: posts[3],
-      older: posts[1],
-    });
-    expect(neighbours(posts, posts[2]).newer).toBeUndefined();
-    expect(neighbours(posts, posts[1]).older).toBeUndefined();
-  });
-  it("excludes current post and limits shared-tag matches to five", () => {
-    const related = Array.from({ length: 7 }, (_, i) =>
-      post(`2025-01-0${i + 1}`, ["購入", "試聴"]),
+  it("requires a readable title and at least one distinct tag", () => {
+    expect(() =>
+      assertPosts([{ ...post("2025-01-01"), title: "   " }]),
+    ).toThrow("Missing post title");
+    expect(() => assertPosts([post("2025-01-01", [])])).toThrow(
+      "Missing post tags",
     );
-    expect(relatedPosts(related, related[3]).map((p) => p.id)).toEqual([
-      "20250107",
-      "20250106",
-      "20250105",
-      "20250103",
-      "20250102",
-    ]);
+    expect(() => assertPosts([post("2025-01-01", ["試聴", "試聴"])])).toThrow(
+      "Duplicate post tag",
+    );
   });
 });
