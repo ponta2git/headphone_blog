@@ -11,7 +11,8 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "test": "vitest run tests/unit",
-    "test:build": "vitest run tests/build"
+    "test:build": "vitest run tests/build",
+    "verify": "node scripts/verify.mjs"
   },
   "dependencies": {
     "@astrojs/markdown-remark": "7.3.6",

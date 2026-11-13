@@ -4,6 +4,10 @@
 
 ## 検査
 
+標準の品質ゲートは `pnpm verify` です。型・lint・format・単体テスト、本番用ダミー設定とプレビュー設定のビルド・生成物検査を一括実行します。正常終了時にはプレビューの `dist/` を残します。GitHub Actionsでも同じコマンドを実行します。依存境界と品質の合格条件は [アーキテクチャ](architecture.md) を参照してください。
+
+個別に検査する場合:
+
 ```sh
 pnpm check
 pnpm lint
@@ -34,7 +38,7 @@ tags: [雑談]
 ![画像の説明](./images/20261108_example.webp)
 ```
 
-- 日付は `YYYY-MM-DD` の文字列。日付から `/posts/yyyyMMdd` を決めます。ファイル名との不一致、不正日付、ID重複、未定義タグはビルドで検出します。タグの定義は `src/lib/blog.ts` にあります。
+- 日付は `YYYY-MM-DD` の文字列。日付から `/posts/yyyyMMdd` を決めます。ファイル名との不一致、不正日付、ID重複、未定義・重複タグ、空タイトルはビルドで検出します。タグの定義は `src/domain/posts.ts` にあります。
 - 本文は通常のMarkdownです。本文の見出しはh2から始めます。注意が必要な内容だけ `> [!NOTE]` / `> [!WARNING]` を使えます。
 - 抜粋は段落・箇条書きの先頭120 Unicodeコードポイントから自動生成し、一覧・SEO・RSSで共用します。
 - 原画像は原稿の隣の `images/` に置きます。Astroが複数サイズを生成し、元画像より拡大しません。共通ロゴは固定URLで使うため `public/images/logo.webp` です。
@@ -42,11 +46,11 @@ tags: [雑談]
 - OGPは共通ロゴが既定です。個別画像が必要な記事だけfrontmatterに `ogImage: ./images/example.webp` を明示します。本文からは推測しません。
 - RSS・OGP・JSON-LDの公開日時は、記事の日付のJST 0時です。
 
-工程3の生成物テストは移行前の33記事・48ページを固定データとして照合します。今後、記事や本文を編集する場合は意図した変更として比較データと検査条件も更新してください。
+`tests/build/output.test.ts` は移行前の33記事・48ページを固定データとして照合します。今後、記事や本文を編集する場合は意図した変更として比較データと検査条件も更新してください。`quality.test.ts` は全生成HTMLに対し、ローカルリンク・ARIA参照・アセット・静的閲覧・JS容量を検査するため、記事追加後も自動で対象に含まれます。
 
 ## アイコン
 
-アイコンはTabler Outline 3.50.0です。`src/components/Icon.astro` が公式 `@tabler/icons-astro` のSVGを表示し、サイズ・線幅・装飾アイコンの読み上げ抑制を共通化します。文字ラベルを添え、本文・操作部品は18px、見出しは20px、線幅は2です。
+アイコンはTabler Outline 3.50.0です。`src/presentation/components/Icon.astro` が公式 `@tabler/icons-astro` のSVGを表示し、サイズ・線幅・装飾アイコンの読み上げ抑制を共通化します。文字ラベルを添え、本文・操作部品は18px、見出しは20px、線幅は2です。
 
 本文の注意書き・外部リンクは `@tabler/icons` のSVGをCSS maskとして使います。原稿やMarkdown処理へライブラリ固有の記法は入りません。SVGはビルド時にHTML・CSSへ埋め込み、追加のブラウザーJavaScriptや外部CDNを必要としません。Font Awesomeは依存関係から撤去済みです。対応する図柄と検証結果は [Tabler移行記録](astro-migration/tabler-icons.md)、ライセンスは [配布用MITライセンス](../public/licenses/tabler-icons.txt) を参照してください。
 
